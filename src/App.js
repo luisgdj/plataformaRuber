@@ -10,10 +10,10 @@ function App() {
   };
 
   const opcionesPlanta = [
-    "planta1.svg",
-    "planta2.svg",
-    "planta3.svg",
-    "planta0.svg",
+    "planta01.svg",
+    "planta02.svg",
+    "planta03.svg",
+    "planta00.svg",
     "plantaS1.svg",
     "plantaS2.svg"
   ];
