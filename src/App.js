@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css'; 
+import React, { useState } from 'react';
+import Mapa from './components/Mapa';
 
 function App() {
+  const [plantaActiva, setPlantaActiva] = useState("planta1.svg");
+  const [zonaSeleccionada, setZonaSeleccionada] = useState(null);
+
+  const handleZonaClick = (idZona) => {
+    setZonaSeleccionada(idZona);
+  };
+
+  const opcionesPlanta = [
+    "planta1.svg",
+    "planta2.svg",
+    "planta3.svg",
+    "planta0.svg",
+    "plantaS1.svg",
+    "plantaS2.svg"
+  ];
+
   return (
     <div className="App">
-      <header className="App-header ">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer "
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Mapa interactivo</h1>
+
+      <div style={{ marginBottom: "1rem" }}>
+        {opcionesPlanta.map((archivo, i) => (
+          <button key={archivo} onClick={() => setPlantaActiva(archivo)}>
+            {archivo.replace(".svg", "")}
+          </button>
+        ))}
+      </div>
+
+      <Mapa archivoSvg={plantaActiva} onZonaClick={handleZonaClick} />
+
+      {zonaSeleccionada && <p>Has seleccionado: {zonaSeleccionada}</p>}
     </div>
   );
 }
