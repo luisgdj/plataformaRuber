@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import Mapa from './components/Mapa';
 
 function App() {
-  const [plantaActiva, setPlantaActiva] = useState("planta1.svg");
+  const [plantaActiva, setPlantaActiva] = useState("plantaS1.svg");
   const [zonaSeleccionada, setZonaSeleccionada] = useState(null);
 
   const handleZonaClick = (idZona) => {
     setZonaSeleccionada(idZona);
+    // Aquí puedes hacer fetch al backend si quieres mostrar info
   };
 
   const opcionesPlanta = [
-    "planta01.svg",
-    "planta02.svg",
-    "planta03.svg",
-    "planta00.svg",
+    "planta1.svg",
+    "planta2.svg",
+    "planta3.svg",
+    "planta0.svg",
     "plantaS1.svg",
     "plantaS2.svg"
   ];
@@ -22,8 +23,8 @@ function App() {
     <div className="App">
       <h1>Mapa interactivo</h1>
 
-      <div style={{ marginBottom: "1rem" }}>
-        {opcionesPlanta.map((archivo, i) => (
+      <div style={{ marginBottom: "1rem", overflowX: "auto" }}>
+        {opcionesPlanta.map((archivo) => (
           <button key={archivo} onClick={() => setPlantaActiva(archivo)}>
             {archivo.replace(".svg", "")}
           </button>
