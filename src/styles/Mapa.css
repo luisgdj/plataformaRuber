@@ -1,5 +1,8 @@
 .mapa-svg {
   width: 100%;
-  height: auto;
+  height: 100%;
   border: 1px solid #ccc;
+  background-color: #f0f4f8;
+  border-radius: 8px;
 }
+

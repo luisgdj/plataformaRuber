@@ -15,12 +15,12 @@ function App() {
 
   // Plantas disponibles
   const opcionesPlanta = [
+    "plantaS2.svg",
+    "plantaS1.svg",
+    "planta00.svg",
     "planta01.svg",
     "planta02.svg",
-    "planta03.svg",
-    "planta00.svg",
-    "plantaS1.svg",
-    "plantaS2.svg"
+    "planta03.svg"
   ];
 
   // Cuando el usuario hace clic en una zona del mapa

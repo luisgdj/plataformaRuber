@@ -1,43 +1,57 @@
 .App {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f7fa;
+  color: #333;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App h1 {
+  background-color: #003366;
+  color: white;
+  padding: 1rem;
+  margin: 0;
+  font-size: 1.8rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
 .barra-plantas {
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: #e8edf2;
+  border-bottom: 1px solid #cbd3dc;
 }
 
 .barra-plantas button {
-  margin: 0.2rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  background-color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-weight: bold;
+  color: #003366;
+  transition: background-color 0.3s ease;
   cursor: pointer;
+}
+
+.barra-plantas button:hover {
+  background-color: #d9e6f2;
 }
 
 .barra-plantas .boton-activo {
   background-color: #0066cc;
   color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .contenedor-principal {
-  display: flex;
-  height: 80vh;
-}
-
-.sidebar {
-  width: 250px;
-  background-color: #e8edf2;
-  padding: 1rem;
-  border-right: 2px solid #ccc;
-  text-align: left;
-}
-
-.panel-info {
-  width: 300px;
-  background-color: #fff;
-  border-left: 2px solid #ccc;
-  padding: 1rem;
-  text-align: left;
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  height: calc(100vh - 140px);
+  overflow: hidden;
 }

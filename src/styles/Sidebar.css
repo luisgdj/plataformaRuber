@@ -1,15 +1,12 @@
 .sidebar {
-  width: 260px;
   background-color: #e8edf2;
   padding: 1.2rem;
   border-right: 2px solid #cbd3dc;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   gap: 1.5rem;
-  height: 100%;
-  box-sizing: border-box;
   overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 .sidebar h2 {
