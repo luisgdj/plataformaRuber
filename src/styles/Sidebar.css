@@ -1,5 +1,5 @@
 .sidebar {
-  width: 250px;
+  width: 260px;
   background-color: #e8edf2;
   padding: 1.2rem;
   border-right: 2px solid #cbd3dc;
@@ -9,45 +9,67 @@
   gap: 1.5rem;
   height: 100%;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .sidebar h2 {
   font-size: 1.3rem;
   color: #003366;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.departamentos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dep-btn {
+  width: 100%;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #b0c4de;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dep-btn:hover {
+  background-color: #d9e6f2;
+}
+
+.dep-btn.activo {
+  background-color: #0066cc;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.salas-lista {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0.4rem 0;
+}
+
+.sala-item {
+  background-color: #f8fafc;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.sala-item:hover {
+  background-color: #d9e6f2;
 }
 
 .filtro h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
   color: #004080;
-}
-
-.botones-zonas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.botones-zonas button {
-  flex: 1 1 45%;
-  background-color: #ffffff;
-  border: 1px solid #b0c4de;
-  border-radius: 6px;
-  padding: 0.4rem 0.6rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.botones-zonas button:hover {
-  background-color: #d9e6f2;
-}
-
-.botones-zonas button.activo {
-  background-color: #0066cc;
-  color: #ffffff;
-  font-weight: bold;
 }
 
 select {
@@ -62,4 +84,17 @@ select:focus {
   outline: none;
   border-color: #0066cc;
   box-shadow: 0 0 3px rgba(0, 102, 204, 0.4);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #b0c4de;
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #94b2d6;
 }
