@@ -1,97 +1,85 @@
-.sidebar {
-  background-color: #e8edf2;
-  padding: 1.2rem;
-  border-right: 2px solid #cbd3dc;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  overflow-y: auto;
-  transition: all 0.3s ease;
-}
-
-.sidebar h2 {
-  font-size: 1.3rem;
-  color: #003366;
-  margin-bottom: 0.8rem;
-}
-
-.departamentos-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.departamento {
+  border-bottom: 1px solid #cbd3dc;
+  padding-bottom: 0.5rem;
 }
 
 .dep-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #003366;
+  font-weight: bold;
+  padding: 0.4rem 0;
+  cursor: pointer;
   width: 100%;
   text-align: left;
-  background-color: #ffffff;
-  border: 1px solid #b0c4de;
-  border-radius: 6px;
-  padding: 0.5rem 0.8rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.3s ease;
 }
 
 .dep-btn:hover {
-  background-color: #d9e6f2;
+  color: #0066cc;
 }
 
 .dep-btn.activo {
-  background-color: #0066cc;
-  color: #ffffff;
-  font-weight: bold;
+  color: #0066cc;
+  border-left: 4px solid #0066cc;
+  padding-left: 0.6rem;
 }
 
 .salas-lista {
   list-style: none;
   padding-left: 1rem;
-  margin: 0.4rem 0;
+  margin-top: 0.4rem;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .sala-item {
-  background-color: #f8fafc;
-  border-radius: 4px;
-  padding: 0.3rem 0.5rem;
-  margin-bottom: 0.3rem;
-  cursor: pointer;
+  padding: 0.3rem 0;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .sala-item:hover {
-  background-color: #d9e6f2;
+  color: #0066cc;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.filtro {
+  border-top: 1px solid #cbd3dc;
+  padding-top: 1rem;
 }
 
 .filtro h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #004080;
+  color: #003366;
+  font-weight: bold;
 }
 
 select {
   width: 100%;
-  padding: 0.4rem;
-  border: 1px solid #b0c4de;
+  padding: 0.5rem;
+  border: none;
+  background-color: #ffffff;
   border-radius: 6px;
-  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 0.95rem;
+  color: #003366;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  box-shadow: 0 0 6px rgba(0,102,204,0.2);
 }
 
 select:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 3px rgba(0, 102, 204, 0.4);
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background-color: #b0c4de;
-  border-radius: 10px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background-color: #94b2d6;
+  box-shadow: 0 0 6px rgba(0,102,204,0.4);
 }
