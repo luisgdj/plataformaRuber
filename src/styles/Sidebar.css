@@ -1,0 +1,65 @@
+.sidebar {
+  width: 250px;
+  background-color: #e8edf2;
+  padding: 1.2rem;
+  border-right: 2px solid #cbd3dc;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  font-size: 1.3rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
+}
+
+.filtro h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #004080;
+}
+
+.botones-zonas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.botones-zonas button {
+  flex: 1 1 45%;
+  background-color: #ffffff;
+  border: 1px solid #b0c4de;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.botones-zonas button:hover {
+  background-color: #d9e6f2;
+}
+
+.botones-zonas button.activo {
+  background-color: #0066cc;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid #b0c4de;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 3px rgba(0, 102, 204, 0.4);
+}
