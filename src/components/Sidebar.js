@@ -2,63 +2,121 @@ import React, { useState } from 'react';
 import '../styles/Sidebar.css';
 
 const Sidebar = ({ setZonaSeleccionada, tipoContenido, setTipoContenido }) => {
-  // Estado para controlar qué departamento está desplegado
-  const [departamentoActivo, setDepartamentoActivo] = useState(null);
+  const [categoriaActiva, setCategoriaActiva] = useState(null);
+  const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
 
-  // Ejemplo de estructura de departamentos y salas
-  const departamentos = [
+  const categorias = [
     {
-      nombre: 'Urgencias',
-      salas: ['Box 1', 'Box 2', 'Observación', 'Triaje']
+      nombre: 'Diagnóstico de imagen',
+      zonas: ['Resonancia magnética (RM)', 'Radiología convencional', 'TAC', 'Ecografía', 'Mamografía']
     },
     {
-      nombre: 'Radiología',
-      salas: ['Rayos X', 'TAC', 'Resonancia Magnética']
+      nombre: 'Instalaciones radioactivas',
+      subcategorias: [
+        {
+          nombre: 'Medicina nuclear',
+          zonas: ['Gamma cámara', 'SPECT/TAC', 'PET/TAC']
+        },
+        {
+          nombre: 'Radioterapia',
+          zonas: ['Acelerador lineal', 'Ciberknife']
+        }
+      ]
     },
     {
-      nombre: 'UCI',
-      salas: ['UCI 1', 'UCI 2', 'Control Enfermería']
+      nombre: 'Área quirúrgica',
+      zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización central']
     },
     {
-      nombre: 'Quirófanos',
-      salas: ['Quirófano 1', 'Quirófano 2', 'Sala de Reanimación']
+      nombre: 'Hospitalización',
+      zonas: ['Habitaciones y controles de enfermería', 'Áreas de aislamiento']
     },
     {
-      nombre: 'Pediatría',
-      salas: ['Consulta 1', 'Consulta 2', 'Sala de Juegos']
+      nombre: 'Zona ambulatoria y de urgencias',
+      zonas: ['Urgencias', 'Consultas externas', 'Hospital de día']
+    },
+    {
+      nombre: 'Área de farmacia y laboratorio',
+      subcategorias: [
+        {
+          nombre: 'Laboratorios',
+          zonas: ['Bioquímica', 'Microbiología', 'Hematología']
+        },
+        {
+          nombre: 'Farmacia hospitalaria',
+          zonas: []
+        },
+        {
+          nombre: 'Banco de sangre',
+          zonas: []
+        }
+      ]
     }
   ];
 
-  // Cambia el estado de desplegado de un departamento
-  const toggleDepartamento = (nombre) => {
-    setDepartamentoActivo(departamentoActivo === nombre ? null : nombre);
+  const toggleCategoria = (nombre) => {
+    setCategoriaActiva(categoriaActiva === nombre ? null : nombre);
+    setSubcategoriaActiva(null); // Reset subcategoría al cambiar de categoría
+  };
+
+  const toggleSubcategoria = (nombre) => {
+    setSubcategoriaActiva(subcategoriaActiva === nombre ? null : nombre);
   };
 
   return (
     <div className="sidebar">
-      <h2>Departamentos</h2>
+      <h2>Áreas hospitalarias</h2>
 
-      {/* Menú jerárquico */}
       <div className="departamentos-lista">
-        {departamentos.map((dep) => (
-          <div key={dep.nombre} className="departamento">
+        {categorias.map((cat) => (
+          <div key={cat.nombre} className="departamento">
             <button
-              className={`dep-btn ${departamentoActivo === dep.nombre ? 'activo' : ''}`}
-              onClick={() => toggleDepartamento(dep.nombre)}
+              className={`dep-btn ${categoriaActiva === cat.nombre ? 'activo' : ''}`}
+              onClick={() => toggleCategoria(cat.nombre)}
             >
-              {dep.nombre}
+              {cat.nombre}
             </button>
 
-            {/* Salas desplegables */}
-            {departamentoActivo === dep.nombre && (
+            {/* Zonas simples */}
+            {categoriaActiva === cat.nombre && cat.zonas && (
               <ul className="salas-lista">
-                {dep.salas.map((sala) => (
+                {cat.zonas.map((zona) => (
                   <li
-                    key={sala}
+                    key={zona}
                     className="sala-item"
-                    onClick={() => setZonaSeleccionada(`${dep.nombre} - ${sala}`)}
+                    onClick={() => setZonaSeleccionada(`${cat.nombre} - ${zona}`)}
                   >
-                    {sala}
+                    {zona}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* Subcategorías */}
+            {categoriaActiva === cat.nombre && cat.subcategorias && (
+              <ul className="salas-lista">
+                {cat.subcategorias.map((sub) => (
+                  <li key={sub.nombre}>
+                    <button
+                      className={`dep-btn subcat-btn ${subcategoriaActiva === sub.nombre ? 'activo' : ''}`}
+                      onClick={() => toggleSubcategoria(sub.nombre)}
+                    >
+                      {sub.nombre}
+                    </button>
+
+                    {subcategoriaActiva === sub.nombre && sub.zonas.length > 0 && (
+                      <ul className="salas-lista">
+                        {sub.zonas.map((zona) => (
+                          <li
+                            key={zona}
+                            className="sala-item"
+                            onClick={() => setZonaSeleccionada(`${cat.nombre} - ${sub.nombre} - ${zona}`)}
+                          >
+                            {zona}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -67,7 +125,6 @@ const Sidebar = ({ setZonaSeleccionada, tipoContenido, setTipoContenido }) => {
         ))}
       </div>
 
-      {/* Selector de tipo de contenido (manteniendo esta parte) */}
       <div className="filtro">
         <h3>Tipo de contenido</h3>
         <select value={tipoContenido} onChange={(e) => setTipoContenido(e.target.value)}>
