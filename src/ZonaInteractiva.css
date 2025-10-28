@@ -1,0 +1,30 @@
+.zona-interactiva {
+  padding: 2rem;
+  background-color: #f9fbfd;
+  color: #003366;
+}
+
+.zona-interactiva h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.zona-interactiva section {
+  margin-bottom: 2rem;
+}
+
+.zona-interactiva video {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.zona-test button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

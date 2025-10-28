@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Sidebar.css';
 
-const Sidebar = ({ setZonaSeleccionada, tipoContenido, setTipoContenido }) => {
-  const [categoriaActiva, setCategoriaActiva] = useState(null);
-  const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
+const Sidebar = ({
+  setZonaSeleccionada,
+  tipoContenido,
+  setTipoContenido,
+  categoriaActiva,
+  setCategoriaActiva,
+  subcategoriaActiva,
+  setSubcategoriaActiva
+}) => {
+  const navigate = useNavigate();
 
   const categorias = [
     {
       nombre: 'Diagnóstico de imagen',
-      zonas: ['Resonancia magnética (RM)', 'Radiología convencional', 'TAC', 'Ecografía', 'Mamografía']
+      zonas: [
+        'Resonancia Magnética (RM)',
+        'Radiología convencional',
+        'Tomografía Axial Computarizada (TAC)',
+        'Ecografía',
+        'Mamografía'
+      ]
     },
     {
       nombre: 'Instalaciones radioactivas',
       subcategorias: [
         {
           nombre: 'Medicina nuclear',
-          zonas: ['Gamma cámara', 'SPECT/TAC', 'PET/TAC']
+          zonas: ['Gamma cámara', 'SPECT-TAC', 'PET-TAC']
         },
         {
           nombre: 'Radioterapia',
@@ -55,12 +69,27 @@ const Sidebar = ({ setZonaSeleccionada, tipoContenido, setTipoContenido }) => {
   ];
 
   const toggleCategoria = (nombre) => {
-    setCategoriaActiva(categoriaActiva === nombre ? null : nombre);
-    setSubcategoriaActiva(null); // Reset subcategoría al cambiar de categoría
+    if (categoriaActiva === nombre) {
+      setCategoriaActiva(null);
+      setSubcategoriaActiva(null);
+    } else {
+      setCategoriaActiva(nombre);
+    }
   };
 
   const toggleSubcategoria = (nombre) => {
-    setSubcategoriaActiva(subcategoriaActiva === nombre ? null : nombre);
+    if (subcategoriaActiva === nombre) {
+      setSubcategoriaActiva(null);
+    } else {
+      setSubcategoriaActiva(nombre);
+    }
+  };
+
+  const handleZonaClick = (catNombre, subNombre, zona) => {
+    const zonaCompleta = subNombre
+      ? `${catNombre} - ${subNombre} - ${zona}`
+      : `${catNombre} - ${zona}`;
+    setZonaSeleccionada(zonaCompleta);
   };
 
   return (
@@ -84,7 +113,7 @@ const Sidebar = ({ setZonaSeleccionada, tipoContenido, setTipoContenido }) => {
                   <li
                     key={zona}
                     className="sala-item"
-                    onClick={() => setZonaSeleccionada(`${cat.nombre} - ${zona}`)}
+                    onClick={() => handleZonaClick(cat.nombre, null, zona)}
                   >
                     {zona}
                   </li>
@@ -110,7 +139,7 @@ const Sidebar = ({ setZonaSeleccionada, tipoContenido, setTipoContenido }) => {
                           <li
                             key={zona}
                             className="sala-item"
-                            onClick={() => setZonaSeleccionada(`${cat.nombre} - ${sub.nombre} - ${zona}`)}
+                            onClick={() => handleZonaClick(cat.nombre, sub.nombre, zona)}
                           >
                             {zona}
                           </li>
