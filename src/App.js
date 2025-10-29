@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import axios from 'axios';
 
+import Auth from './components/Auth';
 import Mapa from './components/Mapa';
 import Sidebar from './components/Sidebar';
 import PanelInfo from './components/PanelInfo';
 
+// Importa tus zonas
 import ResonanciaMagnetica from './zonas/ResonanciaMagnetica';
 import RadiologiaConvencional from './zonas/RadiologiaConvencional';
 import Ecografia from './zonas/Ecografia';
@@ -13,19 +16,38 @@ import TAC from './zonas/TAC';
 import InstalacionesRadioactivas from './zonas/InstalacionesRadioactivas';
 import GammaCamara from './zonas/GammaCamara';
 import SPECTTAC from './zonas/SPECTTAC';
-import PETTAC from './zonas/PETTAC.js';
+import PETTAC from './zonas/PETTAC';
 import AceleradorLineal from './zonas/AceleradorLineal';
 import Ciberknife from './zonas/Ciberknife';
 
 import './App.css';
 
 function App() {
-  const [plantaActiva, setPlantaActiva] = useState("planta00.svg");
-  const [zonaSeleccionada, setZonaSeleccionada] = useState(null);
-  const [tipoContenido, setTipoContenido] = useState('texto');
-  const [colorZona, setColorZona] = useState(null);
-  const [categoriaActiva, setCategoriaActiva] = useState(null);
-  const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Verificar token al cargar la app
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.get('http://localhost:5000/api/protected', {
+        headers: { Authorization: token }
+      })
+      .then(() => setIsLoggedIn(true))
+      .catch(() => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+      })
+      .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  };
 
   const opcionesPlanta = [
     "plantaS2.svg",
@@ -36,15 +58,22 @@ function App() {
     "planta03.svg"
   ];
 
+  const [plantaActiva, setPlantaActiva] = useState("planta00.svg");
+  const [zonaSeleccionada, setZonaSeleccionada] = useState(null);
+  const [tipoContenido, setTipoContenido] = useState('texto');
+  const [colorZona, setColorZona] = useState(null);
+  const [categoriaActiva, setCategoriaActiva] = useState(null);
+  const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
+
   const handleZonaClick = (idZona) => {
     setZonaSeleccionada(idZona);
     console.log("Zona seleccionada:", idZona);
   };
 
-  // Vista principal del mapa
   const VistaMapa = () => (
     <>
       <h1>Mapa interactivo - Hospital Ruber Internacional</h1>
+      <button onClick={handleLogout} style={{ marginBottom: '10px' }}>Cerrar sesión</button>
 
       <div className="barra-plantas">
         {opcionesPlanta.map((archivo) => (
@@ -83,22 +112,29 @@ function App() {
     </>
   );
 
+  const RutaPrivada = ({ children }) => {
+    return isLoggedIn ? children : <Navigate to="/login" />;
+  };
+
+  if (loading) return <p>Cargando...</p>;
+
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<VistaMapa />} />
-          <Route path="/zonas/resonancia-magnetica" element={<ResonanciaMagnetica />} />
-          <Route path="/zonas/radiologia-convencional" element={<RadiologiaConvencional />} />
-          <Route path="/zonas/tac" element={<TAC />} />
-          <Route path="/zonas/ecografia" element={<Ecografia />} />
-          <Route path="/zonas/mamografia" element={<Mamografia />} />
-          <Route path="/zonas/instalaciones-radioactivas" element={<InstalacionesRadioactivas />} />
-          <Route path="/zonas/gamma-camara" element={<GammaCamara />} />
-          <Route path="/zonas/spect-tac" element={<SPECTTAC />} />
-          <Route path="/zonas/pet-tac" element={<PETTAC />} />
-          <Route path="/zonas/acelerador-lineal" element={<AceleradorLineal />} />
-          <Route path="/zonas/ciberknife" element={<Ciberknife />} />
+          <Route path="/login" element={<Auth onLogin={() => setIsLoggedIn(true)} />} />
+          <Route path="/" element={<RutaPrivada><VistaMapa /></RutaPrivada>} />
+          <Route path="/zonas/resonancia-magnetica" element={<RutaPrivada><ResonanciaMagnetica /></RutaPrivada>} />
+          <Route path="/zonas/radiologia-convencional" element={<RutaPrivada><RadiologiaConvencional /></RutaPrivada>} />
+          <Route path="/zonas/tac" element={<RutaPrivada><TAC /></RutaPrivada>} />
+          <Route path="/zonas/ecografia" element={<RutaPrivada><Ecografia /></RutaPrivada>} />
+          <Route path="/zonas/mamografia" element={<RutaPrivada><Mamografia /></RutaPrivada>} />
+          <Route path="/zonas/instalaciones-radioactivas" element={<RutaPrivada><InstalacionesRadioactivas /></RutaPrivada>} />
+          <Route path="/zonas/gamma-camara" element={<RutaPrivada><GammaCamara /></RutaPrivada>} />
+          <Route path="/zonas/spect-tac" element={<RutaPrivada><SPECTTAC /></RutaPrivada>} />
+          <Route path="/zonas/pet-tac" element={<RutaPrivada><PETTAC /></RutaPrivada>} />
+          <Route path="/zonas/acelerador-lineal" element={<RutaPrivada><AceleradorLineal /></RutaPrivada>} />
+          <Route path="/zonas/ciberknife" element={<RutaPrivada><Ciberknife /></RutaPrivada>} />
         </Routes>
       </div>
     </Router>
