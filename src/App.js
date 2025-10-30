@@ -29,7 +29,7 @@ function App() {
   // Verificar token al cargar la app
 useEffect(() => {
   const token = localStorage.getItem('token');
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   if (token) {
     axios.get(`${API_URL}/api/protected`, {

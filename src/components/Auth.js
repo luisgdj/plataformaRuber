@@ -9,7 +9,7 @@ const Auth = ({ onLogin }) => {
   const navigate = useNavigate();
 
   // URL del backend desde variable de entorno
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
