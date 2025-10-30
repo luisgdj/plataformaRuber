@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { db } from '../config/db.js';
 
+// Registro
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -21,6 +22,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// Login
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -39,7 +41,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// Ruta protegida para verificar token
+// Ruta protegida
 export const protectedRoute = (req, res) => {
   const token = req.headers.authorization;
   if (!token) return res.status(401).json({ message: 'Token requerido' });

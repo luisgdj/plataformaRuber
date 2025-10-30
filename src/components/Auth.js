@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Auth.css'
+import '../styles/Auth.css';
 
 const Auth = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const navigate = useNavigate();
+
+  // URL del backend desde variable de entorno
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,13 +20,13 @@ const Auth = ({ onLogin }) => {
     const url = isLogin ? '/api/login' : '/api/register';
 
     try {
-      const res = await axios.post(`http://localhost:5000${url}`, formData);
+      const res = await axios.post(`${API_URL}${url}`, formData);
 
       if (isLogin) {
         if (res.data.token) {
           localStorage.setItem('token', res.data.token);
-          onLogin(); // Actualiza estado en App.js
-          navigate('/'); // ✅ Redirige al mapa
+          onLogin();
+          navigate('/'); // Redirige al mapa
         } else {
           alert('No se recibió token. Revisa el backend.');
         }

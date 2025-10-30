@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:5000/api/protected', {
+      axios.get('http://192.168.26.4:5000/api/protected', {
         headers: { Authorization: token }
       })
       .then(() => setIsLoggedIn(true))
