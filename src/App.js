@@ -27,22 +27,24 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   // Verificar token al cargar la app
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.get('http://192.168.26.4:5000/api/protected', {
-        headers: { Authorization: token }
-      })
-      .then(() => setIsLoggedIn(true))
-      .catch(() => {
-        localStorage.removeItem('token');
-        setIsLoggedIn(false);
-      })
-      .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  if (token) {
+    axios.get(`${API_URL}/api/protected`, {
+      headers: { Authorization: token }
+    })
+    .then(() => setIsLoggedIn(true))
+    .catch(() => {
+      localStorage.removeItem('token');
+      setIsLoggedIn(false);
+    })
+    .finally(() => setLoading(false));
+  } else {
+    setLoading(false);
+  }
+}, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
