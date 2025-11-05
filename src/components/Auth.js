@@ -5,10 +5,13 @@ import '../styles/Auth.css';
 
 const Auth = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellidos: '',
+    dni: ''
+  });
 
-  // URL del backend desde variable de entorno
+  const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const handleChange = (e) => {
@@ -26,9 +29,9 @@ const Auth = ({ onLogin }) => {
         if (res.data.token) {
           localStorage.setItem('token', res.data.token);
           onLogin();
-          navigate('/'); // Redirige al mapa
+          navigate('/');
         } else {
-          alert('No se recibió token. Revisa el backend.');
+          alert('No se recibió token.');
         }
       } else {
         alert('Registro exitoso. Ahora inicia sesión.');
@@ -43,34 +46,33 @@ const Auth = ({ onLogin }) => {
     <div className="auth-container">
       <h2>{isLogin ? 'Iniciar sesión' : 'Registrarse'}</h2>
       <form onSubmit={handleSubmit}>
-        {!isLogin && (
-          <input
-            type="text"
-            name="name"
-            placeholder="Nombre"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        )}
         <input
-          type="email"
-          name="email"
-          placeholder="Correo electrónico"
-          value={formData.email}
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          value={formData.nombre}
           onChange={handleChange}
           required
         />
         <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={formData.password}
+          type="text"
+          name="apellidos"
+          placeholder="Apellidos"
+          value={formData.apellidos}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="dni"
+          placeholder="DNI"
+          value={formData.dni}
           onChange={handleChange}
           required
         />
         <button type="submit">{isLogin ? 'Entrar' : 'Registrarse'}</button>
       </form>
+
       <p>
         {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}{' '}
         <button onClick={() => setIsLogin(!isLogin)}>
