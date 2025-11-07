@@ -9,7 +9,9 @@ const Sidebar = ({
   categoriaActiva,
   setCategoriaActiva,
   subcategoriaActiva,
-  setSubcategoriaActiva
+  setSubcategoriaActiva,
+  departamentoActivo,
+  setDepartamentoActivo
 }) => {
   const navigate = useNavigate();
 
@@ -85,11 +87,21 @@ const Sidebar = ({
     }
   };
 
+  // ✅ Maneja clics en zonas o subzonas y sincroniza con el mapa
   const handleZonaClick = (catNombre, subNombre, zona) => {
     const zonaCompleta = subNombre
       ? `${catNombre} - ${subNombre} - ${zona}`
       : `${catNombre} - ${zona}`;
+
     setZonaSeleccionada(zonaCompleta);
+
+    // si hay subzona → resalta solo esa subzona
+    // si no hay → resalta todo el departamento
+    if (subNombre && zona) {
+      setDepartamentoActivo(zona); // subzona concreta (p.ej. “Acelerador lineal”)
+    } else {
+      setDepartamentoActivo(catNombre); // departamento (p.ej. “Radioterapia”)
+    }
   };
 
   return (
@@ -99,6 +111,7 @@ const Sidebar = ({
       <div className="departamentos-lista">
         {categorias.map((cat) => (
           <div key={cat.nombre} className="departamento">
+            {/* Botón de categoría principal */}
             <button
               className={`dep-btn ${categoriaActiva === cat.nombre ? 'activo' : ''}`}
               onClick={() => toggleCategoria(cat.nombre)}
@@ -106,21 +119,17 @@ const Sidebar = ({
               {cat.nombre}
             </button>
 
-            {/* Zonas simples */}
+            {/* Zonas simples (sin subcategorías) */}
             {categoriaActiva === cat.nombre && cat.zonas && (
               <ul className="salas-lista">
                 {cat.zonas.map((zona) => (
                   <li
                     key={zona}
-                    className={`sala-item ${zona === departamentoActivo ? 'activo' : ''}`}
-                    onClick={() => {
-                      handleZonaClick(cat.nombre, null, zona);
-                      setDepartamentoActivo(zona);
-                    }}
+                    className={`sala-item ${departamentoActivo === zona ? 'activo' : ''}`}
+                    onClick={() => handleZonaClick(cat.nombre, null, zona)}
                   >
                     {zona}
                   </li>
-
                 ))}
               </ul>
             )}
@@ -137,12 +146,13 @@ const Sidebar = ({
                       {sub.nombre}
                     </button>
 
+                    {/* Zonas dentro de cada subcategoría */}
                     {subcategoriaActiva === sub.nombre && sub.zonas.length > 0 && (
                       <ul className="salas-lista">
                         {sub.zonas.map((zona) => (
                           <li
                             key={zona}
-                            className="sala-item"
+                            className={`sala-item ${departamentoActivo === zona ? 'activo' : ''}`}
                             onClick={() => handleZonaClick(cat.nombre, sub.nombre, zona)}
                           >
                             {zona}
@@ -158,6 +168,7 @@ const Sidebar = ({
         ))}
       </div>
 
+      {/* Filtro de tipo de contenido */}
       <div className="filtro">
         <h3>Tipo de contenido</h3>
         <select value={tipoContenido} onChange={(e) => setTipoContenido(e.target.value)}>

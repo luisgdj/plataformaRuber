@@ -69,10 +69,42 @@ function App() {
   // NUEVO: estado compartido para sincronizar mapa y sidebar
   const [departamentoActivo, setDepartamentoActivo] = useState(null);
 
-  const handleZonaClick = (idZona) => {
-    setZonaSeleccionada(idZona);
-    setDepartamentoActivo(idZona); // sincroniza con sidebar
-    console.log("Zona seleccionada:", idZona);
+  const handleZonaClick = (nombreZona) => {
+    // nombreZona = "Acelerador lineal" (por ejemplo)
+    console.log("handleZonaClick recibido:", nombreZona);
+
+    setZonaSeleccionada(nombreZona);
+    setDepartamentoActivo(nombreZona);
+
+    // abrir la categoría/subcategoria correcta
+    if (
+      nombreZona.includes("Acelerador") ||
+      nombreZona.includes("Ciberknife") ||
+      nombreZona.includes("Radioterapia")
+    ) {
+      setCategoriaActiva("Instalaciones radioactivas");
+      setSubcategoriaActiva("Radioterapia");
+    } else if (
+      nombreZona.includes("Gamma") ||
+      nombreZona.includes("SPECT") ||
+      nombreZona.includes("PET") ||
+      nombreZona.toLowerCase().includes("medicina nuclear")
+    ) {
+      setCategoriaActiva("Instalaciones radioactivas");
+      setSubcategoriaActiva("Medicina nuclear");
+    } else if (
+      nombreZona.includes("Resonancia") ||
+      nombreZona.includes("TAC") ||
+      nombreZona.includes("Ecografía") ||
+      nombreZona.includes("Mamografía") ||
+      nombreZona.includes("Radiología")
+    ) {
+      setCategoriaActiva("Diagnóstico de imagen");
+      setSubcategoriaActiva(null);
+    } else {
+      setCategoriaActiva(null);
+      setSubcategoriaActiva(null);
+    }
   };
 
   const VistaMapa = () => (

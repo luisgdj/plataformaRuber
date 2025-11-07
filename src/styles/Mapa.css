@@ -1,18 +1,17 @@
 .mapa-svg {
   width: 100%;
   height: 100%;
-  border: 1px solid #ccc;
-  background-color: #f0f4f8;
-  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-svg path {
-  stroke: none;
-  shape-rendering: crispEdges;
+path:hover, g:hover, polygon:hover {
+  cursor: pointer;
+  filter: brightness(0.9);
+  transition: filter 0.2s ease;
 }
 
-.mapa-svg {
-  width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
+.mapa-selected {
+  filter: brightness(0.85) saturate(1.1);
+  stroke-width: 3px;           /* reforzamos el borde */
+  transition: all 0.3s ease;
 }

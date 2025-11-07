@@ -84,8 +84,7 @@ select:focus {
   box-shadow: 0 0 6px rgba(0,102,204,0.4);
 }
 
-.sala-item.resaltado {
-  background-color: #e0f7fa;
+.sala-item.activo {
+  background-color: #d1e0ff;
   font-weight: bold;
 }
-
