@@ -1,27 +1,64 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../styles/Mapa.css';
 
-function Mapa({ archivoSvg, onZonaClick }) {
+function Mapa({ archivoSvg, onZonaClick, departamentoActivo }) {
+  const svgRef = useRef(null);
+
   const handleLoad = (e) => {
     const svgDoc = e.target.contentDocument;
-    if (!svgDoc) {
-      console.warn("No se pudo acceder al contenido del SVG.");
-      return;
-    }
+    svgRef.current = svgDoc;
+
+    if (!svgDoc) return console.warn("No se pudo acceder al contenido del SVG.");
 
     const zonas = svgDoc.querySelectorAll("path, rect, polygon, g");
-    if (!zonas || zonas.length === 0) {
-      console.warn("No se encontraron zonas clicables en el SVG.");
-      return;
-    }
 
     zonas.forEach(zona => {
-      if (zona && zona.setAttribute) {
-        zona.style.cursor = "pointer";
-        zona.addEventListener("click", () => {
-          const idZona = zona.getAttribute("id");
-          if (idZona) onZonaClick(idZona);
-        });
+      if (!zona.id) return;
+
+      zona.style.cursor = "pointer";
+
+      // Color base
+      zona.style.transition = "fill 0.2s ease";
+      const originalColor = zona.getAttribute("fill") || "#ccc";
+
+      // Hover
+      zona.addEventListener("mouseenter", () => {
+        if (zona.id !== departamentoActivo) zona.style.fill = "#888";
+      });
+
+      zona.addEventListener("mouseleave", () => {
+        if (zona.id !== departamentoActivo)
+          zona.style.fill = originalColor;
+      });
+
+      // Click
+      zona.addEventListener("click", () => {
+        onZonaClick(zona.id);
+        resaltarZona(svgDoc, zona.id);
+      });
+    });
+
+    // Aplica resaltado inicial si hay un departamento activo
+    if (departamentoActivo) resaltarZona(svgDoc, departamentoActivo);
+  };
+
+  // 🔄 Efecto: cuando cambia el departamento activo desde el sidebar
+  useEffect(() => {
+    if (!svgRef.current) return;
+    resaltarZona(svgRef.current, departamentoActivo);
+  }, [departamentoActivo]);
+
+  const resaltarZona = (svgDoc, idZona) => {
+    const zonas = svgDoc.querySelectorAll("path, rect, polygon, g");
+    zonas.forEach(z => {
+      const original = z.getAttribute("data-original-fill") || z.getAttribute("fill");
+      if (!z.hasAttribute("data-original-fill")) {
+        z.setAttribute("data-original-fill", original || "#ccc");
+      }
+      if (z.id === idZona) {
+        z.style.fill = "#555"; // Color resaltado
+      } else {
+        z.style.fill = z.getAttribute("data-original-fill");
       }
     });
   };
@@ -40,4 +77,4 @@ function Mapa({ archivoSvg, onZonaClick }) {
   );
 }
 
-export default Mapa;  
+export default Mapa;

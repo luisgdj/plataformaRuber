@@ -26,25 +26,24 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Verificar token al cargar la app
-useEffect(() => {
-  const token = localStorage.getItem('token');
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-  if (token) {
-    axios.get(`${API_URL}/api/protected`, {
-      headers: { Authorization: token }
-    })
-    .then(() => setIsLoggedIn(true))
-    .catch(() => {
-      localStorage.removeItem('token');
-      setIsLoggedIn(false);
-    })
-    .finally(() => setLoading(false));
-  } else {
-    setLoading(false);
-  }
-}, []);
+    if (token) {
+      axios.get(`${API_URL}/api/protected`, {
+        headers: { Authorization: token }
+      })
+      .then(() => setIsLoggedIn(true))
+      .catch(() => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+      })
+      .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -67,8 +66,12 @@ useEffect(() => {
   const [categoriaActiva, setCategoriaActiva] = useState(null);
   const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
 
+  // NUEVO: estado compartido para sincronizar mapa y sidebar
+  const [departamentoActivo, setDepartamentoActivo] = useState(null);
+
   const handleZonaClick = (idZona) => {
     setZonaSeleccionada(idZona);
+    setDepartamentoActivo(idZona); // sincroniza con sidebar
     console.log("Zona seleccionada:", idZona);
   };
 
@@ -100,6 +103,8 @@ useEffect(() => {
           setCategoriaActiva={setCategoriaActiva}
           subcategoriaActiva={subcategoriaActiva}
           setSubcategoriaActiva={setSubcategoriaActiva}
+          departamentoActivo={departamentoActivo}
+          setDepartamentoActivo={setDepartamentoActivo}
         />
 
         <Mapa
@@ -107,6 +112,8 @@ useEffect(() => {
           onZonaClick={handleZonaClick}
           colorZona={colorZona}
           zonaSeleccionada={zonaSeleccionada}
+          departamentoActivo={departamentoActivo}
+          setDepartamentoActivo={setDepartamentoActivo}
         />
 
         <PanelInfo zona={zonaSeleccionada} tipo={tipoContenido} />

@@ -112,11 +112,15 @@ const Sidebar = ({
                 {cat.zonas.map((zona) => (
                   <li
                     key={zona}
-                    className="sala-item"
-                    onClick={() => handleZonaClick(cat.nombre, null, zona)}
+                    className={`sala-item ${zona === departamentoActivo ? 'activo' : ''}`}
+                    onClick={() => {
+                      handleZonaClick(cat.nombre, null, zona);
+                      setDepartamentoActivo(zona);
+                    }}
                   >
                     {zona}
                   </li>
+
                 ))}
               </ul>
             )}
