@@ -8,7 +8,13 @@ const ResonanciaMagnetica = () => {
 
       <section>
         <h2>Alertas activas</h2>
-        <p>⚠️ Precaución: No entrar con objetos metálicos en la sala de RM.</p>
+        <ul className="alertas-lista">
+          <li>🔒 <strong>Acceso restringido:</strong> Solo personal formado o acompañado por el técnico de RM.</li>
+          <li>🧲 <strong>Campo magnético permanente:</strong> No entrar con objetos metálicos ni equipos no autorizados.</li>
+          <li>🧰 <strong>Equipos de trabajo:</strong> Verifique que sean <em>MR Safe</em> o <em>MR Conditional</em>.</li>
+          <li>❤️ <strong>Implantes o prótesis:</strong> Avise al personal si lleva dispositivos médicos implantados.</li>
+          <li>🚨 <strong>Situaciones de emergencia:</strong> Siga siempre las indicaciones del personal autorizado.</li>
+        </ul>
       </section>
 
       <section>

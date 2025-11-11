@@ -28,3 +28,31 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+/* --- Estilo para las alertas activas --- */
+.alertas-lista {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+.alertas-lista li {
+  background-color: #fff8f8;
+  border-left: 4px solid #cc0000;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.alertas-lista strong {
+  color: #990000;
+}
+
+.alertas-lista em {
+  font-style: normal;
+  color: #0066cc;
+  font-weight: 500;
+}
