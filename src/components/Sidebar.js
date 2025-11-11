@@ -27,17 +27,21 @@ const Sidebar = ({
       ]
     },
     {
-      nombre: 'Instalaciones radioactivas',
+      nombre: 'Instalaciones radiactivas',
       subcategorias: [
         {
           nombre: 'Medicina nuclear',
           zonas: ['Gamma cámara', 'SPECT-TAC', 'PET-TAC']
         },
         {
-          nombre: 'Radioterapia',
+          nombre: 'Oncología radioterápica',
           zonas: ['Acelerador lineal', 'Ciberknife']
         }
       ]
+    },
+    {
+      nombre: 'Gamma Knife',
+      zonas: ['Gamma Knife']
     },
     {
       nombre: 'Área quirúrgica',

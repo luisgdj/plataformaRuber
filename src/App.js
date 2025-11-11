@@ -19,6 +19,7 @@ import SPECTTAC from './zonas/SPECTTAC';
 import PETTAC from './zonas/PETTAC';
 import AceleradorLineal from './zonas/AceleradorLineal';
 import Ciberknife from './zonas/Ciberknife';
+import GammaKnife from './zonas/GammaKnife';
 
 import './App.css';
 
@@ -82,8 +83,8 @@ function App() {
       nombreZona.includes("Ciberknife") ||
       nombreZona.includes("Radioterapia")
     ) {
-      setCategoriaActiva("Instalaciones radioactivas");
-      setSubcategoriaActiva("Radioterapia");
+      setCategoriaActiva("Instalaciones radiactivas");
+      setSubcategoriaActiva("Oncología radioterápica");
     } else if (
       nombreZona.includes("Gamma") ||
       nombreZona.includes("SPECT") ||
@@ -101,6 +102,12 @@ function App() {
     ) {
       setCategoriaActiva("Diagnóstico de imagen");
       setSubcategoriaActiva(null);
+    } else if (
+    nombreZona.includes("Gamma Knife") ||
+    nombreZona.includes("Gamma Knife")
+    ) {
+    setCategoriaActiva("Gamma Knife");
+    setSubcategoriaActiva(null);
     } else {
       setCategoriaActiva(null);
       setSubcategoriaActiva(null);
@@ -182,6 +189,7 @@ function App() {
           <Route path="/zonas/pet-tac" element={<RutaPrivada><PETTAC /></RutaPrivada>} />
           <Route path="/zonas/acelerador-lineal" element={<RutaPrivada><AceleradorLineal /></RutaPrivada>} />
           <Route path="/zonas/ciberknife" element={<RutaPrivada><Ciberknife /></RutaPrivada>} />
+          <Route path="/zonas/gammaknife" element={<RutaPrivada><GammaKnife /></RutaPrivada>} />
         </Routes>
       </div>
     </Router>
