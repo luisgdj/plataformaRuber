@@ -42,43 +42,59 @@ const Auth = ({ onLogin }) => {
     }
   };
 
-  return (
-    <div className="auth-container">
-      <h2>{isLogin ? 'Iniciar sesión' : 'Registrarse'}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          value={formData.nombre}
-          onChange={handleChange}
-          required
+ return (
+    <div className="auth-page">
+      <div className="auth-card">
+        <img
+          src="/logo.svg"
+          alt="Logo Hospital Ruber Internacional"
+          className="auth-logo"
         />
-        <input
-          type="text"
-          name="apellidos"
-          placeholder="Apellidos"
-          value={formData.apellidos}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="dni"
-          placeholder="DNI"
-          value={formData.dni}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">{isLogin ? 'Entrar' : 'Registrarse'}</button>
-      </form>
 
-      <p>
-        {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}{' '}
-        <button onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? 'Regístrate' : 'Inicia sesión'}
-        </button>
-      </p>
+
+        <h2>{isLogin ? "Iniciar sesión" : "Registrarse"}</h2>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="apellidos"
+            placeholder="Apellidos"
+            value={formData.apellidos}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="dni"
+            placeholder="DNI"
+            value={formData.dni}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit">
+            {isLogin ? "Entrar" : "Registrarse"}
+          </button>
+        </form>
+
+        <p>
+          {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
+          <button
+            type="button"
+            className="switch-btn"
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin ? "Regístrate" : "Inicia sesión"}
+          </button>
+        </p>
+      </div>
     </div>
   );
 };

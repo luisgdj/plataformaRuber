@@ -1,68 +1,100 @@
-.auth-container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 30px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #003366, #007acc);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.auth-container h2 {
+.auth-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 3rem 4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  width: 400px;
+  max-width: 90%;
+  animation: fadeIn 0.8s ease;
 }
 
-.auth-container form {
+.auth-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.auth-card h2 {
+  margin-bottom: 1rem;
+  color: #003366;
+  font-size: 1.8rem;
+}
+
+.auth-card form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
 }
 
-.auth-container input {
-  padding: 12px;
+.auth-card input {
+  padding: 0.8rem 1rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  transition: border-color 0.3s;
-}
-
-.auth-container input:focus {
-  border-color: #0078d7;
+  border-radius: 8px;
+  font-size: 1rem;
   outline: none;
+  transition: border-color 0.2s;
 }
 
-.auth-container button[type="submit"] {
-  padding: 12px;
-  background-color: #0078d7;
-  color: #fff;
-  font-size: 16px;
+.auth-card input:focus {
+  border-color: #007acc;
+}
+
+.auth-card button[type="submit"] {
+  background-color: #003366;
+  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 0.9rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.auth-container button[type="submit"]:hover {
-  background-color: #005fa3;
+.auth-card button[type="submit"]:hover {
+  background-color: #0059b3;
+  transform: translateY(-2px);
 }
 
-.auth-container p {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
+.auth-card p {
+  color: #444;
+  font-size: 0.95rem;
 }
 
-.auth-container p button {
+.switch-btn {
   background: none;
   border: none;
-  color: #0078d7;
-  font-weight: bold;
+  color: #007acc;
   cursor: pointer;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s;
 }
 
-.auth-container p button:hover {
+.switch-btn:hover {
+  color: #0059b3;
   text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
