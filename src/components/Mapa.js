@@ -6,19 +6,27 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
   const svgRef = useRef(null);
 
   const MAPEO_ZONAS = {
-    // tu mapeo (mantén/ajusta según necesites)
+
+    // PS2 - Oncología Radioterapica
     "layer1": "Radioterapia",
     "path9335": "Radioterapia",
     "estructuraRD": "Radioterapia",
     "path9342": "Acelerador lineal",
     "path9253": "Ciberknife",
+
+    // PS2 - Unidad Gamma
     "path9344": "GammaKnife",
+
+    // PS2 - Medicina Nuclear
     "medicinaNuclear": "Medicina nuclear",
     "path9283": "Medicina nuclear",
     "path9132": "Medicina nuclear",
     "path9276": "Gamma cámara",
     "path4972": "Mamografía",
     "path4968": "PET-TAC"
+
+    // PS1 - Diagnostico por Imagen
+    
   };
 
   function getZoneIdFromElement(el) {
