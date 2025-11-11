@@ -110,7 +110,13 @@ function App() {
   const VistaMapa = () => (
     <>
       <h1>Mapa interactivo - Hospital Ruber Internacional</h1>
-      <button onClick={handleLogout} style={{ marginBottom: '10px' }}>Cerrar sesión</button>
+      <div className="header-mapa">
+        <button className="logout-btn" onClick={handleLogout}>
+           Cerrar sesión
+        </button>
+      </div>
+
+
 
       <div className="barra-plantas">
         {opcionesPlanta.map((archivo) => (
