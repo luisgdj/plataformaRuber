@@ -71,47 +71,83 @@ function App() {
   const [departamentoActivo, setDepartamentoActivo] = useState(null);
 
   const handleZonaClick = (nombreZona) => {
-    // nombreZona = "Acelerador lineal" (por ejemplo)
-    console.log("handleZonaClick recibido:", nombreZona);
-
     setZonaSeleccionada(nombreZona);
     setDepartamentoActivo(nombreZona);
 
-    // abrir la categoría/subcategoria correcta
-    if (
-      nombreZona.includes("Acelerador") ||
-      nombreZona.includes("Ciberknife") ||
-      nombreZona.includes("Radioterapia")
-    ) {
-      setCategoriaActiva("Instalaciones radiactivas");
-      setSubcategoriaActiva("Oncología radioterápica");
-    } else if (
-      nombreZona.includes("Gamma") ||
-      nombreZona.includes("SPECT") ||
-      nombreZona.includes("PET") ||
-      nombreZona.toLowerCase().includes("medicina nuclear")
-    ) {
-      setCategoriaActiva("Instalaciones radioactivas");
-      setSubcategoriaActiva("Medicina nuclear");
-    } else if (
-      nombreZona.includes("Resonancia") ||
-      nombreZona.includes("TAC") ||
-      nombreZona.includes("Ecografía") ||
-      nombreZona.includes("Mamografía") ||
-      nombreZona.includes("Radiología")
-    ) {
-      setCategoriaActiva("Diagnóstico de imagen");
-      setSubcategoriaActiva(null);
-    } else if (
-    nombreZona.includes("Gamma Knife") ||
-    nombreZona.includes("Gamma Knife")
-    ) {
-    setCategoriaActiva("Gamma Knife");
-    setSubcategoriaActiva(null);
-    } else {
-      setCategoriaActiva(null);
-      setSubcategoriaActiva(null);
+    // Buscar automáticamente la categoría y subcategoría donde está esa zona
+    const categorias = [
+      {
+        nombre: 'Diagnóstico de imagen',
+        zonas: [
+          'Resonancia Magnética (RM)',
+          'Radiología convencional',
+          'Tomografía Axial Computarizada (TAC)',
+          'Ecografía',
+          'Mamografía'
+        ]
+      },
+      {
+        nombre: 'Instalaciones radiactivas',
+        subcategorias: [
+          {
+            nombre: 'Medicina nuclear',
+            zonas: ['Gamma cámara', 'SPECT-TAC', 'PET-TAC']
+          },
+          {
+            nombre: 'Oncología radioterápica',
+            zonas: ['Acelerador lineal', 'Ciberknife']
+          },
+          {
+            nombre: 'Unidad gamma',
+            zonas: ['Gamma Knife']
+          }
+        ]
+      },
+      {
+        nombre: 'Área quirúrgica',
+        zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización central']
+      },
+      {
+        nombre: 'Hospitalización',
+        zonas: ['Habitaciones y controles de enfermería', 'Áreas de aislamiento']
+      },
+      {
+        nombre: 'Zona ambulatoria y de urgencias',
+        zonas: ['Urgencias', 'Consultas externas', 'Hospital de día']
+      },
+      {
+        nombre: 'Área de farmacia y laboratorio',
+        subcategorias: [
+          { nombre: 'Laboratorios', zonas: ['Bioquímica', 'Microbiología', 'Hematología'] },
+          { nombre: 'Farmacia hospitalaria', zonas: [] },
+          { nombre: 'Banco de sangre', zonas: [] }
+        ]
+      }
+    ];
+
+    let categoriaEncontrada = null;
+    let subcategoriaEncontrada = null;
+
+    // Buscar la categoría o subcategoría que contiene la zona
+    for (const cat of categorias) {
+      if (cat.zonas && cat.zonas.includes(nombreZona)) {
+        categoriaEncontrada = cat.nombre;
+        break;
+      }
+      if (cat.subcategorias) {
+        for (const sub of cat.subcategorias) {
+          if (sub.zonas.includes(nombreZona)) {
+            categoriaEncontrada = cat.nombre;
+            subcategoriaEncontrada = sub.nombre;
+            break;
+          }
+        }
+      }
+      if (categoriaEncontrada) break;
     }
+
+    setCategoriaActiva(categoriaEncontrada);
+    setSubcategoriaActiva(subcategoriaEncontrada);
   };
 
   const VistaMapa = () => (

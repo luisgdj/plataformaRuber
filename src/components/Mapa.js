@@ -7,26 +7,44 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
 
   const MAPEO_ZONAS = {
 
-    // PS2 - Oncología Radioterapica
-    "layer1": "Radioterapia",
-    "path9335": "Radioterapia",
-    "estructuraRD": "Radioterapia",
+    // PS2 - Oncología Radioterápica
+    "PS2_Radioterapia": "Oncología radioterápica",
+    // "estructuraRT": "Oncología radioterápica",
+    "estructura1": "Oncología radioterápica",
+    "estructura2": "Oncología radioterápica",
+    "estructura3": "Oncología radioterápica",
+    "depRT": "Oncología radioterápica",
     "path9342": "Acelerador lineal",
     "path9253": "Ciberknife",
 
     // PS2 - Unidad Gamma
-    "path9344": "GammaKnife",
+    "PS2_UnidadGamma": "Unidad gamma",
+    "estructuraUG": "Unidad gamma",
+    "depUG": "Unidad gamma",
+    "path9344": "Gamma Knife",
 
     // PS2 - Medicina Nuclear
-    "medicinaNuclear": "Medicina nuclear",
-    "path9283": "Medicina nuclear",
-    "path9132": "Medicina nuclear",
+    "PS2_MedicinaNuclear": "Medicina nuclear",
+    "estructuraMN": "Medicina nuclear",
+    "depMN": "Medicina nuclear",
+    "path4968": "PET-TAC",
     "path9276": "Gamma cámara",
-    "path4972": "Mamografía",
-    "path4968": "PET-TAC"
-
-    // PS1 - Diagnostico por Imagen
+    "path4972": "Mami PET",
     
+    // PS1 - Diagnostico por Imagen
+    "PS1_DiagnosticoImagen": "Diagnóstico de imagen",
+    "estructuraDI": "Diagnóstico de imagen",
+    "depDI": "Diagnóstico de imagen",
+    // "RM": "Resonancia Magnética (RM)",
+    "path10806": "Resonancia Magnética (RM)",
+    "path10799":  "Resonancia Magnética (RM)",
+    // "RadiologíaConv": "Radiología Convencional",
+    "path10311": "Radiología Convencional",
+    "path10261": "Radiología Convencional",
+    "path10794":  "Radiología Convencional",
+    "path10262": "Tomografía Axial Computarizada (TAC)",
+    "path3224": "Ecografía",
+    "path10293": "Mamografía"
   };
 
   function getZoneIdFromElement(el) {
