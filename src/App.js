@@ -67,6 +67,7 @@ function App() {
   const [categoriaActiva, setCategoriaActiva] = useState(null);
   const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
   const [departamentoActivo, setDepartamentoActivo] = useState(null);
+  const [resaltarDepartamento, setResaltarDepartamento] = useState(null); // Nuevo estado
 
   // Mapeo de departamentos/categorías a plantas
   const DEPARTAMENTOS_POR_PLANTA = {
@@ -112,11 +113,17 @@ function App() {
     if (plantaCorrespondiente && plantaCorrespondiente !== plantaActiva) {
       setPlantaActiva(plantaCorrespondiente);
     }
+    
+    // Resaltar todo el departamento en el mapa
+    setResaltarDepartamento(nombreDepartamento);
+    setZonaSeleccionada(null); // Limpiar zona individual
+    setDepartamentoActivo(null);
   };
 
   const handleZonaClick = (nombreZona) => {
     setZonaSeleccionada(nombreZona);
     setDepartamentoActivo(nombreZona);
+    setResaltarDepartamento(null); // Limpiar resaltado de departamento
 
     // Buscar automáticamente la categoría y subcategoría donde está esa zona
     const categorias = [
@@ -248,6 +255,7 @@ function App() {
           zonaSeleccionada={zonaSeleccionada}
           departamentoActivo={departamentoActivo}
           setDepartamentoActivo={setDepartamentoActivo}
+          resaltarDepartamento={resaltarDepartamento}
         />
 
         <PanelInfo zona={zonaSeleccionada} tipo={tipoContenido} />

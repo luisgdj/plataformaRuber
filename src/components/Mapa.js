@@ -2,14 +2,12 @@
 import React, { useEffect, useRef } from 'react';
 import '../styles/Mapa.css';
 
-function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada }) {
+function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada, resaltarDepartamento }) {
   const svgRef = useRef(null);
 
   const MAPEO_ZONAS = {
-
     // PS2 - Oncología Radioterápica
     "PS2_Radioterapia": "Oncología radioterápica",
-    // "estructuraRT": "Oncología radioterápica",
     "estructura1": "Oncología radioterápica",
     "estructura2": "Oncología radioterápica",
     "estructura3": "Oncología radioterápica",
@@ -35,16 +33,40 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
     "PS1_DiagnosticoImagen": "Diagnóstico de imagen",
     "estructuraDI": "Diagnóstico de imagen",
     "depDI": "Diagnóstico de imagen",
-    // "RM": "Resonancia Magnética (RM)",
     "path10806": "Resonancia Magnética (RM)",
     "path10799":  "Resonancia Magnética (RM)",
-    // "RadiologíaConv": "Radiología Convencional",
     "path10311": "Radiología Convencional",
     "path10261": "Radiología Convencional",
     "path10794":  "Radiología Convencional",
     "path10262": "Tomografía Axial Computarizada (TAC)",
     "path3224": "Ecografía",
     "path10293": "Mamografía"
+  };
+
+  // Mapeo de departamentos a sus zonas/elementos relacionados
+  const DEPARTAMENTO_A_ZONAS = {
+    "Diagnóstico de imagen": [
+      "PS1_DiagnosticoImagen", "estructuraDI", "depDI",
+      "path10806", "path10799", "path10311", "path10261", 
+      "path10794", "path10262", "path3224", "path10293"
+    ],
+    "Instalaciones radiactivas": [
+      "PS2_Radioterapia", "PS2_UnidadGamma", "PS2_MedicinaNuclear",
+      "estructura1", "estructura2", "estructura3", "estructuraUG", "estructuraMN",
+      "depRT", "depUG", "depMN",
+      "path9342", "path9253", "path9344", "path4968", "path9276", "path4972"
+    ],
+    "Medicina nuclear": [
+      "PS2_MedicinaNuclear", "estructuraMN", "depMN",
+      "path4968", "path9276", "path4972"
+    ],
+    "Oncología radioterápica": [
+      "PS2_Radioterapia", "estructura1", "estructura2", "estructura3",
+      "depRT", "path9342", "path9253"
+    ],
+    "Unidad gamma": [
+      "PS2_UnidadGamma", "estructuraUG", "depUG", "path9344"
+    ]
   };
 
   function getZoneIdFromElement(el) {
@@ -59,10 +81,8 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
     return null;
   }
 
-  // obtiene fill real (atributo o computed style) buscando en hijos si hace falta
   function getFillOfElement(el) {
     if (!el) return '#666';
-    // data-original-fill preferible
     const orig = el.getAttribute && el.getAttribute('data-original-fill');
     if (orig) return orig;
 
@@ -74,14 +94,12 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
       if (cs && cs.fill && cs.fill !== 'none' && cs.fill !== '') return cs.fill;
     } catch (e) { /* ignore */ }
 
-    // buscar en hijos
     const child = el.querySelector && el.querySelector('path, rect, polygon, circle, ellipse');
     if (child) return getFillOfElement(child);
 
     return '#666';
   }
 
-  // convertir #hex a rgba con alpha
   function hexToRgba(hex, a = 0.28) {
     if (!hex) return `rgba(0,0,0,${a})`;
     if (hex.startsWith('rgba')) return hex;
@@ -98,13 +116,29 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
     return `rgba(0,0,0,${a})`;
   }
 
-  // limpia todo lo que añadimos (strokes, halos clonados, clases)
+  // Función para oscurecer un color
+  function darkenColor(hex, percent = 0.3) {
+    if (!hex || !hex.startsWith('#')) return '#333';
+    let h = hex.slice(1);
+    if (h.length === 3) h = h.split('').map(c => c + c).join('');
+    const int = parseInt(h, 16);
+    let r = (int >> 16) & 255;
+    let g = (int >> 8) & 255;
+    let b = int & 255;
+    
+    r = Math.floor(r * (1 - percent));
+    g = Math.floor(g * (1 - percent));
+    b = Math.floor(b * (1 - percent));
+    
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+  }
+
   function clearAllHighlights(svgDoc) {
     if (!svgDoc) return;
     const all = svgDoc.querySelectorAll('path, rect, polygon, circle, ellipse');
     all.forEach(el => {
       el.classList.remove('mapa-selected');
-      // restaurar atributos originales si existen
+      el.classList.remove('mapa-departamento-selected');
       if (el.hasAttribute('data-original-fill')) {
         el.setAttribute('fill', el.getAttribute('data-original-fill'));
       }
@@ -123,30 +157,22 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
       el.style.opacity = '';
     });
 
-    // remover clones halo que creamos
     const halos = svgDoc.querySelectorAll('.mapa-halo');
     halos.forEach(h => h.parentNode && h.parentNode.removeChild(h));
   }
 
-  // crea un halo (clon) y lo inserta DETRÁS del elemento original
   function createHaloForElement(el, baseColor) {
     if (!el || !el.parentNode) return null;
     try {
-      // clonamos el nodo y lo dejamos sin fill, solo stroke ancho semitransparente
       const clone = el.cloneNode(true);
       clone.classList.add('mapa-halo');
-      // forzar que el halo no capture eventos
       clone.setAttribute('pointer-events', 'none');
-
-      // quitar fills y dejar stroke ancho y semitransparente
       clone.setAttribute('fill', 'none');
       clone.setAttribute('stroke', baseColor);
       clone.setAttribute('stroke-opacity', '0.25');
-      // hacer el halo más ancho que el stroke real
       const origStrokeWidth = parseFloat(el.getAttribute('stroke-width') || 0);
-      const haloWidth = Math.max(origStrokeWidth * 2.5, 12); // bastante visible
+      const haloWidth = Math.max(origStrokeWidth * 2.5, 12);
       clone.setAttribute('stroke-width', haloWidth.toString());
-      // colocar clone justo antes del original (esto lo deja detrás)
       el.parentNode.insertBefore(clone, el);
       return clone;
     } catch (err) {
@@ -155,7 +181,55 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
     }
   }
 
-  // aplica resaltado (sin filtros problemáticos): pone stroke en elementos visibles y crea halo clones
+  // Resaltar departamento completo (más oscuro)
+  const highlightDepartamento = (svgDoc, nombreDepartamento) => {
+    if (!svgDoc || !nombreDepartamento) return;
+    clearAllHighlights(svgDoc);
+
+    const zonasIds = DEPARTAMENTO_A_ZONAS[nombreDepartamento] || [];
+    
+    zonasIds.forEach(idZona => {
+      const el = svgDoc.querySelector(`#${CSS.escape(idZona)}`);
+      if (!el) return;
+
+      el.classList.add('mapa-departamento-selected');
+      let targets = [];
+      if (el.tagName && el.tagName.toLowerCase() === 'g') {
+        const children = el.querySelectorAll('path, rect, polygon, circle, ellipse');
+        targets = children.length ? Array.from(children) : [el];
+      } else {
+        targets = [el];
+      }
+
+      targets.forEach(t => {
+        // Guardar originales
+        if (!t.hasAttribute('data-original-fill')) {
+          const curFill = t.getAttribute('fill') || '';
+          if (curFill) t.setAttribute('data-original-fill', curFill);
+        }
+        if (!t.hasAttribute('data-original-stroke')) {
+          const curStroke = t.getAttribute('stroke') || '';
+          if (curStroke) t.setAttribute('data-original-stroke', curStroke);
+        }
+
+        // Obtener color base y oscurecerlo
+        const baseColor = getFillOfElement(t) || '#666';
+        const darkColor = darkenColor(baseColor, 0.25);
+        
+        // Aplicar color más oscuro
+        t.setAttribute('fill', darkColor);
+        t.setAttribute('stroke', darkenColor(baseColor, 0.4));
+        t.setAttribute('stroke-width', '3');
+        t.style.transition = 'all 0.3s ease';
+        t.style.filter = 'brightness(0.85) saturate(1.1)';
+
+        // Crear halo más visible
+        createHaloForElement(t, baseColor);
+      });
+    });
+  };
+
+  // Resaltar zona individual (resaltado sutil como antes)
   const highlightByNames = (svgDoc, departamentoName, subzonaName) => {
     if (!svgDoc) return;
     clearAllHighlights(svgDoc);
@@ -165,13 +239,11 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
     const candidates = Array.from(svgDoc.querySelectorAll('path, rect, polygon, circle, ellipse, g'));
     const matches = [];
 
-    // 1) búsqueda exacta por id/label/data
     candidates.forEach(el => {
       const id = getZoneIdFromElement(el);
       if (id && id.toLowerCase() === (target || '').toLowerCase()) matches.push(el);
     });
 
-    // 2) búsqueda por includes y atributos data-*
     if (matches.length === 0) {
       candidates.forEach(el => {
         const id = (getZoneIdFromElement(el) || '').toLowerCase();
@@ -183,7 +255,6 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
       });
     }
 
-    // 3) usar MAPEO_ZONAS como último recurso (buscar keys que apunten al nombre)
     if (matches.length === 0 && departamentoName) {
       for (const key of Object.keys(MAPEO_ZONAS)) {
         if (MAPEO_ZONAS[key].toLowerCase() === departamentoName.toLowerCase()) {
@@ -195,7 +266,6 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
 
     if (matches.length === 0) return;
 
-    // aplicar estilos: si es <g> aplicamos a sus hijos vectoriales (no al g)
     matches.forEach(el => {
       el.classList.add('mapa-selected');
       let targets = [];
@@ -206,12 +276,9 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
         targets = [el];
       }
 
-      // obtener color base a partir del elemento o sus hijos
       const baseColor = getFillOfElement(el) || '#666';
-      const haloColor = hexToRgba(baseColor, 0.28);
 
       targets.forEach(t => {
-        // guardar originales si no existen
         if (!t.hasAttribute('data-original-fill')) {
           const curFill = t.getAttribute('fill') || '';
           if (curFill) t.setAttribute('data-original-fill', curFill);
@@ -220,32 +287,23 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
           const curStroke = t.getAttribute('stroke') || '';
           if (curStroke) t.setAttribute('data-original-stroke', curStroke);
         }
-        if (!t.hasAttribute('data-original-stroke-width')) {
-          const curWidth = t.getAttribute('stroke-width') || '';
-          if (curWidth) t.setAttribute('data-original-stroke-width', curWidth);
-        }
 
-        // asegurar que el fill original se mantiene (evita "desaparición")
         if (t.hasAttribute('data-original-fill')) {
           const origFill = t.getAttribute('data-original-fill');
           if (origFill && origFill !== 'none') t.setAttribute('fill', origFill);
         }
 
-        // aplicar stroke visible y sutil
         t.setAttribute('stroke', baseColor);
-        t.setAttribute('stroke-width', '2'); // contorno fino
+        t.setAttribute('stroke-width', '2');
         t.style.transition = 'all 0.2s ease';
-        t.style.filter = 'brightness(0.92) saturate(1.06)'; // ligero ajuste visual
+        t.style.filter = 'brightness(0.92) saturate(1.06)';
 
-        // crear halo DETRÁS (clon semitransparente)
         createHaloForElement(t, baseColor);
       });
 
-      // opcional: intentar subir visualmente el grupo al final del padre para que no quede oculto
-      // (esto no debería ocultar capas si usamos halos detrás de los elementos)
       if (el.parentNode && el.tagName && el.tagName.toLowerCase() === 'g') {
         try {
-          el.parentNode.appendChild(el); // lo lleva al final, para que se pinte encima
+          el.parentNode.appendChild(el);
         } catch (err) {
           // ignore
         }
@@ -253,13 +311,11 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
     });
   };
 
-  // Al cargar el SVG: guardar fills originales y añadir listeners
   const handleLoad = (e) => {
     const svgDoc = e.target.contentDocument;
     if (!svgDoc) return console.warn('No se pudo acceder al contenido del SVG.');
     svgRef.current = svgDoc;
 
-    // guardar fills originales en elementos vectoriales
     const all = svgDoc.querySelectorAll('path, rect, polygon, circle, ellipse');
     all.forEach(el => {
       if (!el.hasAttribute('data-original-fill')) {
@@ -274,22 +330,24 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
       }
     });
 
-    // listeners para hover / click
     const zonas = svgDoc.querySelectorAll('path, rect, polygon, circle, ellipse, g');
     zonas.forEach(zona => {
       if (!zona) return;
       zona.style.cursor = 'pointer';
 
       zona.addEventListener('mouseenter', () => {
-        if (!zona.classList.contains('mapa-selected')) zona.style.filter = 'brightness(0.9)';
+        if (!zona.classList.contains('mapa-selected') && !zona.classList.contains('mapa-departamento-selected')) {
+          zona.style.filter = 'brightness(0.9)';
+        }
       });
       zona.addEventListener('mouseleave', () => {
-        if (!zona.classList.contains('mapa-selected')) zona.style.filter = '';
+        if (!zona.classList.contains('mapa-selected') && !zona.classList.contains('mapa-departamento-selected')) {
+          zona.style.filter = '';
+        }
       });
 
       zona.addEventListener('click', (ev) => {
         ev.stopPropagation();
-        // resolver id/label
         let idZona = getZoneIdFromElement(zona);
         if (!idZona) {
           let p = zona.parentElement;
@@ -321,17 +379,25 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
       });
     });
 
-    // aplicar resaltado inicial si hay algo seleccionado
-    if (departamentoActivo || zonaSeleccionada) {
+    // Aplicar resaltado inicial
+    if (resaltarDepartamento) {
+      highlightDepartamento(svgDoc, resaltarDepartamento);
+    } else if (departamentoActivo || zonaSeleccionada) {
       highlightByNames(svgDoc, departamentoActivo, zonaSeleccionada);
     }
   };
 
-  // actualizar cuando cambie la selección desde App/Sidebar
   useEffect(() => {
     if (!svgRef.current) return;
-    highlightByNames(svgRef.current, departamentoActivo, zonaSeleccionada);
-  }, [departamentoActivo, zonaSeleccionada]);
+    
+    if (resaltarDepartamento) {
+      highlightDepartamento(svgRef.current, resaltarDepartamento);
+    } else if (departamentoActivo || zonaSeleccionada) {
+      highlightByNames(svgRef.current, departamentoActivo, zonaSeleccionada);
+    } else {
+      clearAllHighlights(svgRef.current);
+    }
+  }, [departamentoActivo, zonaSeleccionada, resaltarDepartamento]);
 
   return (
     <object
