@@ -186,6 +186,7 @@ function App() {
           setSubcategoriaActiva={setSubcategoriaActiva}
           departamentoActivo={departamentoActivo}
           setDepartamentoActivo={setDepartamentoActivo}
+          onZonaClick={handleZonaClick}
         />
 
         <Mapa
