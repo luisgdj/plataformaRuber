@@ -349,4 +349,3 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada })
 }
 
 export default Mapa;
-

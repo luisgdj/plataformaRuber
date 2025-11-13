@@ -11,7 +11,8 @@ const Sidebar = ({
   setSubcategoriaActiva,
   departamentoActivo,
   setDepartamentoActivo,
-  onZonaClick
+  onZonaClick,
+  onDepartamentoClick
 }) => {
 
   const categorias = [
@@ -49,12 +50,25 @@ const Sidebar = ({
     if (categoriaActiva === nombre) {
       setCategoriaActiva(null);
       setSubcategoriaActiva(null);
-    } else setCategoriaActiva(nombre);
+    } else {
+      setCategoriaActiva(nombre);
+      // Llamar a la función para cambiar de planta
+      if (onDepartamentoClick) {
+        onDepartamentoClick(nombre);
+      }
+    }
   };
 
   const toggleSubcategoria = (nombre) => {
-    if (subcategoriaActiva === nombre) setSubcategoriaActiva(null);
-    else setSubcategoriaActiva(nombre);
+    if (subcategoriaActiva === nombre) {
+      setSubcategoriaActiva(null);
+    } else {
+      setSubcategoriaActiva(nombre);
+      // Llamar a la función para cambiar de planta
+      if (onDepartamentoClick) {
+        onDepartamentoClick(nombre);
+      }
+    }
   };
 
   return (
@@ -132,4 +146,3 @@ const Sidebar = ({
 };
 
 export default Sidebar;
-

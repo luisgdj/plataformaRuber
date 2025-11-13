@@ -66,9 +66,53 @@ function App() {
   const [colorZona, setColorZona] = useState(null);
   const [categoriaActiva, setCategoriaActiva] = useState(null);
   const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
-
-  // NUEVO: estado compartido para sincronizar mapa y sidebar
   const [departamentoActivo, setDepartamentoActivo] = useState(null);
+
+  // Mapeo de departamentos/categorías a plantas
+  const DEPARTAMENTOS_POR_PLANTA = {
+    "plantaS2.svg": [
+      "Instalaciones radiactivas",
+      "Medicina nuclear",
+      "Oncología radioterápica",
+      "Unidad gamma"
+    ],
+    "plantaS1.svg": [
+      "Diagnóstico de imagen"
+    ],
+    "planta00.svg": [
+      "Área quirúrgica"
+    ],
+    "planta01.svg": [
+      "Zona ambulatoria y de urgencias"
+    ],
+    "planta02.svg": [
+      "Hospitalización"
+    ],
+    "planta03.svg": [
+      "Área de farmacia y laboratorio",
+      "Laboratorios",
+      "Farmacia hospitalaria",
+      "Banco de sangre"
+    ]
+  };
+
+  // Función para encontrar la planta de un departamento
+  const encontrarPlantaDeDepartamento = (nombreDepartamento) => {
+    for (const [planta, departamentos] of Object.entries(DEPARTAMENTOS_POR_PLANTA)) {
+      if (departamentos.some(d => d.toLowerCase() === nombreDepartamento.toLowerCase())) {
+        return planta;
+      }
+    }
+    return null;
+  };
+
+  const handleDepartamentoClick = (nombreDepartamento) => {
+    // Cambiar automáticamente a la planta del departamento
+    const plantaCorrespondiente = encontrarPlantaDeDepartamento(nombreDepartamento);
+    if (plantaCorrespondiente && plantaCorrespondiente !== plantaActiva) {
+      setPlantaActiva(plantaCorrespondiente);
+    }
+  };
 
   const handleZonaClick = (nombreZona) => {
     setZonaSeleccionada(nombreZona);
@@ -80,7 +124,7 @@ function App() {
         nombre: 'Diagnóstico de imagen',
         zonas: [
           'Resonancia Magnética (RM)',
-          'Radiología convencional',
+          'Radiología Convencional',
           'Tomografía Axial Computarizada (TAC)',
           'Ecografía',
           'Mamografía'
@@ -148,6 +192,15 @@ function App() {
 
     setCategoriaActiva(categoriaEncontrada);
     setSubcategoriaActiva(subcategoriaEncontrada);
+
+    // Cambiar automáticamente a la planta del departamento/subcategoría
+    const departamentoParaBuscar = subcategoriaEncontrada || categoriaEncontrada;
+    if (departamentoParaBuscar) {
+      const plantaCorrespondiente = encontrarPlantaDeDepartamento(departamentoParaBuscar);
+      if (plantaCorrespondiente && plantaCorrespondiente !== plantaActiva) {
+        setPlantaActiva(plantaCorrespondiente);
+      }
+    }
   };
 
   const VistaMapa = () => (
@@ -158,8 +211,6 @@ function App() {
            Cerrar sesión
         </button>
       </div>
-
-
 
       <div className="barra-plantas">
         {opcionesPlanta.map((archivo) => (
@@ -187,6 +238,7 @@ function App() {
           departamentoActivo={departamentoActivo}
           setDepartamentoActivo={setDepartamentoActivo}
           onZonaClick={handleZonaClick}
+          onDepartamentoClick={handleDepartamentoClick}
         />
 
         <Mapa
@@ -234,4 +286,3 @@ function App() {
 }
 
 export default App;
-
