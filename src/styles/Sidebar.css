@@ -1,90 +1,143 @@
-.departamento {
-  border-bottom: 1px solid #cbd3dc;
-  padding-bottom: 0.5rem;
-}
+/* ======================== */
+/* DEPARTAMENTOS Y SUBCATEGORÍAS */
+/* ======================== */
 
-.dep-btn {
-  background: none;
-  border: none;
+.departamento { 
+  border-bottom: 1px solid #cbd3dc; 
+  padding-bottom: 0.5rem; 
+} 
+
+.dep-btn { 
+  background: none; 
+  border: none; 
   font-size: 1rem;
   color: #003366;
   font-weight: bold;
-  padding: 0.4rem 0;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  transition: color 0.3s ease;
-}
+  padding: 0.4rem 0; 
+  cursor: pointer; 
+  width: 100%; 
+  text-align: left; 
+  transition: color 0.3s ease; 
+} 
 
 .dep-btn:hover {
-  color: #0066cc;
-}
+  color: #0066cc; 
+} 
 
-.dep-btn.activo {
+.dep-btn.activo { 
   color: #0066cc;
   border-left: 4px solid #0066cc;
   padding-left: 0.6rem;
-}
+} 
 
-.salas-lista {
+.salas-lista { 
   list-style: none;
   padding-left: 1rem;
   margin-top: 0.4rem;
   animation: fadeIn 0.3s ease-in-out;
-}
+} 
 
 .sala-item {
-  padding: 0.3rem 0;
-  font-size: 0.9rem;
-  color: #333;
-  cursor: pointer;
-  transition: color 0.2s ease;
+  padding: 0.3rem 0; 
+  font-size: 0.9rem; 
+  color: #333; 
+  cursor: pointer; 
+  transition: color 0.2s ease; 
+} 
+
+.sala-item:hover { 
+  color: #0066cc; 
 }
 
-.sala-item:hover {
-  color: #0066cc;
+.sala-item.activo { 
+  background-color: #d1e0ff; 
+  font-weight: bold; 
 }
 
-/* Animación suave */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.filtro {
-  border-top: 1px solid #cbd3dc;
-  padding-top: 1rem;
+/* Animación suave */ 
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(-5px); } 
+  to { opacity: 1; transform: translateY(0); } 
+} 
+
+.filtro { 
+  border-top: 1px solid #cbd3dc; 
+  padding-top: 1rem; 
+} 
+
+.filtro h3 { 
+  font-size: 1rem;
+  margin-bottom: 0.5rem; 
+  color: #003366; 
+  font-weight: bold; 
+} 
+
+select { 
+  width: 100%; 
+  padding: 0.5rem; 
+  border: none; 
+  background-color: #ffffff; 
+  border-radius: 6px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+  font-size: 0.95rem; 
+  color: #003366; 
+  transition: box-shadow 0.3s ease; 
+  cursor: pointer; 
+} 
+
+select:hover { 
+  box-shadow: 0 0 6px rgba(0,102,204,0.2); 
+} 
+
+select:focus { 
+  outline: none; 
+  box-shadow: 0 0 6px rgba(0,102,204,0.4); 
 }
 
-.filtro h3 {
+/* ======================== */
+/* BOTONES DE PISOS ARRIBA */
+/* ======================== */
+
+.selector-pisos {
+  margin-bottom: 1rem;
+}
+
+.selector-pisos h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
   color: #003366;
   font-weight: bold;
 }
 
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: none;
-  background-color: #ffffff;
+.botones-pisos {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.piso-btn {
+  flex: 1;
+  min-width: 30px;
+  padding: 0.4rem 0;
+  background: none;
+  border: 1px solid #cbd3dc;
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   font-size: 0.95rem;
   color: #003366;
-  transition: box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-select:hover {
-  box-shadow: 0 0 6px rgba(0,102,204,0.2);
-}
-
-select:focus {
-  outline: none;
-  box-shadow: 0 0 6px rgba(0,102,204,0.4);
-}
-
-.sala-item.activo {
-  background-color: #d1e0ff;
   font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.piso-btn:hover {
+  background-color: #d9e6f2;
+  color: #0066cc;
+}
+
+.piso-btn.activo {
+  background-color: #0066cc;
+  color: white;
+  border: 1px solid #0059b3;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

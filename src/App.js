@@ -218,25 +218,15 @@ function App() {
            Cerrar sesión
         </button>
       </div>
-
-      <div className="barra-plantas">
-        {opcionesPlanta.map((archivo) => (
-          <button
-            key={archivo}
-            className={plantaActiva === archivo ? "boton-activo" : ""}
-            onClick={() => setPlantaActiva(archivo)}
-          >
-            {archivo.replace(".svg", "")}
-          </button>
-        ))}
-      </div>
+    
 
       <div className="contenedor-principal">
         <Sidebar
           colorZona={colorZona}
           setColorZona={setColorZona}
-          tipoContenido={tipoContenido}
-          setTipoContenido={setTipoContenido}
+          plantaActiva={plantaActiva}
+          setPlantaActiva={setPlantaActiva}
+          opcionesPlanta={opcionesPlanta}
           setZonaSeleccionada={setZonaSeleccionada}
           categoriaActiva={categoriaActiva}
           setCategoriaActiva={setCategoriaActiva}
@@ -246,7 +236,10 @@ function App() {
           setDepartamentoActivo={setDepartamentoActivo}
           onZonaClick={handleZonaClick}
           onDepartamentoClick={handleDepartamentoClick}
+          tipoContenido={tipoContenido}       
+          setTipoContenido={setTipoContenido}
         />
+
 
         <Mapa
           archivoSvg={plantaActiva}

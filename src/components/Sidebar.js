@@ -1,10 +1,11 @@
+// src/components/Sidebar.js
 import React from 'react';
 import '../styles/Sidebar.css';
 
 const Sidebar = ({
   setZonaSeleccionada,
-  tipoContenido,
-  setTipoContenido,
+  plantaActiva,
+  setPlantaActiva,
   categoriaActiva,
   setCategoriaActiva,
   subcategoriaActiva,
@@ -14,6 +15,18 @@ const Sidebar = ({
   onZonaClick,
   onDepartamentoClick
 }) => {
+
+  const pisos = ['-2', '-1', '0', '1', '2', '3'];
+
+  // Mapear piso a archivo SVG
+  const PISO_A_PLANTA = {
+    '-2': 'plantaS2.svg',
+    '-1': 'plantaS1.svg',
+    '0': 'planta00.svg',
+    '1': 'planta01.svg',
+    '2': 'planta02.svg',
+    '3': 'planta03.svg'
+  };
 
   const categorias = [
     {
@@ -52,10 +65,7 @@ const Sidebar = ({
       setSubcategoriaActiva(null);
     } else {
       setCategoriaActiva(nombre);
-      // Llamar a la función para cambiar de planta
-      if (onDepartamentoClick) {
-        onDepartamentoClick(nombre);
-      }
+      if (onDepartamentoClick) onDepartamentoClick(nombre);
     }
   };
 
@@ -64,16 +74,42 @@ const Sidebar = ({
       setSubcategoriaActiva(null);
     } else {
       setSubcategoriaActiva(nombre);
-      // Llamar a la función para cambiar de planta
-      if (onDepartamentoClick) {
-        onDepartamentoClick(nombre);
-      }
+      if (onDepartamentoClick) onDepartamentoClick(nombre);
     }
+  };
+
+  // Solo cambia la planta, no abre departamentos
+  const handlePisoClick = (piso) => {
+    const planta = PISO_A_PLANTA[piso];
+    if (!planta) return;
+
+    setPlantaActiva(planta);
+    setCategoriaActiva(null);
+    setSubcategoriaActiva(null);
+    setDepartamentoActivo(null);
+    setZonaSeleccionada(null);
   };
 
   return (
     <div className="sidebar">
-      <h2>Áreas hospitalarias</h2>
+      {/* Selector de pisos */}
+      <div className="filtro">
+        <h3>Pisos</h3>
+        <div className="botones-pisos">
+          {pisos.map((piso) => (
+            <button
+              key={piso}
+              className={`piso-btn ${plantaActiva === PISO_A_PLANTA[piso] ? 'activo' : ''}`}
+              onClick={() => handlePisoClick(piso)}
+            >
+              {piso}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Lista de departamentos */}
+      <h2 style={{ marginTop: '1rem' }}>Áreas hospitalarias</h2>
       <div className="departamentos-lista">
         {categorias.map((cat) => (
           <div key={cat.nombre} className="departamento">
@@ -130,16 +166,6 @@ const Sidebar = ({
             )}
           </div>
         ))}
-      </div>
-
-      <div className="filtro">
-        <h3>Tipo de contenido</h3>
-        <select value={tipoContenido} onChange={(e) => setTipoContenido(e.target.value)}>
-          <option value="alertas">Alertas</option>
-          <option value="video">Vídeo explicativo</option>
-          <option value="texto">Texto explicativo</option>
-          <option value="test">Test</option>
-        </select>
       </div>
     </div>
   );
