@@ -1,0 +1,127 @@
+.zona-interactiva {
+  padding: 2rem;
+  background-color: #f9fbfd;
+  color: #003366;
+}
+
+.zona-interactiva h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.zona-interactiva section {
+  margin-bottom: 2rem;
+}
+
+.zona-interactiva video {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.zona-test button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* --- Estilo para las alertas activas --- */
+.alertas-lista {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+.alertas-lista li {
+  background-color: #fff8f8;
+  border-left: 4px solid #cc0000;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.alertas-lista strong {
+  color: #990000;
+}
+
+.alertas-lista em {
+  font-style: normal;
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.svg-zona {
+  width: 100%;
+  max-width: 900px;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.leyenda-contenedor {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.leyenda-color {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+/* Texto más compacto */
+.zona-interactiva h3 {
+  margin-top: 20px;     /* Baja la separación superior */
+  margin-bottom: 4px;   /* Muy pegado al texto */
+}
+
+.zona-interactiva ul {
+  margin-top: 0px;      /* Nada de espacio arriba */
+  margin-bottom: 6px;   /* Separación mínima abajo */
+  padding-left: 18px;   /* Mantiene indentación del ul */
+}
+
+/* Opcional: listas más compactas */
+.zona-interactiva ul li {
+  margin-bottom: 2px;
+}
+
+/* PARA EL MAPA DE RESONANCIA MAGNÉTICA */
+.mapa-contenedor {
+  display: flex;            /* Coloca los hijos lado a lado */
+  gap: 20px;                /* Espacio entre texto y mapa */
+  align-items: flex-start;  /* Alinea la parte superior */
+  margin-top: 10px;
+}
+
+.mapa-info {
+  flex: 1;                  /* Ocupa todo el espacio disponible menos el del mapa */
+  min-width: 200px;         /* Evita que se haga demasiado pequeño */
+}
+
+.mapa-visual {
+  flex: 1;                  /* Ajusta tamaño proporcional */
+  display: flex;
+  justify-content: flex-end; /* Mueve el mapa al borde derecho */
+}
+
+.mapa-svg {
+  max-width: 100%;          /* Se ajusta al contenedor */
+  height: auto;
+  border: 1px solid #ccc;   /* Opcional: borde para visualizarlo mejor */
+}

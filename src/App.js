@@ -52,12 +52,12 @@ function App() {
   };
 
   const opcionesPlanta = [
-    "plantaS2.svg",
-    "plantaS1.svg",
-    "planta00.svg",
-    "planta01.svg",
-    "planta02.svg",
-    "planta03.svg"
+    "mapas/plantaS2.svg",
+    "mapas/plantaS1.svg",
+    "mapas/planta00.svg",
+    "mapas/planta01.svg",
+    "mapas/planta02.svg",
+    "mapas/planta03.svg"
   ];
 
   const [plantaActiva, setPlantaActiva] = useState("planta00.svg");
@@ -71,25 +71,25 @@ function App() {
 
   // Mapeo de departamentos/categorías a plantas
   const DEPARTAMENTOS_POR_PLANTA = {
-    "plantaS2.svg": [
+    "mapas/plantaS2.svg": [
       "Instalaciones radiactivas",
       "Medicina nuclear",
       "Oncología radioterápica",
       "Unidad gamma"
     ],
-    "plantaS1.svg": [
+    "mapas/plantaS1.svg": [
       "Diagnóstico de imagen"
     ],
-    "planta00.svg": [
+    "mapas/planta00.svg": [
       "Área quirúrgica"
     ],
-    "planta01.svg": [
+    "mapas/planta01.svg": [
       "Zona ambulatoria y de urgencias"
     ],
-    "planta02.svg": [
+    "mapas/planta02.svg": [
       "Hospitalización"
     ],
-    "planta03.svg": [
+    "mapas/planta03.svg": [
       "Área de farmacia y laboratorio",
       "Laboratorios",
       "Farmacia hospitalaria",

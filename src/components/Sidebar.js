@@ -20,12 +20,12 @@ const Sidebar = ({
 
   // Mapear piso a archivo SVG
   const PISO_A_PLANTA = {
-    '-2': 'plantaS2.svg',
-    '-1': 'plantaS1.svg',
-    '0': 'planta00.svg',
-    '1': 'planta01.svg',
-    '2': 'planta02.svg',
-    '3': 'planta03.svg'
+    '-2': 'mapas/plantaS2.svg',
+    '-1': 'mapas/plantaS1.svg',
+    '0': 'mapas/planta00.svg',
+    '1': 'mapas/planta01.svg',
+    '2': 'mapas/planta02.svg',
+    '3': 'mapas/planta03.svg'
   };
 
   const categorias = [

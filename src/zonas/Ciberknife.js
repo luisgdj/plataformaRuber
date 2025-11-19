@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ZonaInteractiva.css';
+import '../styles/ZonaInteractiva.css';
 
 const Ciberknife = () => (
   <div className="zona-interactiva">

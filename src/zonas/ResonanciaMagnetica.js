@@ -1,11 +1,71 @@
+// src/zonas/ResonanciaMagnetica.js
 import React from 'react';
-import '../ZonaInteractiva.css';
+import '../styles/ZonaInteractiva.css';
+import '../styles/Mapa.css';
 
 const ResonanciaMagnetica = () => {
+  // Ruta relativa desde la carpeta /public
+  const rutaSvg = '/mapas/plantaS1-RM.svg';
+
   return (
     <div className="zona-interactiva">
       <h1>Resonancia magnética (RM)</h1>
+      <p>
+        Las instalaciones de Resonancia Magnética se dividen en cuatro zonas de seguridad, cada una con niveles de control de acceso y restricciones específicos.
+        <br /> Estas zonas están diseñadas para prevenir la entrada de objetos ferromagnéticos y personas no autorizadas en áreas de alto riesgo.
+      </p>
+      {/* Apartado del mapa con información */}
+      <section className="mapa-apartado">
+        <h2>Zonas de seguridad de Resonancia Magnética</h2>
+        <div className="mapa-contenedor">
+          {/* Información a la izquierda */}
+          <div className="mapa-info">
 
+            <h3>Zona I: Acceso libre</h3>
+            <ul>
+              <li> Áreas de espera y recepción. </li>
+              <li> El público general puede transitar sin restricciones. </li>
+            </ul>
+
+            <h3>Zona II: Transición</h3>
+            <ul>
+              <li> Zona supervisada por personal capacitado. </li>
+              <li> Se realiza la detección inicial de metales y se prepara a los pacientes. </li>
+            </ul>
+
+            <h3>Zona III: Acceso restringido</h3>
+            <ul>
+              <li> Solo para personal autorizado y pacientes que han pasado el cribado de seguridad. </li>
+              <li> Se retiran objetos metálicos. </li>
+            </ul>
+
+            <h3>Zona IV: Sala del imán</h3>
+            <ul>
+              <li> El equipo de Resonancia Magnética. </li>
+              <li> Acceso estrictamente controlado debido al potente campo magnético. </li>
+              <li> Acceso estrictamente controlado debido al potente campo magnético. </li>
+              <li> Solo personal de Resonancia Magnética y paciente durante exploración. </li>
+            </ul>
+            
+          </div>
+
+          {/* Mapa a la derecha */}
+          <div className="mapa-visual">
+            <object
+              id="svgMapa"
+              type="image/svg+xml"
+              data={rutaSvg}
+              className="mapa-svg"
+              aria-label="Mapa de las zonas de Resonancia Magnética"
+              style={{ width: '400px', height: '300px' }} // tamaño reducido
+            >
+              No se pudo cargar el mapa.
+            </object>
+          </div>
+        </div>
+      </section>
+
+      {/* Resto del contenido */}
       <section>
         <h2>Alertas activas</h2>
         <ul className="alertas-lista">
@@ -30,21 +90,9 @@ const ResonanciaMagnetica = () => {
       <section>
         <h2>Documentación</h2>
         <ul className="documentos-lista">
-          <li>
-            <a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">
-              Protocolo de Seguridad en RM
-            </a>
-          </li>
-          <li>
-            <a href="/docs/EtiquetadoMaterialesRM.pdf" target="_blank" rel="noopener noreferrer">
-              Etiquetado de Materiales y Dispositivos RM
-            </a>
-          </li>
-          <li>
-            <a href="/docs/ManualSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">
-              Manual de Seguridad RM
-            </a>
-          </li>
+          <li><a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank" rel="noreferrer">Protocolo de Seguridad</a></li>
+          <li><a href="/docs/EtiquetadoMaterialesRM.pdf" target="_blank" rel="noreferrer">Etiquetado de Materiales</a></li>
+          <li><a href="/docs/ManualSeguridadRM.pdf" target="_blank" rel="noreferrer">Manual de Seguridad</a></li>
         </ul>
       </section>
 
