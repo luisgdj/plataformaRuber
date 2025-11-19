@@ -15,22 +15,20 @@ const PanelInfo = ({ zona, tipo }) => {
     );
   }
 
-  // Separar partes de la zona
+  // Partes de la zona (categoria - subcat - zona)
   const partes = zona.split(' - ');
-  const nombreZona = partes[partes.length - 1]; // Último segmento
+  const nombreZona = partes[partes.length - 1];
 
-  // Construir nombre del departamento (sin repetir la zona)
   let nombreDepartamento = '';
   if (partes.length === 3) {
     nombreDepartamento = `${partes[1]} (${partes[0]})`;
   } else if (partes.length === 2) {
-    nombreDepartamento = `${partes[0]}`;
+    nombreDepartamento = partes[0];
   }
 
-  // Mapeo de rutas personalizadas
   const rutasZona = {
     'Resonancia Magnética (RM)': '/zonas/resonancia-magnetica',
-    'Radiología convencional': '/zonas/radiologia-convencional',
+    'Radiología Convencional': '/zonas/radiologia-convencional',
     'Tomografía Axial Computarizada (TAC)': '/zonas/tac',
     'Ecografía': '/zonas/ecografia',
     'Mamografía': '/zonas/mamografia',
@@ -42,16 +40,16 @@ const PanelInfo = ({ zona, tipo }) => {
     'Gamma Knife': '/zonas/gammaknife',
   };
 
-  const nombresExtendidos = {
-    'SPECT-TAC': 'Tomografía Computarizada por Emisión de Fotón Único (SPECT-TAC)',
-    'PET-TAC': 'Tomografía por Emisión de Positrones (PET-TAC)',
-  };
-
+  const nombreVisible = nombreZona;
   const ruta = rutasZona[nombreZona];
-  const nombreVisible = nombresExtendidos[nombreZona] || nombreZona;
 
-  // Si el usuario ha elegido "test" y está en RM, mostramos el test dentro del panel
-  if (tipo === 'test' && nombreZona === 'Resonancia Magnética (RM)') {
+  // --------------------------------------------------------
+  //            🔥 TEST INTERACTIVO DE RM
+  // --------------------------------------------------------
+
+  const zonaEsRM = nombreZona.toLowerCase().includes("resonancia");
+
+  if (tipo === "test" && zonaEsRM) {
     return (
       <div className="panel-info">
         <h2>{nombreVisible}</h2>
@@ -63,17 +61,19 @@ const PanelInfo = ({ zona, tipo }) => {
         )}
 
         <p className="panel-intro">
-          Test interactivo de seguridad en resonancia magnética.
+          Test interactivo de seguridad en Resonancia Magnética.
           Responde a las preguntas y tu puntuación quedará registrada.
         </p>
 
-        {/* 🔥 Aquí se muestra el test */}
         <TestRM />
       </div>
     );
   }
 
-  // Si el tipo es test pero la zona aún no tiene uno definido
+  // --------------------------------------------------------
+  //            🔥 SI ES TEST PERO NO TIENE TEST
+  // --------------------------------------------------------
+
   if (tipo === 'test') {
     return (
       <div className="panel-info">
@@ -91,15 +91,16 @@ const PanelInfo = ({ zona, tipo }) => {
         </p>
 
         {ruta && (
-          <button onClick={() => navigate(ruta)}>
-            Ir a la página de la zona
-          </button>
+          <button onClick={() => navigate(ruta)}>Ir a la página de la zona</button>
         )}
       </div>
     );
   }
 
-  // Vista general (alertas / texto / vídeo) – por ahora mensaje genérico
+  // --------------------------------------------------------
+  //            🔥 VISTAS NORMALES
+  // --------------------------------------------------------
+
   return (
     <div className="panel-info">
       <h2>{nombreVisible}</h2>
@@ -133,8 +134,8 @@ const PanelInfo = ({ zona, tipo }) => {
 
       {!['alertas', 'video', 'texto', 'test'].includes(tipo) && (
         <p>
-          Esta zona contiene información especializada. Puedes acceder a su página
-          personalizada para ver vídeos, protocolos, alertas y más.
+          Esta zona contiene información especializada. Puedes acceder a su página personalizada
+          para ver vídeos, protocolos, alertas y más.
         </p>
       )}
 

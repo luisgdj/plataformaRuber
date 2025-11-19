@@ -13,7 +13,9 @@ const Sidebar = ({
   departamentoActivo,
   setDepartamentoActivo,
   onZonaClick,
-  onDepartamentoClick
+  onDepartamentoClick,
+  tipoContenido,
+  setTipoContenido
 }) => {
 
   const pisos = ['-2', '-1', '0', '1', '2', '3'];
@@ -28,6 +30,7 @@ const Sidebar = ({
     '3': 'mapas/planta03.svg'
   };
 
+  // Categorías y zonas
   const categorias = [
     {
       nombre: 'Diagnóstico de imagen',
@@ -47,10 +50,20 @@ const Sidebar = ({
         { nombre: 'Unidad gamma', zonas: ['Gamma Knife'] }
       ]
     },
-    { nombre: 'Área quirúrgica', zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización central'] },
-    { nombre: 'Hospitalización', zonas: ['Habitaciones y controles de enfermería', 'Áreas de aislamiento'] },
-    { nombre: 'Zona ambulatoria y de urgencias', zonas: ['Urgencias', 'Consultas externas', 'Hospital de día'] },
-    { nombre: 'Área de farmacia y laboratorio',
+    {
+      nombre: 'Área quirúrgica',
+      zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización central']
+    },
+    {
+      nombre: 'Hospitalización',
+      zonas: ['Habitaciones y controles de enfermería', 'Áreas de aislamiento']
+    },
+    {
+      nombre: 'Zona ambulatoria y de urgencias',
+      zonas: ['Urgencias', 'Consultas externas', 'Hospital de día']
+    },
+    {
+      nombre: 'Área de farmacia y laboratorio',
       subcategorias: [
         { nombre: 'Laboratorios', zonas: ['Bioquímica', 'Microbiología', 'Hematología'] },
         { nombre: 'Farmacia hospitalaria', zonas: [] },
@@ -59,6 +72,7 @@ const Sidebar = ({
     }
   ];
 
+  // Expandir/contraer categoría
   const toggleCategoria = (nombre) => {
     if (categoriaActiva === nombre) {
       setCategoriaActiva(null);
@@ -69,6 +83,7 @@ const Sidebar = ({
     }
   };
 
+  // Expandir/contraer subcategoría
   const toggleSubcategoria = (nombre) => {
     if (subcategoriaActiva === nombre) {
       setSubcategoriaActiva(null);
@@ -78,7 +93,7 @@ const Sidebar = ({
     }
   };
 
-  // Solo cambia la planta, no abre departamentos
+  // Cambio de planta
   const handlePisoClick = (piso) => {
     const planta = PISO_A_PLANTA[piso];
     if (!planta) return;
@@ -92,6 +107,7 @@ const Sidebar = ({
 
   return (
     <div className="sidebar">
+
       {/* Selector de pisos */}
       <div className="filtro">
         <h3>Pisos</h3>
@@ -108,11 +124,13 @@ const Sidebar = ({
         </div>
       </div>
 
-      {/* Lista de departamentos */}
+      {/* Departamentos */}
       <h2 style={{ marginTop: '1rem' }}>Áreas hospitalarias</h2>
+
       <div className="departamentos-lista">
         {categorias.map((cat) => (
           <div key={cat.nombre} className="departamento">
+
             <button
               className={`dep-btn ${categoriaActiva === cat.nombre ? 'activo' : ''}`}
               onClick={() => toggleCategoria(cat.nombre)}
@@ -120,7 +138,7 @@ const Sidebar = ({
               {cat.nombre}
             </button>
 
-            {/* Zonas simples */}
+            {/* Zonas directas */}
             {categoriaActiva === cat.nombre && cat.zonas && (
               <ul className="salas-lista">
                 {cat.zonas.map((zona) => (
@@ -147,7 +165,7 @@ const Sidebar = ({
                       {sub.nombre}
                     </button>
 
-                    {subcategoriaActiva === sub.nombre && sub.zonas.length > 0 && (
+                    {subcategoriaActiva === sub.nombre && (
                       <ul className="salas-lista">
                         {sub.zonas.map((zona) => (
                           <li
@@ -164,9 +182,13 @@ const Sidebar = ({
                 ))}
               </ul>
             )}
+
           </div>
         ))}
       </div>
+
+      
+
     </div>
   );
 };
