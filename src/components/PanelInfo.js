@@ -63,10 +63,11 @@ const PanelInfo = ({ zona, tipo }) => {
         )}
 
         <p className="panel-intro">
-          Test interactivo de seguridad en resonancia magnética. Responde a las preguntas y
-          tu puntuación quedará registrada.
+          Test interactivo de seguridad en resonancia magnética.
+          Responde a las preguntas y tu puntuación quedará registrada.
         </p>
 
+        {/* 🔥 Aquí se muestra el test */}
         <TestRM />
       </div>
     );
