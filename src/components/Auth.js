@@ -5,10 +5,11 @@ import '../styles/Auth.css';
 
 const Auth = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
+
+  // Ahora solo tiene correo y contraseña
   const [formData, setFormData] = useState({
-    nombre: '',
-    apellidos: '',
-    dni: ''
+    correo: '',
+    contraseña: ''
   });
 
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Auth = ({ onLogin }) => {
     }
   };
 
- return (
+  return (
     <div className="auth-page">
       <div className="auth-card">
         <img
@@ -51,34 +52,27 @@ const Auth = ({ onLogin }) => {
           className="auth-logo"
         />
 
-
         <h2>{isLogin ? "Iniciar sesión" : "Registrarse"}</h2>
 
         <form onSubmit={handleSubmit}>
           <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={formData.nombre}
+            type="email"
+            name="correo"
+            placeholder="Correo electrónico"
+            value={formData.correo}
             onChange={handleChange}
             required
           />
+
           <input
-            type="text"
-            name="apellidos"
-            placeholder="Apellidos"
-            value={formData.apellidos}
+            type="password"
+            name="contraseña"
+            placeholder="Contraseña"
+            value={formData.contraseña}
             onChange={handleChange}
             required
           />
-          <input
-            type="text"
-            name="dni"
-            placeholder="DNI"
-            value={formData.dni}
-            onChange={handleChange}
-            required
-          />
+
           <button type="submit">
             {isLogin ? "Entrar" : "Registrarse"}
           </button>
