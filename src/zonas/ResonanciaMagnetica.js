@@ -97,7 +97,6 @@ const ResonanciaMagnetica = () => {
 
       {/* ===================== TEST INTERACTIVO REAL ===================== */}
       <section>
-        <h2>Test interactivo</h2>
         <TestRM />
       </section>
 

@@ -75,26 +75,7 @@ const PanelInfo = ({ zona, tipo }) => {
   // --------------------------------------------------------
 
   if (tipo === 'test') {
-    return (
-      <div className="panel-info">
-        <h2>{nombreVisible}</h2>
-
-        {nombreDepartamento && (
-          <p className="panel-departamento">
-            <strong>Departamento:</strong> {nombreDepartamento}
-          </p>
-        )}
-
-        <p>
-          En esta zona todavía no hay un test interactivo disponible. Puedes acceder a su
-          página para consultar alertas, vídeos o documentación.
-        </p>
-
-        {ruta && (
-          <button onClick={() => navigate(ruta)}>Ir a la página de la zona</button>
-        )}
-      </div>
-    );
+    return null;
   }
 
   // --------------------------------------------------------
