@@ -17,8 +17,7 @@ const preguntas = [
   },
   {
     id: 2,
-    pregunta:
-      "¿Qué zona descrita por el ACR corresponde a la sala donde está el imán?",
+    pregunta: "¿Qué zona descrita por el ACR corresponde a la sala donde está el imán?",
     opciones: ["Zona 1", "Zona 4", "Zona de control", "Zona técnica"],
     respuesta: ["Zona 4"],
     multiple: false
@@ -37,8 +36,7 @@ const preguntas = [
   },
   {
     id: 4,
-    pregunta:
-      "¿Cuál es la medida más sencilla para protegerse del ruido durante una RM?",
+    pregunta: "¿Cuál es la medida más sencilla para protegerse del ruido durante una RM?",
     opciones: [
       "Poner almohadas alrededor de la cabeza del paciente",
       "Bajar el volumen del sistema de RM",
@@ -79,13 +77,15 @@ const TestRM = () => {
   const [puntuacion, setPuntuacion] = useState(0);
 
   const handleSelect = (id, opcion, multiple) => {
+    if (corregido) return;
+
     setSelecciones((prev) => {
       if (!multiple) return { ...prev, [id]: [opcion] };
 
-      const actuales = prev[id] || [];
-      return actuales.includes(opcion)
-        ? { ...prev, [id]: actuales.filter((o) => o !== opcion) }
-        : { ...prev, [id]: [...actuales, opcion] };
+      const prevSel = prev[id] || [];
+      return prevSel.includes(opcion)
+        ? { ...prev, [id]: prevSel.filter((o) => o !== opcion) }
+        : { ...prev, [id]: [...prevSel, opcion] };
     });
   };
 
@@ -94,27 +94,36 @@ const TestRM = () => {
 
     preguntas.forEach((p) => {
       const seleccionadas = selecciones[p.id] || [];
-      const correctas = p.respuesta;
+      const correctas = [...p.respuesta].sort();
+      const elegidas = [...seleccionadas].sort();
 
-      const esCorrecta =
-        JSON.stringify([...seleccionadas].sort()) ===
-        JSON.stringify([...correctas].sort());
-
-      if (esCorrecta) puntos++;
+      if (JSON.stringify(correctas) === JSON.stringify(elegidas)) puntos++;
     });
 
     setPuntuacion(puntos);
     setCorregido(true);
 
-    // Guardar historial
+    // 🔥 Guardar resultado + historial
     try {
       const token = localStorage.getItem("token");
       const payload = JSON.parse(atob(token.split(".")[1]));
       const id_usuario = payload.id;
       const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+      // Guardar resultado final
       await axios.post(
-        `${API_URL}/api/test/guardar-historial`,
+        `${API_URL}/api/test/guardar`,
+        {
+          id_usuario,
+          nombre_test: "Resonancia Magnética",
+          puntuacion: puntos
+        },
+        { headers: { Authorization: token } }
+      );
+
+      // Guardar historial detallado
+      await axios.post(
+        `${API_URL}/api/test/historial`,
         {
           id_usuario,
           nombre_test: "Resonancia Magnética",
@@ -130,13 +139,11 @@ const TestRM = () => {
 
   return (
     <div className="test-container">
-
       <h2>Test interactivo</h2>
 
       {preguntas.map((p) => {
         const seleccionadas = selecciones[p.id] || [];
         const correctas = p.respuesta;
-
         const esCorrecta =
           JSON.stringify([...seleccionadas].sort()) ===
           JSON.stringify([...correctas].sort());
@@ -153,8 +160,10 @@ const TestRM = () => {
                   <button
                     key={opcion}
                     className={`opcion-btn 
+                      ${!corregido && seleccionada ? "seleccionada" : ""}
                       ${corregido && seleccionada && esCorrecta ? "correcta" : ""}
                       ${corregido && seleccionada && !esCorrecta ? "incorrecta" : ""}
+                      ${corregido && !seleccionada && esCorrecta ? "correcta-oculta" : ""}
                     `}
                     onClick={() => handleSelect(p.id, opcion, p.multiple)}
                     disabled={corregido}
