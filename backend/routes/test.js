@@ -4,6 +4,7 @@ import { guardarResultado, obtenerResultados } from "../controllers/testControll
 const router = express.Router();
 
 router.post("/guardar", guardarResultado);
+router.post('/guardar-historial', authMiddleware, guardarHistorial);
 router.get("/resultados/:id_usuario", obtenerResultados);
 
 export default router;

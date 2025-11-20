@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../styles/TestRM.css";
 import axios from "axios";
+import "../styles/TestRM.css";
 
 const preguntas = [
   {
@@ -79,7 +79,6 @@ const TestRM = () => {
   const [puntuacion, setPuntuacion] = useState(0);
 
   const handleSelect = (id, opcion, multiple) => {
-    if (corregido) return;
     setSelecciones((prev) => {
       if (!multiple) return { ...prev, [id]: [opcion] };
 
@@ -94,99 +93,95 @@ const TestRM = () => {
     let puntos = 0;
 
     preguntas.forEach((p) => {
-      const seleccion = selecciones[p.id] || [];
-      const correctas = [...p.respuesta].sort();
-      const elegidas = [...seleccion].sort();
+      const seleccionadas = selecciones[p.id] || [];
+      const correctas = p.respuesta;
 
-      if (JSON.stringify(correctas) === JSON.stringify(elegidas)) {
-        puntos++;
-      }
+      const esCorrecta =
+        JSON.stringify([...seleccionadas].sort()) ===
+        JSON.stringify([...correctas].sort());
+
+      if (esCorrecta) puntos++;
     });
 
     setPuntuacion(puntos);
     setCorregido(true);
 
-    // Guardar en backend
+    // Guardar historial
     try {
       const token = localStorage.getItem("token");
-      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
       const payload = JSON.parse(atob(token.split(".")[1]));
+      const id_usuario = payload.id;
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
       await axios.post(
-        `${API_URL}/api/test/guardar`,
+        `${API_URL}/api/test/guardar-historial`,
         {
-          id_usuario: payload.id,
+          id_usuario,
           nombre_test: "Resonancia Magnética",
-          puntuacion: puntos
+          puntuacion: puntos,
+          respuestas: selecciones
         },
         { headers: { Authorization: token } }
       );
     } catch (error) {
-      console.error("Error guardando puntuación:", error);
+      console.error("Error guardando historial:", error);
     }
-  };
-
-  const esCorrecta = (p, opcion) => {
-    return p.respuesta.includes(opcion);
-  };
-
-  const esSeleccionada = (id, opcion) => {
-    return selecciones[id]?.includes(opcion);
   };
 
   return (
     <div className="test-container">
+
       <h2>Test interactivo</h2>
 
-      {preguntas.map((p) => (
-        <div key={p.id} className="pregunta">
-          <p className="texto-pregunta">{p.pregunta}</p>
+      {preguntas.map((p) => {
+        const seleccionadas = selecciones[p.id] || [];
+        const correctas = p.respuesta;
 
-          <div className="opciones">
-            {p.opciones.map((opcion) => {
-              let clase = "opcion-btn";
+        const esCorrecta =
+          JSON.stringify([...seleccionadas].sort()) ===
+          JSON.stringify([...correctas].sort());
 
-              if (corregido) {
-                if (esSeleccionada(p.id, opcion) && esCorrecta(p, opcion))
-                  clase += " correcta";
+        return (
+          <div key={p.id} className="pregunta">
+            <p className="texto-pregunta">{p.pregunta}</p>
 
-                if (esSeleccionada(p.id, opcion) && !esCorrecta(p, opcion))
-                  clase += " incorrecta";
+            <div className="opciones">
+              {p.opciones.map((opcion) => {
+                const seleccionada = seleccionadas.includes(opcion);
 
-                if (!esSeleccionada(p.id, opcion) && esCorrecta(p, opcion))
-                  clase += " correcta-oculta";
-              } else {
-                if (esSeleccionada(p.id, opcion)) clase += " seleccionada";
-              }
+                return (
+                  <button
+                    key={opcion}
+                    className={`opcion-btn 
+                      ${corregido && seleccionada && esCorrecta ? "correcta" : ""}
+                      ${corregido && seleccionada && !esCorrecta ? "incorrecta" : ""}
+                    `}
+                    onClick={() => handleSelect(p.id, opcion, p.multiple)}
+                    disabled={corregido}
+                  >
+                    {opcion}
 
-              return (
-                <button
-                  key={opcion}
-                  className={clase}
-                  onClick={() => handleSelect(p.id, opcion, p.multiple)}
-                  disabled={corregido}
-                >
-                  {opcion}
+                    {corregido && seleccionada && esCorrecta && (
+                      <span className="tick">✓</span>
+                    )}
 
-                  {corregido && esSeleccionada(p.id, opcion) && esCorrecta(p, opcion) && (
-                    <span className="icono correcto">✓</span>
-                  )}
+                    {corregido && seleccionada && !esCorrecta && (
+                      <span className="cross">✗</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
-                  {corregido && esSeleccionada(p.id, opcion) && !esCorrecta(p, opcion) && (
-                    <span className="icono incorrecto">✗</span>
-                  )}
-                </button>
-              );
-            })}
+            {/* Solo mostrar si falló */}
+            {corregido && !esCorrecta && (
+              <p className="respuesta-correcta">
+                ✓ Respuesta correcta: <strong>{correctas.join(", ")}</strong>
+              </p>
+            )}
           </div>
-
-          {corregido && (
-            <p className="respuesta-correcta">
-              ✔ Respuesta correcta: <strong>{p.respuesta.join(", ")}</strong>
-            </p>
-          )}
-        </div>
-      ))}
+        );
+      })}
 
       {!corregido && (
         <button className="corregir-btn" onClick={corregirTest}>

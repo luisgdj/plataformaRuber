@@ -37,3 +37,19 @@ export const obtenerResultados = async (req, res) => {
     res.status(500).json({ message: "Error en el servidor" });
   }
 };
+
+exports.guardarHistorial = async (req, res) => {
+  try {
+    const { id_usuario, nombre_test, puntuacion, respuestas } = req.body;
+
+    await db.query(
+      "INSERT INTO historial_test (id_usuario, nombre_test, puntuacion, respuestas) VALUES (?, ?, ?, ?)",
+      [id_usuario, nombre_test, puntuacion, JSON.stringify(respuestas)]
+    );
+
+    res.json({ message: "Historial guardado" });
+  } catch (error) {
+    console.error("Error historial:", error);
+    res.status(500).json({ message: "Error guardando historial" });
+  }
+};
