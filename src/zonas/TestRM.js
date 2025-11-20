@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "../styles/TestRM.css";
+import axios from "axios";
 
 const preguntas = [
   {
@@ -62,7 +62,7 @@ const preguntas = [
   {
     id: 6,
     pregunta: "Escoge los dos objetos que NUNCA deben entrar a la sala de RM:",
-        opciones: [
+    opciones: [
       "Tijeras de titanio",
       "Silla de ruedas etiquetada como “MR Safe”",
       "Oxígeno portátil de acero",
@@ -79,17 +79,14 @@ const TestRM = () => {
   const [puntuacion, setPuntuacion] = useState(0);
 
   const handleSelect = (id, opcion, multiple) => {
+    if (corregido) return;
     setSelecciones((prev) => {
-      if (!multiple) {
-        return { ...prev, [id]: [opcion] };
-      }
+      if (!multiple) return { ...prev, [id]: [opcion] };
 
       const actuales = prev[id] || [];
-      if (actuales.includes(opcion)) {
-        return { ...prev, [id]: actuales.filter((o) => o !== opcion) };
-      } else {
-        return { ...prev, [id]: [...actuales, opcion] };
-      }
+      return actuales.includes(opcion)
+        ? { ...prev, [id]: actuales.filter((o) => o !== opcion) }
+        : { ...prev, [id]: [...actuales, opcion] };
     });
   };
 
@@ -97,13 +94,11 @@ const TestRM = () => {
     let puntos = 0;
 
     preguntas.forEach((p) => {
-      const seleccionadas = selecciones[p.id] || [];
-      const correctas = p.respuesta;
+      const seleccion = selecciones[p.id] || [];
+      const correctas = [...p.respuesta].sort();
+      const elegidas = [...seleccion].sort();
 
-      if (
-        JSON.stringify([...correctas].sort()) ===
-        JSON.stringify([...seleccionadas].sort())
-      ) {
+      if (JSON.stringify(correctas) === JSON.stringify(elegidas)) {
         puntos++;
       }
     });
@@ -111,29 +106,32 @@ const TestRM = () => {
     setPuntuacion(puntos);
     setCorregido(true);
 
-    // 🔥 GUARDAR PUNTUACIÓN EN BACKEND
+    // Guardar en backend
     try {
       const token = localStorage.getItem("token");
       const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-
-      // Extraer id_usuario del token
       const payload = JSON.parse(atob(token.split(".")[1]));
-      const id_usuario = payload.id;
 
       await axios.post(
         `${API_URL}/api/test/guardar`,
         {
-          id_usuario,
+          id_usuario: payload.id,
           nombre_test: "Resonancia Magnética",
           puntuacion: puntos
         },
         { headers: { Authorization: token } }
       );
-
-      console.log("Puntuación guardada correctamente");
     } catch (error) {
       console.error("Error guardando puntuación:", error);
     }
+  };
+
+  const esCorrecta = (p, opcion) => {
+    return p.respuesta.includes(opcion);
+  };
+
+  const esSeleccionada = (id, opcion) => {
+    return selecciones[id]?.includes(opcion);
   };
 
   return (
@@ -145,19 +143,48 @@ const TestRM = () => {
           <p className="texto-pregunta">{p.pregunta}</p>
 
           <div className="opciones">
-            {p.opciones.map((opcion) => (
-              <button
-                key={opcion}
-                className={`opcion-btn ${
-                  selecciones[p.id]?.includes(opcion) ? "seleccionada" : ""
-                }`}
-                onClick={() => handleSelect(p.id, opcion, p.multiple)}
-                disabled={corregido}
-              >
-                {opcion}
-              </button>
-            ))}
+            {p.opciones.map((opcion) => {
+              let clase = "opcion-btn";
+
+              if (corregido) {
+                if (esSeleccionada(p.id, opcion) && esCorrecta(p, opcion))
+                  clase += " correcta";
+
+                if (esSeleccionada(p.id, opcion) && !esCorrecta(p, opcion))
+                  clase += " incorrecta";
+
+                if (!esSeleccionada(p.id, opcion) && esCorrecta(p, opcion))
+                  clase += " correcta-oculta";
+              } else {
+                if (esSeleccionada(p.id, opcion)) clase += " seleccionada";
+              }
+
+              return (
+                <button
+                  key={opcion}
+                  className={clase}
+                  onClick={() => handleSelect(p.id, opcion, p.multiple)}
+                  disabled={corregido}
+                >
+                  {opcion}
+
+                  {corregido && esSeleccionada(p.id, opcion) && esCorrecta(p, opcion) && (
+                    <span className="icono correcto">✓</span>
+                  )}
+
+                  {corregido && esSeleccionada(p.id, opcion) && !esCorrecta(p, opcion) && (
+                    <span className="icono incorrecto">✗</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
+
+          {corregido && (
+            <p className="respuesta-correcta">
+              ✔ Respuesta correcta: <strong>{p.respuesta.join(", ")}</strong>
+            </p>
+          )}
         </div>
       ))}
 
