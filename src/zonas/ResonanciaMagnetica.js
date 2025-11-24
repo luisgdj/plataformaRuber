@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import '../styles/ZonaInteractiva.css';
 import '../styles/Mapa.css';
-import TestRM from '../zonas/tests/TestRM';
+import TestRM from '../zonas/TestRM';
 
 const ResonanciaMagnetica = () => {
   const rutaSvg = '/mapas/plantaS1-RM.svg';
