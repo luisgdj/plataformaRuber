@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/PanelInfo.css';
 import { useNavigate } from 'react-router-dom';
-import TestRM from '../zonas/TestRM';
+import TestRM from '../zonas/tests/TestRM';
 
 const PanelInfo = ({ zona, tipo }) => {
   const navigate = useNavigate();
