@@ -1,11 +1,18 @@
 // src/zonas/ResonanciaMagnetica.js
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/ZonaInteractiva.css';
 import '../styles/Mapa.css';
 import TestRM from '../zonas/tests/TestRM';
 
 const ResonanciaMagnetica = () => {
   const rutaSvg = '/mapas/plantaS1-RM.svg';
+  
+  // Estado para controlar qué zona está expandida
+  const [zonaExpandida, setZonaExpandida] = useState(null);
+
+  const toggleZona = (zona) => {
+    setZonaExpandida(zonaExpandida === zona ? null : zona);
+  };
 
   return (
     <div className="zona-interactiva">
@@ -18,46 +25,71 @@ const ResonanciaMagnetica = () => {
       {/* ===================== MAPA ===================== */}
       <section className="mapa-apartado">
         <h2>Zonas de seguridad de Resonancia Magnética</h2>
-        <div className="mapa-contenedor">
+        <div className="mapa-contenedor-rm">
 
-          <div className="mapa-info">
-            <h3>Zona I: Acceso libre</h3>
-            <ul>
-              <li>Áreas de espera y recepción.</li>
-              <li>Tránsito libre para el público general.</li>
-            </ul>
+          <div className="mapa-info-rm">
+            <div className="zona-info-card zona-1">
+              <h3 onClick={() => toggleZona('zona1')} className="zona-titulo-clickable">
+                <span className={`zona-icono ${zonaExpandida === 'zona1' ? 'expandido' : ''}`}>▶</span>
+                Zona I: Acceso libre
+              </h3>
+              {zonaExpandida === 'zona1' && (
+                <ul className="zona-contenido-desplegable">
+                  <li>Áreas de espera y recepción.</li>
+                  <li>Tránsito libre para el público general.</li>
+                </ul>
+              )}
+            </div>
 
-            <h3>Zona II: Transición</h3>
-            <ul>
-              <li>Supervisada por personal capacitado.</li>
-              <li>Se realiza detección inicial de metales.</li>
-            </ul>
+            <div className="zona-info-card zona-2">
+              <h3 onClick={() => toggleZona('zona2')} className="zona-titulo-clickable">
+                <span className={`zona-icono ${zonaExpandida === 'zona2' ? 'expandido' : ''}`}>▶</span>
+                Zona II: Transición
+              </h3>
+              {zonaExpandida === 'zona2' && (
+                <ul className="zona-contenido-desplegable">
+                  <li>Supervisada por personal capacitado.</li>
+                  <li>Se realiza detección inicial de metales.</li>
+                </ul>
+              )}
+            </div>
 
-            <h3>Zona III: Acceso restringido</h3>
-            <ul>
-              <li>Solo personal autorizado.</li>
-              <li>Se retiran objetos metálicos.</li>
-            </ul>
+            <div className="zona-info-card zona-3">
+              <h3 onClick={() => toggleZona('zona3')} className="zona-titulo-clickable">
+                <span className={`zona-icono ${zonaExpandida === 'zona3' ? 'expandido' : ''}`}>▶</span>
+                Zona III: Acceso restringido
+              </h3>
+              {zonaExpandida === 'zona3' && (
+                <ul className="zona-contenido-desplegable">
+                  <li>Solo personal autorizado.</li>
+                  <li>Se retiran objetos metálicos.</li>
+                </ul>
+              )}
+            </div>
 
-            <h3>Zona IV: Sala del imán</h3>
-            <ul>
-              <li>Ubicación del equipo RM.</li>
-              <li>Acceso completamente controlado.</li>
-              <li>Solo personal de RM durante la exploración.</li>
-            </ul>
+            <div className="zona-info-card zona-4">
+              <h3 onClick={() => toggleZona('zona4')} className="zona-titulo-clickable">
+                <span className={`zona-icono ${zonaExpandida === 'zona4' ? 'expandido' : ''}`}>▶</span>
+                Zona IV: Sala del imán
+              </h3>
+              {zonaExpandida === 'zona4' && (
+                <ul className="zona-contenido-desplegable">
+                  <li>Ubicación del equipo RM.</li>
+                  <li>Acceso completamente controlado.</li>
+                  <li>Solo personal de RM durante la exploración.</li>
+                </ul>
+              )}
+            </div>
           </div>
 
-          <div className="mapa-visual">
-            <object
-              id="svgMapa"
-              type="image/svg+xml"
-              data={rutaSvg}
-              className="mapa-svg"
-              style={{ width: '400px', height: '300px' }}
-            >
-              No se pudo cargar el mapa.
-            </object>
+          <div className="mapa-visual-rm">
+            <img 
+              src={rutaSvg}
+              alt="Mapa de zonas de seguridad RM"
+              className="mapa-imagen-rm"
+            />
           </div>
+
         </div>
       </section>
 
