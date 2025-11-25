@@ -17,13 +17,21 @@ const preguntas = [
   },
   {
     id: 2,
-    pregunta: "¿Qué zona descrita por el ACR corresponde a la sala donde está el imán?",
+    pregunta: "¿El imán está siempre encendido?",
+    opciones: ["Sí", "No"],
+    respuesta: ["Sí"],
+    multiple: false
+  },
+  {
+    id: 3,
+    pregunta:
+      "¿Qué zona descrita por el ACR corresponde a la sala donde está el imán?",
     opciones: ["Zona 1", "Zona 4", "Zona de control", "Zona técnica"],
     respuesta: ["Zona 4"],
     multiple: false
   },
   {
-    id: 3,
+    id: 4,
     pregunta: "Antes de entrar a la sala de RM debes…",
     opciones: [
       "Preguntar si hace frío",
@@ -35,7 +43,7 @@ const preguntas = [
     multiple: false
   },
   {
-    id: 4,
+    id: 5,
     pregunta: "¿Cuál es la medida más sencilla para protegerse del ruido durante una RM?",
     opciones: [
       "Poner almohadas alrededor de la cabeza del paciente",
@@ -46,7 +54,7 @@ const preguntas = [
     multiple: false
   },
   {
-    id: 5,
+    id: 6,
     pregunta: "Un “quench” es…",
     opciones: [
       "Un apagado de emergencia del imán",
@@ -58,16 +66,83 @@ const preguntas = [
     multiple: false
   },
   {
-    id: 6,
-    pregunta: "Escoge los dos objetos que NUNCA deben entrar a la sala de RM:",
+    id: 7,
+    pregunta: "Escoge tres objetos que NUNCA deben entrar a la sala de RM:",
     opciones: [
-      "Tijeras de titanio",
+      "Tijeras",
       "Silla de ruedas etiquetada como “MR Safe”",
       "Oxígeno portátil de acero",
       "Tarjeta bancaria"
     ],
-    respuesta: ["Oxígeno portátil de acero", "Tarjeta bancaria"],
+    respuesta: ["Tijeras", "Oxígeno portátil de acero", "Tarjeta bancaria"],
     multiple: true
+  },
+  {
+    id: 8,
+    pregunta: "¿Quién puede autorizar la entrada a la sala del imán (Zona 4)?",
+    opciones: [
+      "Cualquier persona con uniforme del hospital",
+      "Cualquier adulto",
+      "Personal entrenado en seguridad RM"
+    ],
+    respuesta: ["Personal entrenado en seguridad RM"],
+    multiple: false
+  },
+  {
+    id: 9,
+    pregunta:
+      "¿Cuál es el mayor riesgo al entrar con objetos metálicos ferromagnéticos a la sala de RM?",
+    opciones: [
+      "Que se rompan",
+      "Que hagan interferencias",
+      "Que sean atraídos violentamente por el imán",
+      "Que hagan ruido"
+    ],
+    respuesta: ["Que sean atraídos violentamente por el imán"],
+    multiple: false
+  },
+  {
+    id: 10,
+    pregunta: "Escoge dos objetos que NUNCA deben entrar a la sala de RM:",
+    opciones: [
+      "Grapas metálicas de quirófano",
+      "Ropa térmica o leggins deportivos",
+      "Termómetro digital",
+      "Monitor de constantes vitales con etiqueta MR Conditional"
+    ],
+    respuesta: ["Grapas metálicas de quirófano", "Ropa térmica o leggins deportivos"],
+    multiple: true
+  },
+  {
+    id: 11,
+    pregunta: "¿Qué etiqueta indica que un objeto NO puede entrar en la sala de RM?",
+    opciones: ["MR Safe", "MR Conditional", "MR Friendly", "MR Unsafe"],
+    respuesta: ["MR Unsafe"],
+    multiple: false
+  },
+  {
+    id: 12,
+    pregunta: "¿Qué debe hacer un usuario con implante metálico no verificado?",
+    opciones: [
+      "Entrar solo a Zona 2",
+      "Entrar a Zona 4 si no hay paciente",
+      "No entrar nunca en el entorno de MR",
+      "Tocar el imán para ver si hay atracción"
+    ],
+    respuesta: ["No entrar nunca en el entorno de MR"],
+    multiple: false
+  },
+  {
+    id: 13,
+    pregunta: "¿Para qué sirve la “Parada de emergencia”?",
+    opciones: [
+      "Para apagar el imán",
+      "Para detener la mesa o el sistema eléctrico sin quench",
+      "Para bloquear la puerta",
+      "Para desconectar el aire acondicionado"
+    ],
+    respuesta: ["Para detener la mesa o el sistema eléctrico sin quench"],
+    multiple: false
   }
 ];
 
@@ -103,14 +178,12 @@ const TestRM = () => {
     setPuntuacion(puntos);
     setCorregido(true);
 
-    // 🔥 Guardar resultado + historial
     try {
       const token = localStorage.getItem("token");
       const payload = JSON.parse(atob(token.split(".")[1]));
       const id_usuario = payload.id;
       const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-      // Guardar resultado final
       await axios.post(
         `${API_URL}/api/test/guardar`,
         {
@@ -121,7 +194,6 @@ const TestRM = () => {
         { headers: { Authorization: token } }
       );
 
-      // Guardar historial detallado
       await axios.post(
         `${API_URL}/api/test/historial`,
         {
@@ -182,7 +254,6 @@ const TestRM = () => {
               })}
             </div>
 
-            {/* Solo mostrar si falló */}
             {corregido && !esCorrecta && (
               <p className="respuesta-correcta">
                 ✓ Respuesta correcta: <strong>{correctas.join(", ")}</strong>
