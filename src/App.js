@@ -60,7 +60,7 @@ function App() {
     "mapas/planta03.svg"
   ];
 
-  const [plantaActiva, setPlantaActiva] = useState("mapas/plantaS2.svg");
+  const [plantaActiva, setPlantaActiva] = useState("mapas/planta00.svg");
   const [zonaSeleccionada, setZonaSeleccionada] = useState(null);
   const [tipoContenido, setTipoContenido] = useState('texto');
   const [colorZona, setColorZona] = useState(null);

@@ -43,10 +43,6 @@ const PanelInfo = ({ zona, tipo }) => {
   const nombreVisible = nombreZona;
   const ruta = rutasZona[nombreZona];
 
-  // --------------------------------------------------------
-  //            🔥 TEST INTERACTIVO DE RM
-  // --------------------------------------------------------
-
   const zonaEsRM = nombreZona.toLowerCase().includes("resonancia");
 
   if (tipo === "test" && zonaEsRM) {
@@ -59,28 +55,9 @@ const PanelInfo = ({ zona, tipo }) => {
             <strong>Departamento:</strong> {nombreDepartamento}
           </p>
         )}
-
-        <p className="panel-intro">
-          Test interactivo de seguridad en Resonancia Magnética.
-          Responde a las preguntas y tu puntuación quedará registrada.
-        </p>
-
-        <TestRM />
       </div>
     );
   }
-
-  // --------------------------------------------------------
-  //            🔥 SI ES TEST PERO NO TIENE TEST
-  // --------------------------------------------------------
-
-  if (tipo === 'test') {
-    return null;
-  }
-
-  // --------------------------------------------------------
-  //            🔥 VISTAS NORMALES
-  // --------------------------------------------------------
 
   return (
     <div className="panel-info">
@@ -92,33 +69,12 @@ const PanelInfo = ({ zona, tipo }) => {
         </p>
       )}
 
-      {tipo === 'alertas' && (
-        <p>
-          Has seleccionado <strong>Alertas</strong>. En la página de la zona encontrarás las
-          alertas activas y recomendaciones específicas de seguridad.
-        </p>
-      )}
-
-      {tipo === 'video' && (
-        <p>
-          Has seleccionado <strong>Vídeo explicativo</strong>. En la página de la zona puedes
-          ver el vídeo formativo asociado a este área.
-        </p>
-      )}
-
-      {tipo === 'texto' && (
-        <p>
-          Has seleccionado <strong>Texto explicativo</strong>. En la página de la zona tienes
-          información detallada sobre procedimientos y buenas prácticas.
-        </p>
-      )}
-
-      {!['alertas', 'video', 'texto', 'test'].includes(tipo) && (
-        <p>
-          Esta zona contiene información especializada. Puedes acceder a su página personalizada
-          para ver vídeos, protocolos, alertas y más.
-        </p>
-      )}
+      <p>
+        Has seleccionado la zona de <strong>{nombreVisible}</strong>.
+        <br /> <br />
+        Accede a su página personalizada para consultar alertas de seguridad, 
+        vídeos formativos, protocolos y procedimientos detallados.
+      </p>
 
       {ruta && (
         <button onClick={() => navigate(ruta)}>
