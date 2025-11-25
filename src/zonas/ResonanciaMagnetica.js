@@ -99,8 +99,8 @@ const ResonanciaMagnetica = () => {
         <ul className="alertas-lista">
           <li>🔒 <strong>Acceso restringido:</strong> Solo personal formado.</li>
           <li>🧲 <strong>Campo magnético permanente:</strong> Peligro con objetos metálicos.</li>
-          <li>🧰 <strong>Equipos de trabajo:</strong> Deben ser MR Safe o MR Conditional.</li>
           <li>❤️ <strong>Implantes:</strong> Avisar si lleva dispositivos médicos.</li>
+          <li>🧰 <strong>Equipos de trabajo:</strong> Deben ser MR Safe o MR Conditional.</li>
           <li>🚨 <strong>Emergencias:</strong> Siga indicaciones del técnico.</li>
         </ul>
       </section>

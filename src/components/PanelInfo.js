@@ -70,7 +70,7 @@ const PanelInfo = ({ zona, tipo }) => {
       )}
 
       <p>
-        Has seleccionado la zona de <strong>{nombreVisible}</strong>.
+        Has seleccionado la zona de <strong>{nombreVisible}</strong>
         <br /> <br />
         Accede a su página personalizada para consultar alertas de seguridad, 
         vídeos formativos, protocolos y procedimientos detallados.
