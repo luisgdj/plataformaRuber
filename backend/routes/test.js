@@ -1,3 +1,6 @@
+import express from 'express';
+const router = express.Router();
+
 // GET /api/test/estado/:id_usuario/:nombre_test
 router.get('/estado/:id_usuario/:nombre_test', verificarToken, async (req, res) => {
   try {
@@ -38,3 +41,4 @@ router.get('/estado/:id_usuario/:nombre_test', verificarToken, async (req, res) 
     });
   }
 });
+export default router;
