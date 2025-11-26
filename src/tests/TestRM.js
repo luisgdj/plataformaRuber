@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/TestRM.css";
+import "../styles/TestFormat.css";
 
 const preguntas = [
   {
@@ -55,7 +56,7 @@ const preguntas = [
   },
   {
     id: 6,
-    pregunta: "Un “quench” es…",
+    pregunta: "Un 'quench' es…",
     opciones: [
       "Un apagado de emergencia del imán",
       "Un error de software",
@@ -70,7 +71,7 @@ const preguntas = [
     pregunta: "Escoge tres objetos que NUNCA deben entrar a la sala de RM:",
     opciones: [
       "Tijeras",
-      "Silla de ruedas etiquetada como “MR Safe”",
+      "Silla de ruedas etiquetada como 'MR Safe'",
       "Oxígeno portátil de acero",
       "Tarjeta bancaria"
     ],
@@ -134,7 +135,7 @@ const preguntas = [
   },
   {
     id: 13,
-    pregunta: "¿Para qué sirve la “Parada de emergencia”?",
+    pregunta: "¿Para qué sirve la 'Parada de emergencia'?",
     opciones: [
       "Para apagar el imán",
       "Para detener la mesa o el sistema eléctrico sin quench",
@@ -147,6 +148,7 @@ const preguntas = [
 ];
 
 const TestRM = () => {
+  const navigate = useNavigate();
   const [selecciones, setSelecciones] = useState({});
   const [corregido, setCorregido] = useState(false);
   const [puntuacion, setPuntuacion] = useState(0);
@@ -211,7 +213,21 @@ const TestRM = () => {
 
   return (
     <div className="test-container">
-      <h2>Test interactivo</h2>
+      {/* BOTÓN DE VOLVER */}
+      <div className="test-header">
+        <button 
+          onClick={() => navigate('/zonas/resonancia-magnetica')}
+          className="btn-volver"
+        >
+          ← Volver a Resonancia Magnética
+        </button>
+      </div>
+
+      <h2>Test de Resonancia Magnética</h2>
+      <p className="test-descripcion">
+        Completa este test para evaluar tus conocimientos sobre seguridad 
+        en instalaciones de Resonancia Magnética.
+      </p>
 
       {preguntas.map((p) => {
         const seleccionadas = selecciones[p.id] || [];

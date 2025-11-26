@@ -1,10 +1,11 @@
 // src/zonas/ResonanciaMagnetica.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/ZonaInteractiva.css';
 import '../styles/Mapa.css';
-import TestRM from '../zonas/TestRM';
 
 const ResonanciaMagnetica = () => {
+  const navigate = useNavigate();
   const rutaSvg = '/mapas/plantaS1-RM.svg';
   
   // Estado para controlar qué zona está expandida
@@ -121,15 +122,22 @@ const ResonanciaMagnetica = () => {
       <section>
         <h2>Documentación</h2>
         <ul className="documentos-lista">
-          <li><a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank">Protocolo de Seguridad</a></li>
-          <li><a href="/docs/EtiquetadoMaterialesRM.pdf" target="_blank">Etiquetado de Materiales</a></li>
-          <li><a href="/docs/ManualSeguridadRM.pdf" target="_blank">Manual de Seguridad</a></li>
+          <li><a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Protocolo de Seguridad</a></li>
+          <li><a href="/docs/EtiquetadoMaterialesRM.pdf" target="_blank" rel="noopener noreferrer">Etiquetado de Materiales</a></li>
+          <li><a href="/docs/ManualSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Manual de Seguridad</a></li>
         </ul>
       </section>
 
-      {/* ===================== TEST INTERACTIVO REAL ===================== */}
+      {/* ===================== BOTÓN PARA IR AL TEST ===================== */}
       <section>
-        <TestRM />
+        <h2>Test de conocimientos</h2>
+        <p>Evalúa tus conocimientos sobre seguridad en Resonancia Magnética.</p>
+        <button 
+          onClick={() => navigate('/tests/resonancia-magnetica')}
+          className="btn-iniciar-test"
+        >
+          Iniciar test
+        </button>
       </section>
 
     </div>

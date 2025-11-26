@@ -21,6 +21,9 @@ import AceleradorLineal from './zonas/AceleradorLineal';
 import Ciberknife from './zonas/Ciberknife';
 import GammaKnife from './zonas/GammaKnife';
 
+// Importa tus tests
+import TestRM from './tests/TestRM';
+
 import './App.css';
 
 function App() {
@@ -67,7 +70,7 @@ function App() {
   const [categoriaActiva, setCategoriaActiva] = useState(null);
   const [subcategoriaActiva, setSubcategoriaActiva] = useState(null);
   const [departamentoActivo, setDepartamentoActivo] = useState(null);
-  const [resaltarDepartamento, setResaltarDepartamento] = useState(null); // Nuevo estado
+  const [resaltarDepartamento, setResaltarDepartamento] = useState(null);
 
   // Mapeo de departamentos/categorías a plantas
   const DEPARTAMENTOS_POR_PLANTA = {
@@ -268,6 +271,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Auth onLogin={() => setIsLoggedIn(true)} />} />
           <Route path="/" element={<RutaPrivada><VistaMapa /></RutaPrivada>} />
+          
+          {/* RUTAS DE ZONAS */}
           <Route path="/zonas/resonancia-magnetica" element={<RutaPrivada><ResonanciaMagnetica /></RutaPrivada>} />
           <Route path="/zonas/radiologia-convencional" element={<RutaPrivada><RadiologiaConvencional /></RutaPrivada>} />
           <Route path="/zonas/tac" element={<RutaPrivada><TAC /></RutaPrivada>} />
@@ -280,6 +285,9 @@ function App() {
           <Route path="/zonas/acelerador-lineal" element={<RutaPrivada><AceleradorLineal /></RutaPrivada>} />
           <Route path="/zonas/ciberknife" element={<RutaPrivada><Ciberknife /></RutaPrivada>} />
           <Route path="/zonas/gammaknife" element={<RutaPrivada><GammaKnife /></RutaPrivada>} />
+          
+          {/* RUTAS DE TESTS - Usa directamente TestRM */}
+          <Route path="/tests/resonancia-magnetica" element={<RutaPrivada><TestRM /></RutaPrivada>} />
         </Routes>
       </div>
     </Router>
