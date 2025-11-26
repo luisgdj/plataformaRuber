@@ -310,14 +310,17 @@ const TestRM = () => {
 
   return (
     <div className="test-container">
-      <div className="test-header">
-        <button 
-          onClick={() => navigate('/zonas/resonancia-magnetica')}
-          className="btn-volver"
-        >
-          ← Volver a Resonancia Magnética
-        </button>
-      </div>
+      {/* BOTÓN DE VOLVER - Solo si NO ha corregido aún */}
+      {!corregido && (
+        <div className="test-header">
+          <button 
+            onClick={() => navigate('/zonas/resonancia-magnetica')}
+            className="btn-volver"
+          >
+            ← Volver a Resonancia Magnética
+          </button>
+        </div>
+      )}
 
       <h2>Test de Resonancia Magnética</h2>
       
@@ -404,6 +407,14 @@ const TestRM = () => {
           <p>
             Tu puntuación: <strong>{puntuacion}</strong> / {preguntas.length}
           </p>
+          
+          {/* BOTÓN DE VOLVER DESPUÉS DE LOS RESULTADOS */}
+          <button 
+            onClick={() => navigate('/zonas/resonancia-magnetica')}
+            className="btn-volver-resultado"
+          >
+            ← Volver a Resonancia Magnética
+          </button>
         </div>
       )}
     </div>

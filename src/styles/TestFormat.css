@@ -203,3 +203,33 @@
   font-weight: bold;
   font-size: 1.1rem;
 }
+
+/* =====================================================
+   BOTÓN VOLVER DENTRO DE RESULTADO
+   ===================================================== */
+
+.btn-volver-resultado {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.3);
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.btn-volver-resultado:hover {
+  background-color: #0059b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+}
+
+.btn-volver-resultado:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.3);
+}
