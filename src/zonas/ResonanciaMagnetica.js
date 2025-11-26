@@ -77,6 +77,16 @@ const ResonanciaMagnetica = () => {
 
   return (
     <div className="zona-interactiva">
+      {/* BOTÓN VOLVER AL MAPA */}
+      <div className="header-zona">
+        <button 
+          onClick={() => navigate('/')}
+          className="btn-volver-mapa"
+        >
+          ← Volver al mapa
+        </button>
+      </div>
+
       <h1>Resonancia magnética (RM)</h1>
       <p>
         Las instalaciones de Resonancia Magnética se dividen en cuatro zonas de seguridad,

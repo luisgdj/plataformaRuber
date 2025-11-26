@@ -31,12 +31,6 @@
   color: #333333;
 }
 
-.panel-info video {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
 .panel-info button {
   background-color: #0066cc;
   color: white;
@@ -50,19 +44,6 @@
 
 .panel-info button:hover {
   background-color: #004a99;
-}
-
-.panel-info::-webkit-scrollbar {
-  width: 8px;
-}
-
-.panel-info::-webkit-scrollbar-thumb {
-  background-color: #b0c4de;
-  border-radius: 10px;
-}
-
-.panel-info::-webkit-scrollbar-thumb:hover {
-  background-color: #94b2d6;
 }
 
 .panel-departamento {

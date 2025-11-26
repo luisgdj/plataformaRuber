@@ -432,10 +432,6 @@
   box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
 }
 
-/* =====================================================
-   ESTADO DEL TEST - PENDIENTE
-   ===================================================== */
-
 .test-pendiente {
   background-color: #fff9e6;
   border: 2px solid #ffc107;
@@ -457,4 +453,26 @@
 .test-pendiente p {
   color: #333;
   margin-bottom: 0.5rem;
+}
+
+.header-zona {
+  margin-bottom: 0.5rem;
+  margin-top: -1rem;
+}
+
+/* Botón volver al mapa */
+.btn-volver-mapa {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: bold; /* ← Texto en negrita */
+}
+
+.btn-volver-mapa:hover {
+  background-color: #004a99;
 }
