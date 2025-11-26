@@ -27,7 +27,6 @@ const ResonanciaMagnetica = () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          console.log('❌ No hay token');
           setCargando(false);
           return;
         }
@@ -36,30 +35,24 @@ const ResonanciaMagnetica = () => {
         const id_usuario = payload.id;
         const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-        console.log('🔍 [ZONA] Verificando estado del test');
-        console.log('   - Usuario ID:', id_usuario);
-        console.log('   - Nombre test: "Resonancia Magnética"');
-        console.log('   - URL:', `${API_URL}/api/test/estado/${id_usuario}/Resonancia Magnética`);
+        console.log('🔍 [ZONA] Verificando estado del test para usuario:', id_usuario);
 
         const response = await axios.get(
           `${API_URL}/api/test/estado/${id_usuario}/Resonancia Magnética`,
           { headers: { Authorization: token } }
         );
 
-        console.log('📊 [ZONA] Respuesta completa:', response.data);
+        console.log('📊 [ZONA] Respuesta del servidor:', response.data);
 
-        if (response.data.completado === true) {
-          console.log('🔒 [ZONA] TEST COMPLETADO - BLOQUEANDO');
-          console.log('   - Puntuación:', response.data.puntuacion);
+        if (response.data.completado) {
+          console.log('✅ [ZONA] Test ya completado con puntuación:', response.data.puntuacion);
           setTestCompletado(true);
           setPuntuacionTest(response.data.puntuacion);
         } else {
-          console.log('✅ [ZONA] Test disponible');
-          setTestCompletado(false);
+          console.log('⏳ [ZONA] Test pendiente de realizar');
         }
       } catch (error) {
-        console.error('❌ [ZONA] Error verificando estado:', error);
-        console.error('   - Error completo:', error.response?.data || error.message);
+        console.error('❌ [ZONA] Error verificando estado del test:', error);
       } finally {
         setCargando(false);
       }
@@ -70,22 +63,14 @@ const ResonanciaMagnetica = () => {
 
   // Función para manejar el intento de acceso al test
   const handleAccesoTest = () => {
-    console.log('🎯 [ZONA] Click en botón de test');
-    console.log('   - testCompletado:', testCompletado);
-    console.log('   - puntuacionTest:', puntuacionTest);
-
     if (testCompletado) {
-      // BLOQUEAR ACCESO
-      console.log('🚫 [ZONA] ACCESO BLOQUEADO - Test ya completado');
-      alert(
-        '⚠️ Ya has completado este test\n\n' +
-        'Tu puntuación: ' + puntuacionTest + ' / 13\n\n' +
-        'No puedes volver a realizarlo.'
-      );
+      // BLOQUEAR: No permitir acceso si ya completado
+      alert('⚠️ Ya has completado este test\n\nTu puntuación: ' + puntuacionTest + ' / 13\n\nNo puedes volver a realizarlo.');
+      console.log('🚫 [ZONA] Acceso bloqueado - Test ya completado');
       return;
     }
     
-    // Permitir acceso
+    // Permitir acceso si no completado
     console.log('✅ [ZONA] Permitiendo acceso al test');
     navigate('/tests/resonancia-magnetica');
   };
@@ -207,21 +192,6 @@ const ResonanciaMagnetica = () => {
       <section>
         <h2>Test de conocimientos</h2>
         
-        {/* DEBUG INFO - Eliminar en producción */}
-        <div style={{ 
-          background: '#f0f0f0', 
-          padding: '10px', 
-          marginBottom: '10px', 
-          borderRadius: '5px',
-          fontSize: '12px',
-          fontFamily: 'monospace'
-        }}>
-          <strong>🔍 Estado actual:</strong><br/>
-          - Cargando: {cargando ? 'Sí' : 'No'}<br/>
-          - Test completado: {testCompletado ? 'SÍ ✅' : 'NO ❌'}<br/>
-          - Puntuación: {puntuacionTest || 'N/A'}<br/>
-        </div>
-
         {cargando ? (
           <div className="test-cargando">
             <p>⏳ Cargando estado del test...</p>
