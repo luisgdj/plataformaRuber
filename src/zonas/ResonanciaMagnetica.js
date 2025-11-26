@@ -1,6 +1,7 @@
 // src/zonas/ResonanciaMagnetica.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/ZonaInteractiva.css';
 import '../styles/Mapa.css';
 
@@ -10,9 +11,83 @@ const ResonanciaMagnetica = () => {
   
   // Estado para controlar qué zona está expandida
   const [zonaExpandida, setZonaExpandida] = useState(null);
+  
+  // Estados para el test
+  const [testCompletado, setTestCompletado] = useState(false);
+  const [puntuacionTest, setPuntuacionTest] = useState(null);
+  const [cargando, setCargando] = useState(true);
 
   const toggleZona = (zona) => {
     setZonaExpandida(zonaExpandida === zona ? null : zona);
+  };
+
+  // Verificar si el usuario ya completó el test
+  useEffect(() => {
+    const verificarEstadoTest = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.log('❌ No hay token');
+          setCargando(false);
+          return;
+        }
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const id_usuario = payload.id;
+        const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+        console.log('🔍 [ZONA] Verificando estado del test');
+        console.log('   - Usuario ID:', id_usuario);
+        console.log('   - Nombre test: "Resonancia Magnética"');
+        console.log('   - URL:', `${API_URL}/api/test/estado/${id_usuario}/Resonancia Magnética`);
+
+        const response = await axios.get(
+          `${API_URL}/api/test/estado/${id_usuario}/Resonancia Magnética`,
+          { headers: { Authorization: token } }
+        );
+
+        console.log('📊 [ZONA] Respuesta completa:', response.data);
+
+        if (response.data.completado === true) {
+          console.log('🔒 [ZONA] TEST COMPLETADO - BLOQUEANDO');
+          console.log('   - Puntuación:', response.data.puntuacion);
+          setTestCompletado(true);
+          setPuntuacionTest(response.data.puntuacion);
+        } else {
+          console.log('✅ [ZONA] Test disponible');
+          setTestCompletado(false);
+        }
+      } catch (error) {
+        console.error('❌ [ZONA] Error verificando estado:', error);
+        console.error('   - Error completo:', error.response?.data || error.message);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    verificarEstadoTest();
+  }, []);
+
+  // Función para manejar el intento de acceso al test
+  const handleAccesoTest = () => {
+    console.log('🎯 [ZONA] Click en botón de test');
+    console.log('   - testCompletado:', testCompletado);
+    console.log('   - puntuacionTest:', puntuacionTest);
+
+    if (testCompletado) {
+      // BLOQUEAR ACCESO
+      console.log('🚫 [ZONA] ACCESO BLOQUEADO - Test ya completado');
+      alert(
+        '⚠️ Ya has completado este test\n\n' +
+        'Tu puntuación: ' + puntuacionTest + ' / 13\n\n' +
+        'No puedes volver a realizarlo.'
+      );
+      return;
+    }
+    
+    // Permitir acceso
+    console.log('✅ [ZONA] Permitiendo acceso al test');
+    navigate('/tests/resonancia-magnetica');
   };
 
   return (
@@ -128,16 +203,66 @@ const ResonanciaMagnetica = () => {
         </ul>
       </section>
 
-      {/* ===================== BOTÓN PARA IR AL TEST ===================== */}
+      {/* ===================== SECCIÓN DE TEST CON BLOQUEO ===================== */}
       <section>
         <h2>Test de conocimientos</h2>
-        <p>Evalúa tus conocimientos sobre seguridad en Resonancia Magnética.</p>
-        <button 
-          onClick={() => navigate('/tests/resonancia-magnetica')}
-          className="btn-iniciar-test"
-        >
-          Iniciar test
-        </button>
+        
+        {/* DEBUG INFO - Eliminar en producción */}
+        <div style={{ 
+          background: '#f0f0f0', 
+          padding: '10px', 
+          marginBottom: '10px', 
+          borderRadius: '5px',
+          fontSize: '12px',
+          fontFamily: 'monospace'
+        }}>
+          <strong>🔍 Estado actual:</strong><br/>
+          - Cargando: {cargando ? 'Sí' : 'No'}<br/>
+          - Test completado: {testCompletado ? 'SÍ ✅' : 'NO ❌'}<br/>
+          - Puntuación: {puntuacionTest || 'N/A'}<br/>
+        </div>
+
+        {cargando ? (
+          <div className="test-cargando">
+            <p>⏳ Cargando estado del test...</p>
+          </div>
+        ) : testCompletado ? (
+          // Test YA completado - BLOQUEAR ACCESO
+          <div className="test-completado">
+            <div className="test-resultado-card">
+              <div className="test-resultado-icono">🔒</div>
+              <h3>Test completado</h3>
+              <p className="test-puntuacion">
+                Puntuación obtenida: <strong>{puntuacionTest} / 13</strong>
+              </p>
+              <p className="test-mensaje">
+                {puntuacionTest >= 10 
+                  ? '¡Excelente! Has demostrado un buen conocimiento sobre seguridad en RM.' 
+                  : 'Has completado el test. Revisa el material para mejorar tus conocimientos.'}
+              </p>
+              <div className="test-bloqueado-info">
+                <p><strong>⚠️ Este test solo se puede realizar una vez</strong></p>
+                <p>Ya no puedes acceder a él para realizarlo de nuevo.</p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          // Test PENDIENTE - Permitir acceso
+          <div className="test-pendiente">
+            <p>Evalúa tus conocimientos sobre seguridad en Resonancia Magnética.</p>
+            <p className="test-info">
+              ⏱️ Duración aproximada: 10-15 minutos<br />
+              📝 13 preguntas sobre seguridad en RM<br />
+              ⚠️ <strong>Solo podrás realizar el test una vez</strong>
+            </p>
+            <button 
+              onClick={handleAccesoTest}
+              className="btn-iniciar-test"
+            >
+              Iniciar test
+            </button>
+          </div>
+        )}
       </section>
 
     </div>

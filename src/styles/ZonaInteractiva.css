@@ -360,3 +360,101 @@
   height: auto;
   border: 1px solid #ccc;
 }
+
+/* =====================================================
+   ESTADO DEL TEST - COMPLETADO
+   ===================================================== */
+
+.test-completado {
+  background-color: #e8f5e9;
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.test-resultado-card {
+  text-align: center;
+}
+
+.test-resultado-icono {
+  font-size: 3rem;
+  color: #4caf50;
+  margin-bottom: 0.5rem;
+}
+
+.test-resultado-card h3 {
+  color: #2e7d32;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.test-puntuacion {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 1rem 0;
+}
+
+.test-puntuacion strong {
+  color: #2e7d32;
+  font-size: 1.4rem;
+}
+
+.test-mensaje {
+  color: #555;
+  font-size: 1rem;
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+
+.btn-ver-test {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+  margin-top: 1rem;
+}
+
+.btn-ver-test:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.btn-ver-test:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+}
+
+/* =====================================================
+   ESTADO DEL TEST - PENDIENTE
+   ===================================================== */
+
+.test-pendiente {
+  background-color: #fff9e6;
+  border: 2px solid #ffc107;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.test-info {
+  background-color: #ffffff;
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.test-pendiente p {
+  color: #333;
+  margin-bottom: 0.5rem;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/TestFormat.css";
@@ -25,8 +25,7 @@ const preguntas = [
   },
   {
     id: 3,
-    pregunta:
-      "¿Qué zona descrita por el ACR corresponde a la sala donde está el imán?",
+    pregunta: "¿Qué zona descrita por el ACR corresponde a la sala donde está el imán?",
     opciones: ["Zona 1", "Zona 4", "Zona de control", "Zona técnica"],
     respuesta: ["Zona 4"],
     multiple: false
@@ -56,7 +55,7 @@ const preguntas = [
   },
   {
     id: 6,
-    pregunta: "Un 'quench' es…",
+    pregunta: "Un \"quench\" es…",
     opciones: [
       "Un apagado de emergencia del imán",
       "Un error de software",
@@ -71,7 +70,7 @@ const preguntas = [
     pregunta: "Escoge tres objetos que NUNCA deben entrar a la sala de RM:",
     opciones: [
       "Tijeras",
-      "Silla de ruedas etiquetada como 'MR Safe'",
+      "Silla de ruedas etiquetada como \"MR Safe\"",
       "Oxígeno portátil de acero",
       "Tarjeta bancaria"
     ],
@@ -91,8 +90,7 @@ const preguntas = [
   },
   {
     id: 9,
-    pregunta:
-      "¿Cuál es el mayor riesgo al entrar con objetos metálicos ferromagnéticos a la sala de RM?",
+    pregunta: "¿Cuál es el mayor riesgo al entrar con objetos metálicos ferromagnéticos a la sala de RM?",
     opciones: [
       "Que se rompan",
       "Que hagan interferencias",
@@ -135,7 +133,7 @@ const preguntas = [
   },
   {
     id: 13,
-    pregunta: "¿Para qué sirve la 'Parada de emergencia'?",
+    pregunta: "¿Para qué sirve la \"Parada de emergencia\"?",
     opciones: [
       "Para apagar el imán",
       "Para detener la mesa o el sistema eléctrico sin quench",
@@ -152,8 +150,61 @@ const TestRM = () => {
   const [selecciones, setSelecciones] = useState({});
   const [corregido, setCorregido] = useState(false);
   const [puntuacion, setPuntuacion] = useState(0);
+  const [testYaCompletado, setTestYaCompletado] = useState(false);
+  const [puntuacionAnterior, setPuntuacionAnterior] = useState(null);
+  const [cargando, setCargando] = useState(true);
+
+  // Verificar si el usuario ya completó el test
+  useEffect(() => {
+    const verificarEstado = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setCargando(false);
+          return;
+        }
+
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const id_usuario = payload.id;
+        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+        console.log('🔍 Verificando estado del test...');
+        console.log('Usuario ID:', id_usuario);
+        console.log('Nombre test:', 'Resonancia Magnética');
+
+        const response = await axios.get(
+          `${API_URL}/api/test/estado/${id_usuario}/Resonancia Magnética`,
+          { headers: { Authorization: token } }
+        );
+
+        console.log('📊 Respuesta del servidor:', response.data);
+
+        if (response.data.completado) {
+          console.log('🚫 TEST YA COMPLETADO - Bloqueando acceso');
+          setTestYaCompletado(true);
+          setPuntuacionAnterior(response.data.puntuacion);
+          setCorregido(true);
+          setPuntuacion(response.data.puntuacion);
+        } else {
+          console.log('✅ Test disponible para realizar');
+        }
+      } catch (error) {
+        console.error('❌ Error verificando estado:', error);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    verificarEstado();
+  }, []);
 
   const handleSelect = (id, opcion, multiple) => {
+    // BLOQUEAR si ya completado
+    if (testYaCompletado) {
+      console.log('🚫 No se puede modificar - Test ya completado');
+      return;
+    }
+    
     if (corregido) return;
 
     setSelecciones((prev) => {
@@ -167,6 +218,12 @@ const TestRM = () => {
   };
 
   const corregirTest = async () => {
+    // BLOQUEAR si ya completado
+    if (testYaCompletado) {
+      alert('⚠️ Ya has completado este test.\n\nTu puntuación anterior: ' + puntuacionAnterior + ' / ' + preguntas.length);
+      return;
+    }
+
     let puntos = 0;
 
     preguntas.forEach((p) => {
@@ -186,6 +243,9 @@ const TestRM = () => {
       const id_usuario = payload.id;
       const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+      console.log('💾 Guardando resultado del test...');
+
+      // Guardar en resultados_test
       await axios.post(
         `${API_URL}/api/test/guardar`,
         {
@@ -196,24 +256,60 @@ const TestRM = () => {
         { headers: { Authorization: token } }
       );
 
-      await axios.post(
-        `${API_URL}/api/test/historial`,
-        {
-          id_usuario,
-          nombre_test: "Resonancia Magnética",
-          puntuacion: puntos,
-          respuestas: selecciones
-        },
-        { headers: { Authorization: token } }
-      );
+      // También guardar en historial si existe ese endpoint
+      try {
+        await axios.post(
+          `${API_URL}/api/test/historial`,
+          {
+            id_usuario,
+            nombre_test: "Resonancia Magnética",
+            puntuacion: puntos,
+            respuestas: selecciones
+          },
+          { headers: { Authorization: token } }
+        );
+      } catch (error) {
+        // Si no existe el endpoint de historial, no pasa nada
+        console.log('ℹ️ Endpoint historial no disponible (no es crítico)');
+      }
+
+      console.log('✅ Test guardado correctamente');
+      
+      // Marcar como completado
+      setTestYaCompletado(true);
+      setPuntuacionAnterior(puntos);
+      
     } catch (error) {
-      console.error("Error guardando historial:", error);
+      console.error("❌ Error guardando test:", error);
+      
+      if (error.response && error.response.status === 400) {
+        alert('⚠️ Este test ya fue guardado anteriormente.');
+        setTestYaCompletado(true);
+      } else {
+        alert('❌ Hubo un error al guardar el test. Por favor, contacta con el administrador.');
+      }
     }
   };
 
+  if (cargando) {
+    return (
+      <div className="test-container">
+        <div className="test-header">
+          <button 
+            onClick={() => navigate('/zonas/resonancia-magnetica')}
+            className="btn-volver"
+          >
+            ← Volver a Resonancia Magnética
+          </button>
+        </div>
+        <h2>Test de Resonancia Magnética</h2>
+        <p>⏳ Cargando...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="test-container">
-      {/* BOTÓN DE VOLVER */}
       <div className="test-header">
         <button 
           onClick={() => navigate('/zonas/resonancia-magnetica')}
@@ -224,10 +320,21 @@ const TestRM = () => {
       </div>
 
       <h2>Test de Resonancia Magnética</h2>
-      <p className="test-descripcion">
-        Completa este test para evaluar tus conocimientos sobre seguridad 
-        en instalaciones de Resonancia Magnética.
-      </p>
+      
+      {testYaCompletado && (
+        <div className="test-ya-completado-mensaje">
+          <p><strong>✓ Ya has completado este test</strong></p>
+          <p>Tu puntuación: <strong>{puntuacionAnterior} / {preguntas.length}</strong></p>
+          <p>Puedes revisar las respuestas correctas a continuación.</p>
+        </div>
+      )}
+
+      {!testYaCompletado && (
+        <p className="test-descripcion">
+          Completa este test para evaluar tus conocimientos sobre seguridad 
+          en instalaciones de Resonancia Magnética.
+        </p>
+      )}
 
       {preguntas.map((p) => {
         const seleccionadas = selecciones[p.id] || [];
@@ -243,6 +350,7 @@ const TestRM = () => {
             <div className="opciones">
               {p.opciones.map((opcion) => {
                 const seleccionada = seleccionadas.includes(opcion);
+                const esOpcionCorrecta = correctas.includes(opcion);
 
                 return (
                   <button
@@ -251,10 +359,11 @@ const TestRM = () => {
                       ${!corregido && seleccionada ? "seleccionada" : ""}
                       ${corregido && seleccionada && esCorrecta ? "correcta" : ""}
                       ${corregido && seleccionada && !esCorrecta ? "incorrecta" : ""}
-                      ${corregido && !seleccionada && esCorrecta ? "correcta-oculta" : ""}
+                      ${corregido && !seleccionada && esOpcionCorrecta ? "correcta-oculta" : ""}
                     `}
                     onClick={() => handleSelect(p.id, opcion, p.multiple)}
                     disabled={corregido}
+                    style={testYaCompletado ? { cursor: 'not-allowed' } : {}}
                   >
                     {opcion}
 
@@ -264,6 +373,10 @@ const TestRM = () => {
 
                     {corregido && seleccionada && !esCorrecta && (
                       <span className="cross">✗</span>
+                    )}
+                    
+                    {corregido && !seleccionada && esOpcionCorrecta && (
+                      <span className="tick">✓</span>
                     )}
                   </button>
                 );
@@ -279,7 +392,7 @@ const TestRM = () => {
         );
       })}
 
-      {!corregido && (
+      {!corregido && !testYaCompletado && (
         <button className="corregir-btn" onClick={corregirTest}>
           Corregir test
         </button>
@@ -289,7 +402,7 @@ const TestRM = () => {
         <div className="resultado">
           <h3>Resultado final</h3>
           <p>
-            Tu puntuación es <strong>{puntuacion}</strong> / {preguntas.length}
+            Tu puntuación: <strong>{puntuacion}</strong> / {preguntas.length}
           </p>
         </div>
       )}

@@ -7,6 +7,49 @@
   margin: auto;
 }
 
+/* HEADER CON BOTÓN DE VOLVER */
+.test-header {
+  margin-bottom: 1.5rem;
+}
+
+.btn-volver {
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.3rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(102, 102, 102, 0.3);
+}
+
+.btn-volver:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 102, 102, 0.4);
+}
+
+.btn-volver:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(102, 102, 102, 0.3);
+}
+
+/* TÍTULO Y DESCRIPCIÓN */
+.test-container h2 {
+  color: #003366;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.test-descripcion {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
 /* BLOQUE DE CADA PREGUNTA */
 .pregunta {
   margin-bottom: 2rem;
@@ -74,16 +117,18 @@
 }
 
 /* ICONOS ✓ Y ✗ */
-.icono {
+.tick,
+.cross {
   font-size: 20px;
   margin-left: 12px;
+  font-weight: bold;
 }
 
-.icono.correcto {
+.tick {
   color: #2e7d32;
 }
 
-.icono.incorrecto {
+.cross {
   color: #c62828;
 }
 
@@ -105,10 +150,14 @@
   cursor: pointer;
   font-size: 16px;
   margin-top: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .corregir-btn:hover {
   background: #3367d6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
 }
 
 /* RESULTADO FINAL */
@@ -123,4 +172,34 @@
 .resultado h3 {
   margin-top: 0;
   color: #1b5e20;
+}
+
+.resultado p {
+  font-size: 1.1rem;
+  color: #1b5e20;
+  margin: 0.5rem 0 0 0;
+}
+
+/* =====================================================
+   MENSAJE DE TEST YA COMPLETADO
+   ===================================================== */
+
+.test-ya-completado-mensaje {
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.test-ya-completado-mensaje p {
+  color: #1565c0;
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+
+.test-ya-completado-mensaje p:first-child {
+  font-weight: bold;
+  font-size: 1.1rem;
 }
