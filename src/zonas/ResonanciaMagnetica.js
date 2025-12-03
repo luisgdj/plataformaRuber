@@ -193,8 +193,8 @@ const ResonanciaMagnetica = () => {
         <h2>Documentación</h2>
         <ul className="documentos-lista">
           <li><a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Protocolo de Seguridad</a></li>
-          <li><a href="/docs/EtiquetadoMaterialesRM.pdf" target="_blank" rel="noopener noreferrer">Etiquetado de Materiales</a></li>
-          <li><a href="/docs/ManualSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Manual de Seguridad</a></li>
+          <li><a href="/docs/EtiquetadodeSeguridadMaterialesDispositivosRM.pdf" target="_blank" rel="noopener noreferrer">Etiquetado de Materiales</a></li>
+          <li><a href="/docs/GuíaSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Manual de Seguridad</a></li>
         </ul>
       </section>
 
