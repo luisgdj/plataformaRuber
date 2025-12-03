@@ -93,7 +93,7 @@ const preguntas = [
     pregunta: "¿Cuál es el mayor riesgo al entrar con objetos metálicos ferromagnéticos a la sala de RM?",
     opciones: [
       "Que se rompan",
-      "Que hagan interferencias",
+      "Que provoquen interferencias",
       "Que sean atraídos violentamente por el imán",
       "Que hagan ruido"
     ],
