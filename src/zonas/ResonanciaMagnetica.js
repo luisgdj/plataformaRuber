@@ -185,7 +185,8 @@ const ResonanciaMagnetica = () => {
       {/* ===================== VIDEO ===================== */}
       <section>
         <h2>Vídeo explicativo</h2>
-        <video controls src="/videos/Resonancia magnética (RM).mp4" />
+        <video controls src="/videos/ResonanciaMagnetica.mp4"
+        style={{width: "100%", borderRadius:"8px"}} />
       </section>
 
       {/* ===================== DOCUMENTOS ===================== */}
