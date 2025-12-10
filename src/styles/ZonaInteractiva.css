@@ -153,7 +153,7 @@
 /* Contenedor principal del mapa - Grid de 2 columnas */
 .mapa-contenedor-rm {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 2rem;
   align-items: start;
   margin-top: 1.5rem;
