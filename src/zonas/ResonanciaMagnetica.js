@@ -12,6 +12,9 @@ const ResonanciaMagnetica = () => {
   // Estado para controlar qué zona está expandida
   const [zonaExpandida, setZonaExpandida] = useState(null);
   
+  // Estado para controlar si el mapa está ampliado
+  const [mapaAmpliado, setMapaAmpliado] = useState(false);
+  
   // Estados para el test
   const [testCompletado, setTestCompletado] = useState(false);
   const [puntuacionTest, setPuntuacionTest] = useState(null);
@@ -88,14 +91,20 @@ const ResonanciaMagnetica = () => {
       </div>
 
       <h1>Resonancia magnética (RM)</h1>
-      <p>
-        Las instalaciones de Resonancia Magnética se dividen en cuatro zonas de seguridad,
-        cada una con niveles de control de acceso y restricciones específicos.
-      </p>
+
+      {/* ===================== INFORMACIÓN ===================== */}
+      <section>
+        <h2>Información general</h2>
+        <p>La resonancia magnética utiliza campos magnéticos y ondas de radio para obtener imágenes detalladas del cuerpo humano.</p>
+      </section>
 
       {/* ===================== MAPA ===================== */}
       <section className="mapa-apartado">
-        <h2>Zonas de seguridad de Resonancia Magnética</h2>
+        <h2>Circuito de Resonancia Magnética</h2>
+        <p>
+        Las instalaciones de Resonancia Magnética se dividen en cuatro zonas de seguridad,
+        cada una con niveles de control de acceso y restricciones específicos.
+        </p>
         <div className="mapa-contenedor-rm">
 
           <div className="mapa-info-rm">
@@ -158,35 +167,78 @@ const ResonanciaMagnetica = () => {
               src={rutaSvg}
               alt="Mapa de zonas de seguridad RM"
               className="mapa-imagen-rm"
+              onClick={() => setMapaAmpliado(true)}
+              style={{ cursor: 'pointer' }}
+              title="Haz clic para ampliar"
             />
           </div>
 
         </div>
       </section>
 
+      {/* ===================== MODAL DE MAPA AMPLIADO ===================== */}
+      {mapaAmpliado && (
+        <div className="modal-mapa-ampliado" onClick={() => setMapaAmpliado(false)}>
+          <button 
+            className="btn-cerrar-modal"
+            onClick={() => setMapaAmpliado(false)}
+            aria-label="Cerrar"
+          >
+            ✕
+          </button>
+          <div className="modal-contenido" onClick={(e) => e.stopPropagation()}>
+            <img 
+              src={rutaSvg}
+              alt="Mapa de zonas de seguridad RM - Ampliado"
+              className="mapa-ampliado"
+            />
+          </div>
+        </div>
+      )}
+
       {/* ===================== ALERTAS ===================== */}
       <section>
         <h2>Alertas activas</h2>
         <ul className="alertas-lista">
-          <li>🔒 <strong>Acceso restringido:</strong> Solo personal formado.</li>
-          <li>🧲 <strong>Campo magnético permanente:</strong> Peligro con objetos metálicos.</li>
-          <li>❤️ <strong>Implantes:</strong> Avisar si lleva dispositivos médicos.</li>
-          <li>🧰 <strong>Equipos de trabajo:</strong> Deben ser MR Safe o MR Conditional.</li>
-          <li>🚨 <strong>Emergencias:</strong> Siga indicaciones del técnico.</li>
+          <li className="alerta-restringido" data-icon="🔒">
+            <div>
+              <strong>Acceso restringido</strong>
+              Solo personal formado puede acceder a estas instalaciones.
+            </div>
+          </li>
+          <li className="alerta-peligro" data-icon="🧲">
+            <div>
+              <strong>Campo magnético permanente</strong>
+              Peligro: Los objetos metálicos pueden convertirse en proyectiles letales.
+            </div>
+          </li>
+          <li className="alerta-cuidado" data-icon="❤️">
+            <div>
+              <strong>Implantes médicos</strong>
+              Avisar si lleva marcapasos, implantes cocleares u otros dispositivos médicos.
+            </div>
+          </li>
+          <li className="alerta-info" data-icon="🧰">
+            <div>
+              <strong>Equipos de trabajo</strong>
+              Todos los equipos deben estar certificados como MR Safe o MR Conditional.
+            </div>
+          </li>
+          <li className="alerta-emergencia" data-icon="🚨">
+            <div>
+              <strong>Procedimiento de emergencia</strong>
+              En caso de emergencia, siga las indicaciones del técnico responsable.
+            </div>
+          </li>
         </ul>
-      </section>
-
-      {/* ===================== INFORMACIÓN ===================== */}
-      <section>
-        <h2>Información general</h2>
-        <p>La resonancia magnética utiliza campos magnéticos y ondas de radio para obtener imágenes detalladas del cuerpo humano.</p>
       </section>
 
       {/* ===================== VIDEO ===================== */}
       <section>
         <h2>Vídeo explicativo</h2>
-        <video controls src="/videos/ResonanciaMagnetica.mp4"
-        style={{width: "100%", borderRadius:"8px"}} />
+        <div className="video-contenedor">
+          <video controls src="/videos/ResonanciaMagnetica.mp4" />
+        </div>
       </section>
 
       {/* ===================== DOCUMENTOS ===================== */}
