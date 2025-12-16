@@ -276,22 +276,24 @@ const ResonanciaMagnetica = () => {
         </div>
       )}
 
-      {/* ===================== VIDEO ===================== */}
+      {/* ===================== VIDEO Y DOCUMENTOS ===================== */}
       <section>
-        <h2>Vídeo explicativo</h2>
-        <div className="video-contenedor">
-          <video controls src="/videos/ResonanciaMagnetica.mp4" />
+        <h2>Recursos multimedia y documentación</h2>
+        <div className="video-documentos-contenedor">
+          <div className="video-columna">
+            <h3>Vídeo explicativo</h3>
+            <video controls src="/videos/ResonanciaMagnetica.mp4" />
+          </div>
+          
+          <div className="documentos-columna">
+            <h3>Documentación</h3>
+            <ul className="documentos-lista">
+              <li><a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">📄 Protocolo de Seguridad</a></li>
+              <li><a href="/docs/EtiquetadodeSeguridadMaterialesDispositivosRM.pdf" target="_blank" rel="noopener noreferrer">📄 Etiquetado de Materiales</a></li>
+              <li><a href="/docs/GuíaSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">📄 Manual de Seguridad</a></li>
+            </ul>
+          </div>
         </div>
-      </section>
-
-      {/* ===================== DOCUMENTOS ===================== */}
-      <section>
-        <h2>Documentación</h2>
-        <ul className="documentos-lista">
-          <li><a href="/docs/ProtocoloSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Protocolo de Seguridad</a></li>
-          <li><a href="/docs/EtiquetadodeSeguridadMaterialesDispositivosRM.pdf" target="_blank" rel="noopener noreferrer">Etiquetado de Materiales</a></li>
-          <li><a href="/docs/GuíaSeguridadRM.pdf" target="_blank" rel="noopener noreferrer">Manual de Seguridad</a></li>
-        </ul>
       </section>
 
       {/* ===================== SECCIÓN DE TEST CON BLOQUEO ===================== */}

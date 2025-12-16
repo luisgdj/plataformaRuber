@@ -1,8 +1,24 @@
+/* =====================================================
+   ESTILOS GENERALES DE ZONA INTERACTIVA
+   ===================================================== */
+
 .zona-interactiva {
   padding: 2rem;
   background-color: #eceded;
   color: #003366;
 }
+
+.zona-interactiva section {
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* =====================================================
+   TIPOGRAFÍA GENERAL
+   ===================================================== */
 
 .zona-interactiva h1 {
   font-size: 1.8rem;
@@ -12,14 +28,6 @@
   padding: 0.8rem 1.2rem;
   background-color: #e3f2fd;
   border-radius: 8px;
-}
-
-.zona-interactiva section {
-  margin-bottom: 2rem;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .zona-interactiva h2 {
@@ -33,188 +41,6 @@
   gap: 0.5rem;
 }
 
-/* =====================================================
-   VIDEO
-   ===================================================== */
-
-.zona-interactiva video {
-  width: 100%;
-  border-radius: 8px;
-  border: 2px solid #e3f2fd;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-/* Contenedor de video a media pantalla */
-.video-contenedor {
-  max-width: 50%;
-  margin: 0;
-}
-
-.video-contenedor video {
-  width: 100%;
-  border-radius: 8px;
-  border: 2px solid #cbd3dc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive: en pantallas pequeñas ocupa el 80% */
-@media (max-width: 768px) {
-  .video-contenedor {
-    max-width: 80%;
-  }
-}
-
-/* Responsive: en pantallas muy pequeñas ocupa el 100% */
-@media (max-width: 480px) {
-  .video-contenedor {
-    max-width: 100%;
-  }
-}
-
-/* =====================================================
-   TEST
-   ===================================================== */
-
-.zona-test button {
-  margin-right: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
-  transition: all 0.2s ease;
-}
-
-.zona-test button:hover {
-  background-color: #0052a3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
-}
-
-/* =====================================================
-   ALERTAS
-   ===================================================== */
-
-.alertas-lista {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
-  gap: 0.5rem; /* Espacio entre columnas y filas */
-  margin-left: -10px;
-  margin-right: 10px;
-}
-
-.alertas-lista li {
-  background: #ffffff;
-  border: 1px solid #e0e7ed;
-  border-left: 4px solid #0066cc;
-  padding: 0.7rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  box-shadow: 0 2px 6px rgba(0, 51, 102, 0.08);
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
-}
-
-.alertas-lista li:hover {
-  transform: translateX(3px);
-  box-shadow: 0 3px 10px rgba(0, 102, 204, 0.15);
-  border-left-color: #003366;
-}
-
-/* Iconos de las alertas */
-.alertas-lista li::before {
-  content: attr(data-icon);
-  font-size: 1.2rem;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.alertas-lista strong {
-  color: #003366;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 0.1rem;
-  font-size: 0.95rem;
-}
-
-.alertas-lista li > div {
-  flex: 1;
-  color: #555;
-}
-
-.alertas-lista em {
-  font-style: normal;
-  color: #0066cc;
-  font-weight: 600;
-}
-
-/* Colores específicos para diferentes tipos de alertas */
-.alertas-lista li.alerta-restringido {
-  border-left-color: #f59e0b;
-  background-color: #fffbf0;
-}
-
-.alertas-lista li.alerta-peligro {
-  border-left-color: #ff6b00;
-  background-color: #fff8f0;
-}
-
-.alertas-lista li.alerta-cuidado {
-  border-left-color: #0d922e;
-  background-color: #f6fff7;
-}
-
-.alertas-lista li.alerta-info {
-  border-left-color: #0066cc;
-  background-color: #f7faff;
-}
-
-.alertas-lista li.alerta-emergencia {
-  border-left-color: #f32e2e;
-  background-color: #fff5f5;
-}
-
-/* =====================================================
-   MAPA INTERACTIVO
-   ===================================================== */
-
-.svg-zona {
-  width: 100%;
-  max-width: 900px;
-  display: block;
-  margin: 0 auto 20px auto;
-}
-
-.leyenda-contenedor {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.leyenda-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.leyenda-color {
-  width: 18px;
-  height: 18px;
-  border: 1px solid #000;
-  border-radius: 4px;
-}
-
-/* Texto más compacto */
 .zona-interactiva h3 {
   margin-top: 20px;
   margin-bottom: 4px;
@@ -222,13 +48,21 @@
   font-weight: 600;
 }
 
+.zona-interactiva p {
+  color: #333;
+  line-height: 1.6;
+}
+
+/* =====================================================
+   LISTAS GENERALES
+   ===================================================== */
+
 .zona-interactiva ul {
   margin-top: 0px;
   margin-bottom: 6px;
   padding-left: 18px;
 }
 
-/* Opcional: listas más compactas */
 .zona-interactiva ul li {
   margin-bottom: 2px;
   color: #444;
@@ -237,6 +71,30 @@
 /* =====================================================
    BOTONES DE NAVEGACIÓN
    ===================================================== */
+
+.header-zona {
+  margin-bottom: 0.5rem;
+  margin-top: -1rem;
+}
+
+.btn-volver-mapa {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+}
+
+.btn-volver-mapa:hover {
+  background-color: #0052a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+}
 
 .btn-iniciar-test,
 .btn-volver {
@@ -281,7 +139,95 @@
 }
 
 /* =====================================================
-   LAYOUT PARA MAPA DE RESONANCIA MAGNÉTICA
+   SECCIÓN: ALERTAS
+   ===================================================== */
+
+.alertas-lista {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-left: -10px;
+  margin-right: 10px;
+}
+
+.alertas-lista li {
+  background: #ffffff;
+  border: 1px solid #e0e7ed;
+  border-left: 4px solid #0066cc;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  box-shadow: 0 2px 6px rgba(0, 51, 102, 0.08);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.alertas-lista li:hover {
+  transform: translateX(3px);
+  box-shadow: 0 3px 10px rgba(0, 102, 204, 0.15);
+  border-left-color: #003366;
+}
+
+.alertas-lista li::before {
+  content: attr(data-icon);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.alertas-lista strong {
+  color: #003366;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.1rem;
+  font-size: 0.95rem;
+}
+
+.alertas-lista li > div {
+  flex: 1;
+  color: #555;
+}
+
+.alertas-lista em {
+  font-style: normal;
+  color: #0066cc;
+  font-weight: 600;
+}
+
+/* Tipos específicos de alertas */
+.alertas-lista li.alerta-restringido {
+  border-left-color: #f59e0b;
+  background-color: #fffbf0;
+}
+
+.alertas-lista li.alerta-peligro {
+  border-left-color: #ff6b00;
+  background-color: #fff8f0;
+}
+
+.alertas-lista li.alerta-cuidado {
+  border-left-color: #0d922e;
+  background-color: #f6fff7;
+}
+
+.alertas-lista li.alerta-info {
+  border-left-color: #0066cc;
+  background-color: #f7faff;
+}
+
+.alertas-lista li.alerta-emergencia {
+  border-left-color: #f32e2e;
+  background-color: #fff5f5;
+}
+
+/* =====================================================
+   SECCIÓN: MAPA DE RESONANCIA MAGNÉTICA
    ===================================================== */
 
 /* Contenedor principal del mapa - Grid de 2 columnas */
@@ -297,7 +243,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Columna izquierda - Mapa más grande */
+/* Columna izquierda - Mapa */
 .mapa-visual-rm {
   display: flex;
   justify-content: center;
@@ -345,6 +291,26 @@
   box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
 }
 
+.zona-info-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  color: #003366;
+  font-weight: 600;
+}
+
+.zona-info-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.zona-info-card ul li {
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
 /* Colores específicos para cada zona de seguridad RM */
 .zona-info-card.zona-1 {
   border-left-color: #8cc63f;
@@ -382,15 +348,7 @@
   box-shadow: 0 2px 8px rgba(237, 28, 36, 0.25);
 }
 
-.zona-info-card h3 {
-  margin-top: 0;
-  margin-bottom: 0.6rem;
-  font-size: 1.1rem;
-  color: #003366;
-  font-weight: 600;
-}
-
-/* Estilos para el acordeón desplegable */
+/* Acordeón desplegable */
 .zona-titulo-clickable {
   cursor: pointer;
   user-select: none;
@@ -434,22 +392,7 @@
   }
 }
 
-.zona-info-card ul {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
-.zona-info-card ul li {
-  margin-bottom: 0.3rem;
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.5;
-}
-
-/* =====================================================
-   MODAL DE MAPA AMPLIADO
-   ===================================================== */
-
+/* Modal de mapa ampliado */
 .modal-mapa-ampliado {
   position: fixed;
   top: 0;
@@ -536,58 +479,110 @@
   transform: scale(0.95);
 }
 
-/* Responsive - En pantallas pequeñas, columna única */
-@media (max-width: 900px) {
-  .mapa-contenedor-rm {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
+/* =====================================================
+   SECCIÓN: VIDEO Y DOCUMENTOS
+   ===================================================== */
 
-  .mapa-imagen-rm {
-    max-width: 100%;
-  }
+.video-documentos-contenedor {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 1rem;
+}
 
-  .btn-cerrar-modal {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    top: 10px;
-    right: 10px;
-  }
+.video-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.video-columna h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #003366;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.documentos-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.documentos-columna h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #003366;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.zona-interactiva video {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   SECCIÓN: DOCUMENTOS (ESTILO LISTA)
+   ===================================================== */
+
+.documentos-lista {
+  list-style: none;
+  padding: 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.documentos-lista a {
+  color: #003366;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.documentos-lista a:hover {
+  color: #3181d1;
 }
 
 /* =====================================================
-   ESTILOS PARA OTROS MAPAS (CONSERVADOS)
+   SECCIÓN: TEST INTERACTIVO
    ===================================================== */
 
-.mapa-contenedor {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  margin-top: 10px;
+.zona-test button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+  transition: all 0.2s ease;
 }
 
-.mapa-info {
-  flex: 1;
-  min-width: 200px;
-}
-
-.mapa-visual {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.mapa-svg {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
+.zona-test button:hover {
+  background-color: #0052a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
 }
 
 /* =====================================================
-   ESTADO DEL TEST - COMPLETADO
+   SECCIÓN: ESTADO DEL TEST
    ===================================================== */
 
+.test-cargando {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+/* Test completado */
 .test-completado {
   background-color: #e8f5e9;
   border: 2px solid #4caf50;
@@ -632,6 +627,20 @@
   line-height: 1.5;
 }
 
+.test-bloqueado-info {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-top: 1rem;
+}
+
+.test-bloqueado-info p {
+  margin: 0.3rem 0;
+  color: #856404;
+  font-size: 0.95rem;
+}
+
 .btn-ver-test {
   background-color: #4caf50;
   color: white;
@@ -657,6 +666,7 @@
   box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
 }
 
+/* Test pendiente */
 .test-pendiente {
   background-color: #fff9e6;
   border: 2px solid #ffc107;
@@ -680,100 +690,123 @@
   margin-bottom: 0.5rem;
 }
 
-.test-bloqueado-info {
-  background-color: #fff3cd;
-  border: 1px solid #ffc107;
-  border-radius: 6px;
-  padding: 0.8rem;
-  margin-top: 1rem;
+/* =====================================================
+   SECCIÓN: MAPAS GENÉRICOS (OTROS)
+   ===================================================== */
+
+.mapa-contenedor {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 10px;
 }
 
-.test-bloqueado-info p {
-  margin: 0.3rem 0;
-  color: #856404;
-  font-size: 0.95rem;
+.mapa-info {
+  flex: 1;
+  min-width: 200px;
 }
 
-.header-zona {
-  margin-bottom: 0.5rem;
-  margin-top: -1rem;
+.mapa-visual {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
-/* Botón volver al mapa */
-.btn-volver-mapa {
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+.mapa-svg,
+.svg-zona {
+  width: 100%;
+  max-width: 900px;
+  display: block;
+  margin: 0 auto 20px auto;
+  border: 1px solid #ccc;
 }
 
-.btn-volver-mapa:hover {
-  background-color: #0052a3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+.leyenda-contenedor {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.leyenda-color {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #000;
+  border-radius: 4px;
 }
 
 /* =====================================================
-   LISTAS DE DOCUMENTOS - MEJORADAS
+   RESPONSIVE - ADAPTACIÓN A DISPOSITIVOS
    ===================================================== */
 
-.documentos-lista {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 0.8rem;
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .video-documentos-contenedor {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .mapa-contenedor-rm {
+    gap: 1.5rem;
+  }
 }
 
-.documentos-lista li {
-  background: #f8f9fa;
-  border: 1px solid #e3f2fd;
-  border-left: 4px solid #0066cc;
-  border-radius: 8px;
-  padding: 0.8rem;
-  transition: all 0.2s ease;
+/* Móviles y pantallas pequeñas */
+@media (max-width: 900px) {
+  .mapa-contenedor-rm {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .mapa-imagen-rm {
+    max-width: 100%;
+  }
+
+  .btn-cerrar-modal {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    top: 10px;
+    right: 10px;
+  }
 }
 
-.documentos-lista li:hover {
-  transform: translateX(4px);
-  border-left-color: #003366;
-  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+@media (max-width: 768px) {
+  .video-documentos-contenedor {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .video-columna,
+  .documentos-columna {
+    width: 100%;
+  }
+  
+  .video-contenedor {
+    max-width: 80%;
+  }
+  
+  .alertas-lista {
+    grid-template-columns: 1fr;
+  }
 }
 
-.documentos-lista a {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  transition: color 0.2s ease;
+@media (max-width: 480px) {
+  .video-contenedor {
+    max-width: 100%;
+  }
+  
+  .zona-interactiva {
+    padding: 1rem;
+  }
+  
+  .zona-interactiva h1 {
+    font-size: 1.5rem;
+  }
 }
-
-.documentos-lista a::before {
-  content: '📄';
-  font-size: 1.3rem;
-}
-
-.documentos-lista a:hover {
-  color: #003366;
-}
-
-.documentos-lista a::after {
-  content: '→';
-  margin-left: auto;
-  font-weight: bold;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.documentos-lista a:hover::after {
-  opacity: 1;
-}
-
