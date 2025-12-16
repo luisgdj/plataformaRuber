@@ -90,12 +90,92 @@ const ResonanciaMagnetica = () => {
         </button>
       </div>
 
-      <h1>Resonancia magnética (RM)</h1>
+      <h1>Resonancia Magnética (RM)</h1>
+      <p></p>
+
+      {/* ===================== ALERTAS ===================== */}
+      <section>
+        <h2>Alertas importantes</h2>
+        <ul className="alertas-lista">
+          <li className="alerta-restringido" data-icon="🔒">
+            <div>
+              <strong>Acceso restringido</strong>
+              Solo personal formado puede acceder a estas instalaciones.
+            </div>
+          </li>
+          <li className="alerta-peligro" data-icon="🧲">
+            <div>
+              <strong>Campo magnético permanente</strong>
+              Peligro: Los objetos metálicos pueden convertirse en proyectiles letales.
+            </div>
+          </li>
+          <li className="alerta-cuidado" data-icon="❤️">
+            <div>
+              <strong>Implantes médicos</strong>
+              Avisar si lleva marcapasos, implantes cocleares u otros dispositivos médicos.
+            </div>
+          </li>
+          <li className="alerta-info" data-icon="🧰">
+            <div>
+              <strong>Equipos de trabajo</strong>
+              Todos los equipos deben estar certificados como MR Safe o MR Conditional.
+            </div>
+          </li>
+          <li className="alerta-emergencia" data-icon="🚨">
+            <div>
+              <strong>Procedimiento de emergencia</strong>
+              En caso de emergencia, siga las indicaciones del técnico responsable.
+            </div>
+          </li>
+        </ul>
+      </section>
 
       {/* ===================== INFORMACIÓN ===================== */}
       <section>
         <h2>Información general</h2>
-        <p>La resonancia magnética utiliza campos magnéticos y ondas de radio para obtener imágenes detalladas del cuerpo humano.</p>
+        <p>
+          La resonancia magnética (MRI) es una técnica de imagen no invasiva que permite obtener imágenes detalladas de órganos y tejidos del cuerpo humano.
+          No utiliza radiación ionizante, siendo segura <b>siempre que se respeten los protocolos de seguridad</b>. Es ampliamente utilizada para diagnosticar diversas patologías.
+        </p>
+
+        <h3>Funcionamiento básico</h3>
+        <p>
+          El paciente se encuentra rodeado por un potente imán. Campos de radiofrecuencia hacen que los protones de hidrógeno emitan señales detectables, y los campos magnéticos de gradiente localizan los tejidos con precisión.
+          Esto permite generar imágenes de alta resolución que diferencian tejidos normales de anormales.
+        </p>
+
+        <h3>Seguridad en el entorno MRI</h3>
+        <p>
+          El campo magnético del imán está siempre activo, incluso cuando el equipo no está escaneando. Por ello, el acceso a la sala está estrictamente controlado y todos los pacientes, acompañantes y personal deben pasar por un screening previo.
+        </p>
+        <ul>
+          <li>Objetos ferromagnéticos pueden convertirse en proyectiles.</li>
+          <li>Retirar joyas, relojes, herramientas u otros objetos metálicos antes de entrar.</li>
+          <li>Seguir todas las señales, barreras y protocolos de seguridad establecidos.</li>
+        </ul>
+
+        <h3>Roles y responsabilidades del personal</h3>
+        <p>
+          Todo el personal hospitalario debe conocer las normas básicas de seguridad MRI:
+        </p>
+        <ul>
+          <li>Personal de nivel 1: auxiliares, enfermeras y asistentes capacitados en seguridad MRI.</li>
+          <li>Personal de seguridad MRI: médicos, tecnólogos y expertos responsables de supervisar protocolos de seguridad y manejo de emergencias.</li>
+        </ul>
+        <p>
+          En caso de emergencia, el personal debe estar familiarizado con los procedimientos de seguridad.
+        </p>
+
+        <h3>Recomendaciones generales para todo el personal</h3>
+        <p>
+          Para garantizar la seguridad de pacientes y profesionales:
+        </p>
+        <ul>
+          <li>No ingresar a la sala de MRI sin autorización ni screening.</li>
+          <li>Evitar introducir objetos metálicos o equipos no aprobados.</li>
+          <li>Conocer la ubicación de paradas de emergencia y procedimientos de evacuación.</li>
+          <li>Mantener comunicación con el personal MRI ante cualquier situación inusual.</li>
+        </ul>
       </section>
 
       {/* ===================== MAPA ===================== */}
@@ -195,43 +275,6 @@ const ResonanciaMagnetica = () => {
           </div>
         </div>
       )}
-
-      {/* ===================== ALERTAS ===================== */}
-      <section>
-        <h2>Alertas activas</h2>
-        <ul className="alertas-lista">
-          <li className="alerta-restringido" data-icon="🔒">
-            <div>
-              <strong>Acceso restringido</strong>
-              Solo personal formado puede acceder a estas instalaciones.
-            </div>
-          </li>
-          <li className="alerta-peligro" data-icon="🧲">
-            <div>
-              <strong>Campo magnético permanente</strong>
-              Peligro: Los objetos metálicos pueden convertirse en proyectiles letales.
-            </div>
-          </li>
-          <li className="alerta-cuidado" data-icon="❤️">
-            <div>
-              <strong>Implantes médicos</strong>
-              Avisar si lleva marcapasos, implantes cocleares u otros dispositivos médicos.
-            </div>
-          </li>
-          <li className="alerta-info" data-icon="🧰">
-            <div>
-              <strong>Equipos de trabajo</strong>
-              Todos los equipos deben estar certificados como MR Safe o MR Conditional.
-            </div>
-          </li>
-          <li className="alerta-emergencia" data-icon="🚨">
-            <div>
-              <strong>Procedimiento de emergencia</strong>
-              En caso de emergencia, siga las indicaciones del técnico responsable.
-            </div>
-          </li>
-        </ul>
-      </section>
 
       {/* ===================== VIDEO ===================== */}
       <section>

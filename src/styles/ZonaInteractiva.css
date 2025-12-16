@@ -1,22 +1,47 @@
 .zona-interactiva {
   padding: 2rem;
-  background-color: #f9fbfd;
+  background-color: #eceded;
   color: #003366;
 }
 
 .zona-interactiva h1 {
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  color: #003366;
+  font-weight: 700;
+  padding: 0.8rem 1.2rem;
+  background-color: #e3f2fd;
+  border-radius: 8px;
 }
 
 .zona-interactiva section {
   margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
+
+.zona-interactiva h2 {
+  font-size: 1.3rem;
+  color: #0f59a3;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* =====================================================
+   VIDEO
+   ===================================================== */
 
 .zona-interactiva video {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 2px solid #e3f2fd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Contenedor de video a media pantalla */
@@ -46,6 +71,10 @@
   }
 }
 
+/* =====================================================
+   TEST
+   ===================================================== */
+
 .zona-test button {
   margin-right: 0.5rem;
   padding: 0.5rem 1rem;
@@ -54,10 +83,19 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+  transition: all 0.2s ease;
+}
+
+.zona-test button:hover {
+  background-color: #0052a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
 }
 
 /* =====================================================
-   ALERTAS ACTIVAS - DISEÑO MEJORADO
+   ALERTAS
    ===================================================== */
 
 .alertas-lista {
@@ -65,7 +103,10 @@
   padding-left: 0;
   margin-top: 1rem;
   display: grid;
-  gap: 0.6rem;
+  grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+  gap: 0.5rem; /* Espacio entre columnas y filas */
+  margin-left: -10px;
+  margin-right: 10px;
 }
 
 .alertas-lista li {
@@ -77,7 +118,7 @@
   font-size: 0.9rem;
   line-height: 1.5;
   box-shadow: 0 2px 6px rgba(0, 51, 102, 0.08);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: flex-start;
   gap: 0.7rem;
@@ -118,44 +159,33 @@
 
 /* Colores específicos para diferentes tipos de alertas */
 .alertas-lista li.alerta-restringido {
-  border-left-color: #cc0000;
-}
-
-.alertas-lista li.alerta-restringido:hover {
-  border-left-color: #990000;
+  border-left-color: #f59e0b;
+  background-color: #fffbf0;
 }
 
 .alertas-lista li.alerta-peligro {
   border-left-color: #ff6b00;
-}
-
-.alertas-lista li.alerta-peligro:hover {
-  border-left-color: #cc5500;
+  background-color: #fff8f0;
 }
 
 .alertas-lista li.alerta-cuidado {
-  border-left-color: #f59e0b;
-}
-
-.alertas-lista li.alerta-cuidado:hover {
-  border-left-color: #d97706;
+  border-left-color: #0d922e;
+  background-color: #f6fff7;
 }
 
 .alertas-lista li.alerta-info {
   border-left-color: #0066cc;
-}
-
-.alertas-lista li.alerta-info:hover {
-  border-left-color: #003366;
+  background-color: #f7faff;
 }
 
 .alertas-lista li.alerta-emergencia {
-  border-left-color: #dc2626;
+  border-left-color: #f32e2e;
+  background-color: #fff5f5;
 }
 
-.alertas-lista li.alerta-emergencia:hover {
-  border-left-color: #991b1b;
-}
+/* =====================================================
+   MAPA INTERACTIVO
+   ===================================================== */
 
 .svg-zona {
   width: 100%;
@@ -186,19 +216,22 @@
 
 /* Texto más compacto */
 .zona-interactiva h3 {
-  margin-top: 20px;     /* Baja la separación superior */
-  margin-bottom: 4px;   /* Muy pegado al texto */
+  margin-top: 20px;
+  margin-bottom: 4px;
+  color: #003366;
+  font-weight: 600;
 }
 
 .zona-interactiva ul {
-  margin-top: 0px;      /* Nada de espacio arriba */
-  margin-bottom: 6px;   /* Separación mínima abajo */
-  padding-left: 18px;   /* Mantiene indentación del ul */
+  margin-top: 0px;
+  margin-bottom: 6px;
+  padding-left: 18px;
 }
 
 /* Opcional: listas más compactas */
 .zona-interactiva ul li {
   margin-bottom: 2px;
+  color: #444;
 }
 
 /* =====================================================
@@ -213,9 +246,9 @@
   border-radius: 8px;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   box-shadow: 0 2px 6px rgba(0, 102, 204, 0.3);
   margin-top: 1rem;
 }
@@ -244,10 +277,11 @@
 
 .btn-volver:hover {
   background-color: #444;
+  box-shadow: 0 4px 12px rgba(102, 102, 102, 0.4);
 }
 
 /* =====================================================
-   NUEVO LAYOUT PARA MAPA DE RESONANCIA MAGNÉTICA
+   LAYOUT PARA MAPA DE RESONANCIA MAGNÉTICA
    ===================================================== */
 
 /* Contenedor principal del mapa - Grid de 2 columnas */
@@ -298,12 +332,12 @@
 
 /* Cards individuales para cada zona */
 .zona-info-card {
-  background-color: #f9fbfd;
-  border-left: 8px solid #0066cc;
+  background-color: #ffffff;
+  border-left: 6px solid #0066cc;
   padding: 1rem 1.2rem;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .zona-info-card:hover {
@@ -314,54 +348,38 @@
 /* Colores específicos para cada zona de seguridad RM */
 .zona-info-card.zona-1 {
   border-left-color: #8cc63f;
-  background-color: #e8f5d8;
+  background-color: #f5faf0;
 }
 
 .zona-info-card.zona-1:hover {
   box-shadow: 0 2px 8px rgba(140, 198, 63, 0.25);
 }
 
-.zona-info-card.zona-1 .zona-icono {
-  color: #8cc63f;
-}
-
 .zona-info-card.zona-2 {
-  border-left-color: #fff200;
-  background-color: #fffacc;
+  border-left-color: #ffd700;
+  background-color: #fffef5;
 }
 
 .zona-info-card.zona-2:hover {
-  box-shadow: 0 2px 8px rgba(255, 242, 0, 0.25);
-}
-
-.zona-info-card.zona-2 .zona-icono {
-  color: #e0d600;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.25);
 }
 
 .zona-info-card.zona-3 {
   border-left-color: #ff9933;
-  background-color: #ffe8d1;
+  background-color: #fff8f0;
 }
 
 .zona-info-card.zona-3:hover {
   box-shadow: 0 2px 8px rgba(255, 153, 51, 0.25);
 }
 
-.zona-info-card.zona-3 .zona-icono {
-  color: #ff9933;
-}
-
 .zona-info-card.zona-4 {
   border-left-color: #ed1c24;
-  background-color: #fdd8da;
+  background-color: #fff5f5;
 }
 
 .zona-info-card.zona-4:hover {
   box-shadow: 0 2px 8px rgba(237, 28, 36, 0.25);
-}
-
-.zona-info-card.zona-4 .zona-icono {
-  color: #ed1c24;
 }
 
 .zona-info-card h3 {
@@ -592,6 +610,7 @@
   color: #2e7d32;
   font-size: 1.5rem;
   margin: 0.5rem 0;
+  font-weight: 700;
 }
 
 .test-puntuacion {
@@ -603,6 +622,7 @@
 .test-puntuacion strong {
   color: #2e7d32;
   font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .test-mensaje {
@@ -619,9 +639,9 @@
   border-radius: 8px;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
   margin-top: 1rem;
 }
@@ -688,10 +708,72 @@
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-weight: bold;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
 }
 
 .btn-volver-mapa:hover {
-  background-color: #004a99;
+  background-color: #0052a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
 }
+
+/* =====================================================
+   LISTAS DE DOCUMENTOS - MEJORADAS
+   ===================================================== */
+
+.documentos-lista {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.documentos-lista li {
+  background: #f8f9fa;
+  border: 1px solid #e3f2fd;
+  border-left: 4px solid #0066cc;
+  border-radius: 8px;
+  padding: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.documentos-lista li:hover {
+  transform: translateX(4px);
+  border-left-color: #003366;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+}
+
+.documentos-lista a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: color 0.2s ease;
+}
+
+.documentos-lista a::before {
+  content: '📄';
+  font-size: 1.3rem;
+}
+
+.documentos-lista a:hover {
+  color: #003366;
+}
+
+.documentos-lista a::after {
+  content: '→';
+  margin-left: auto;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.documentos-lista a:hover::after {
+  opacity: 1;
+}
+
