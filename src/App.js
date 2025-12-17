@@ -127,6 +127,17 @@ function App() {
     setDepartamentoActivo(nombreZona);
     setResaltarDepartamento(null); // Limpiar resaltado de departamento
 
+    // Mapeo de zonas del mapa a nombres reconocibles
+    const MAPEO_ZONAS_MAPA = {
+      'Oncología radioterápica': 'Oncología radioterápica',
+      'Medicina nuclear': 'Medicina nuclear',
+      'Unidad gamma': 'Unidad gamma',
+      'Diagnóstico de imagen': 'Diagnóstico de imagen'
+    };
+
+    // Si viene del mapa con un nombre de departamento general, usar ese nombre
+    let nombreParaBuscar = MAPEO_ZONAS_MAPA[nombreZona] || nombreZona;
+
     // Buscar automáticamente la categoría y subcategoría donde está esa zona
     const categorias = [
       {
@@ -181,22 +192,48 @@ function App() {
     let categoriaEncontrada = null;
     let subcategoriaEncontrada = null;
 
-    // Buscar la categoría o subcategoría que contiene la zona
+    // Primero buscar si el nombre coincide con una categoría principal
     for (const cat of categorias) {
-      if (cat.zonas && cat.zonas.includes(nombreZona)) {
+      if (cat.nombre === nombreParaBuscar) {
         categoriaEncontrada = cat.nombre;
         break;
       }
-      if (cat.subcategorias) {
-        for (const sub of cat.subcategorias) {
-          if (sub.zonas.includes(nombreZona)) {
-            categoriaEncontrada = cat.nombre;
-            subcategoriaEncontrada = sub.nombre;
-            break;
+    }
+
+    // Si no se encontró como categoría, buscar en subcategorías
+    if (!categoriaEncontrada) {
+      for (const cat of categorias) {
+        if (cat.subcategorias) {
+          for (const sub of cat.subcategorias) {
+            if (sub.nombre === nombreParaBuscar) {
+              categoriaEncontrada = cat.nombre;
+              subcategoriaEncontrada = sub.nombre;
+              break;
+            }
           }
         }
+        if (categoriaEncontrada) break;
       }
-      if (categoriaEncontrada) break;
+    }
+
+    // Si aún no se encontró, buscar la zona específica
+    if (!categoriaEncontrada) {
+      for (const cat of categorias) {
+        if (cat.zonas && cat.zonas.includes(nombreParaBuscar)) {
+          categoriaEncontrada = cat.nombre;
+          break;
+        }
+        if (cat.subcategorias) {
+          for (const sub of cat.subcategorias) {
+            if (sub.zonas.includes(nombreParaBuscar)) {
+              categoriaEncontrada = cat.nombre;
+              subcategoriaEncontrada = sub.nombre;
+              break;
+            }
+          }
+        }
+        if (categoriaEncontrada) break;
+      }
     }
 
     setCategoriaActiva(categoriaEncontrada);
