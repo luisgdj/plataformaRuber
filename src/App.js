@@ -251,13 +251,12 @@ function App() {
 
   const VistaMapa = () => (
     <>
-      <h1>Mapa interactivo - Hospital Ruber Internacional</h1>
       <div className="header-mapa">
+        <h1>Mapa interactivo - Hospital Ruber Internacional</h1>
         <button className="logout-btn" onClick={handleLogout}>
            Cerrar sesión
         </button>
       </div>
-    
 
       <div className="contenedor-principal">
         <Sidebar
@@ -278,7 +277,6 @@ function App() {
           tipoContenido={tipoContenido}       
           setTipoContenido={setTipoContenido}
         />
-
 
         <Mapa
           archivoSvg={plantaActiva}
