@@ -80,7 +80,7 @@ function App() {
       "Unidad gamma"
     ],
     "mapas/plantaS1.svg": [
-      "Diagnóstico de imagen"
+      "Diagnóstico por imagen"
     ],
     "mapas/planta00.svg": [
       "Área quirúrgica"
@@ -132,7 +132,7 @@ function App() {
       'Oncología radioterápica': 'Oncología radioterápica',
       'Medicina nuclear': 'Medicina nuclear',
       'Unidad gamma': 'Unidad gamma',
-      'Diagnóstico de imagen': 'Diagnóstico de imagen'
+      'Diagnóstico por imagen': 'Diagnóstico por imagen'
     };
 
     // Si viene del mapa con un nombre de departamento general, usar ese nombre
@@ -141,7 +141,7 @@ function App() {
     // Buscar automáticamente la categoría y subcategoría donde está esa zona
     const categorias = [
       {
-        nombre: 'Diagnóstico de imagen',
+        nombre: 'Diagnóstico por imagen',
         zonas: [
           'Resonancia Magnética (RM)',
           'Radiología Convencional',

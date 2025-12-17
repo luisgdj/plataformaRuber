@@ -33,7 +33,7 @@ const Sidebar = ({
   // Categorías y zonas
   const categorias = [
     {
-      nombre: 'Diagnóstico de imagen',
+      nombre: 'Diagnóstico por imagen',
       zonas: [
         'Resonancia Magnética (RM)',
         'Radiología Convencional',

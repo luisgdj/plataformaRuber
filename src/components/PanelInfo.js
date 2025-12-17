@@ -118,7 +118,7 @@ const PanelInfo = ({ zona, tipo }) => {
 
   const rutasZona = {
     // Departamentos principales
-    'Diagnóstico de imagen': '/zonas/diagnostico-imagen',
+    'Diagnóstico por imagen': '/zonas/diagnostico-imagen',
     'Instalaciones radiactivas': '/zonas/instalaciones-radioactivas',
     'Medicina nuclear': '/zonas/medicina-nuclear',
     'Oncología radioterápica': '/zonas/oncologia-radioterapica',

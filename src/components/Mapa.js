@@ -30,9 +30,9 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada, r
     "path4972": "Mami PET",
     
     // PS1 - Diagnostico por Imagen
-    "PS1_DiagnosticoImagen": "Diagnóstico de imagen",
-    "estructuraDI": "Diagnóstico de imagen",
-    "depDI": "Diagnóstico de imagen",
+    "PS1_DiagnosticoImagen": "Diagnóstico por imagen",
+    "estructuraDI": "Diagnóstico por imagen",
+    "depDI": "Diagnóstico por imagen",
     "path10806": "Resonancia Magnética (RM)",
     "path10799":  "Resonancia Magnética (RM)",
     "path10311": "Radiología Convencional",
@@ -45,7 +45,7 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada, r
 
   // Mapeo de departamentos a sus zonas/elementos relacionados
   const DEPARTAMENTO_A_ZONAS = {
-    "Diagnóstico de imagen": [
+    "Diagnóstico por imagen": [
       "PS1_DiagnosticoImagen", "estructuraDI", "depDI",
       "path10806", "path10799", "path10311", "path10261", 
       "path10794", "path10262", "path3224", "path10293"
