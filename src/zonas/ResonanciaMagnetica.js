@@ -90,8 +90,7 @@ const ResonanciaMagnetica = () => {
         </button>
       </div>
 
-      <h1>Resonancia Magnética (RM)</h1>
-      <p></p>
+      <h1>Resonancia Magnética (RM)</h1><br />
 
       {/* ===================== ALERTAS ===================== */}
       <section>

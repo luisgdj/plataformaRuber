@@ -13,7 +13,6 @@ import RadiologiaConvencional from './zonas/RadiologiaConvencional';
 import Ecografia from './zonas/Ecografia';
 import Mamografia from './zonas/Mamografia';
 import TAC from './zonas/TAC';
-import InstalacionesRadioactivas from './zonas/InstalacionesRadioactivas';
 import GammaCamara from './zonas/GammaCamara';
 import SPECTTAC from './zonas/SPECTTAC';
 import PETTAC from './zonas/PETTAC';
@@ -278,7 +277,6 @@ function App() {
           <Route path="/zonas/tac" element={<RutaPrivada><TAC /></RutaPrivada>} />
           <Route path="/zonas/ecografia" element={<RutaPrivada><Ecografia /></RutaPrivada>} />
           <Route path="/zonas/mamografia" element={<RutaPrivada><Mamografia /></RutaPrivada>} />
-          <Route path="/zonas/instalaciones-radioactivas" element={<RutaPrivada><InstalacionesRadioactivas /></RutaPrivada>} />
           <Route path="/zonas/gamma-camara" element={<RutaPrivada><GammaCamara /></RutaPrivada>} />
           <Route path="/zonas/spect-tac" element={<RutaPrivada><SPECTTAC /></RutaPrivada>} />
           <Route path="/zonas/pet-tac" element={<RutaPrivada><PETTAC /></RutaPrivada>} />
