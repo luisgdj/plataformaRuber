@@ -7,20 +7,8 @@ import Mapa from './components/Mapa';
 import Sidebar from './components/Sidebar';
 import PanelInfo from './components/PanelInfo';
 
-// Importa tus zonas
+// Importa las zonas
 import ResonanciaMagnetica from './zonas/diagnosticoImagen/ResonanciaMagnetica';
-/*
-import RadiologiaConvencional from './zonas/RadiologiaConvencional';
-import Mamografia from './zonas/Mamografia';
-import TAC from './zonas/TAC';
-import Ecografia from './zonas/Ecografia';
-import SPECTTAC from './zonas/SPECTTAC';
-import PETTAC from './zonas/PETTAC';
-import AceleradorLineal from './zonas/AceleradorLineal';
-import Ciberknife from './zonas/Ciberknife';
-import GammaKnife from './zonas/GammaKnife';
-*/
-// Nuevas zonas de subcategorías
 import Radiodiagnostico from './zonas/diagnosticoImagen/Radiodiagnostico';
 import MedicinaNuclear from './zonas/instalacionesRadioactivas/MedicinaNuclear';
 import OncologiaRadioterapica from './zonas/instalacionesRadioactivas/OncologiaRadioterapica';
@@ -35,7 +23,6 @@ import FarmaciaHospitalaria from './zonas/farmaciaLaboratorios/FarmaciaHospitala
 import Hospitalizacion from './zonas/hospitalizacionConsultas/Hospitalizacion';
 import ConsultasExternas from './zonas/hospitalizacionConsultas/ConsultasExternas';
 import Cocina from './zonas/serviciosGenerales/Cocina';
-
 
 // Importa tus tests
 import TestRM from './tests/TestRM';
@@ -279,25 +266,12 @@ function App() {
           <Route path="/login" element={<Auth onLogin={() => setIsLoggedIn(true)} />} />
           <Route path="/" element={<RutaPrivada><VistaMapa /></RutaPrivada>} />
           
-          {/* RUTAS DE ZONAS ESPECÍFICAS */}
-          <Route path="/zonas/resonancia-magnetica" element={<RutaPrivada><ResonanciaMagnetica /></RutaPrivada>} />
-          {/*
-          <Route path="/zonas/radiologia-convencional" element={<RutaPrivada><RadiologiaConvencional /></RutaPrivada>} />
-          <Route path="/zonas/tac" element={<RutaPrivada><TAC /></RutaPrivada>} />
-          <Route path="/zonas/mamografia" element={<RutaPrivada><Mamografia /></RutaPrivada>} />
-          <Route path="/zonas/ecografia" element={<RutaPrivada><Ecografia /></RutaPrivada>} />
-          <Route path="/zonas/gamma-camara" element={<RutaPrivada><GammaCamara /></RutaPrivada>} />
-          <Route path="/zonas/spect-tac" element={<RutaPrivada><SPECTTAC /></RutaPrivada>} />
-          <Route path="/zonas/pet-tac" element={<RutaPrivada><PETTAC /></RutaPrivada>} />
-          <Route path="/zonas/acelerador-lineal" element={<RutaPrivada><AceleradorLineal /></RutaPrivada>} />
-          <Route path="/zonas/ciberknife" element={<RutaPrivada><Ciberknife /></RutaPrivada>} />
-          <Route path="/zonas/gammaknife" element={<RutaPrivada><GammaKnife /></RutaPrivada>} />
-          */}
           {/* RUTAS DE SUBCATEGORÍAS */}
+          <Route path="/zonas/resonancia-magnetica" element={<RutaPrivada><ResonanciaMagnetica /></RutaPrivada>} />
+          <Route path="/zonas/radiodiagnostico" element={<RutaPrivada><Radiodiagnostico /></RutaPrivada>} />
           <Route path="/zonas/medicina-nuclear" element={<RutaPrivada><MedicinaNuclear /></RutaPrivada>} />
           <Route path="/zonas/oncologia-radioterapica" element={<RutaPrivada><OncologiaRadioterapica /></RutaPrivada>} />
           <Route path="/zonas/unidad-gamma" element={<RutaPrivada><UnidadGamma /></RutaPrivada>} />
-          <Route path="/zonas/radiodiagnostico" element={<RutaPrivada><Radiodiagnostico /></RutaPrivada>} />
           <Route path="/zonas/quirofanos" element={<RutaPrivada><Quirofanos /></RutaPrivada>} />
           <Route path="/zonas/intervencionismo-hemodinamica" element={<RutaPrivada><IntervencionismoHemodinamica /></RutaPrivada>} />
           <Route path="/zonas/esterilizacion" element={<RutaPrivada><Esterilizacion /></RutaPrivada>} />

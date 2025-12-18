@@ -120,7 +120,7 @@ const PanelInfo = ({ zona, tipo }) => {
       ruta: '/zonas/cocina'
     }
   };
-
+  
   // Salas específicas con página propia (las que no son subcategorías)
   const salasConPagina = {
     'Resonancia Magnética (RM)': '/zonas/resonancia-magnetica',
@@ -138,17 +138,6 @@ const PanelInfo = ({ zona, tipo }) => {
     'Habitaciones': '/zonas/hospitalizacion',
     'Consultas externas': '/zonas/consultas-externas',
     'Cocina': '/zonas/cocina'
-    /*
-    'Radiología Convencional': '/zonas/radiologia-convencional',
-    'Tomografía Axial Computarizada (TAC)': '/zonas/tac',
-    'Mamografía': '/zonas/mamografia',
-    'Gamma cámara': '/zonas/gamma-camara',
-    'SPECT-TAC': '/zonas/spect-tac',
-    'PET-TAC': '/zonas/pet-tac',
-    'Acelerador lineal': '/zonas/acelerador-lineal',
-    'Ciberknife': '/zonas/ciberknife',
-    'Gamma Knife': '/zonas/gammaknife'
-    */
   };
 
   const nombreVisible = nombreZona;
