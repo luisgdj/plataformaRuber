@@ -39,7 +39,7 @@ const PanelInfo = ({ zona, tipo }) => {
       salas: ['Quirófanos', 'Intervencionismo y Hemodinámica', 'Esterilización'],
       ruta: null
     },
-    'Cuidados Críticos': {
+    'Cuidados críticos': {
       salas: ['Unidad de Cuidados Intensivos (UCI)', 'Urgencias'],
       ruta: null
     },
