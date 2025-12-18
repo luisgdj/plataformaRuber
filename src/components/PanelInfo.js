@@ -241,23 +241,13 @@ const PanelInfo = ({ zona, tipo }) => {
 
       <p>
         Has seleccionado la zona de <strong>{nombreVisible}</strong>
-      </p>
-
-      {rutaSala ? (
-        <>
-          <p>
-            Accede a su página personalizada para consultar alertas de seguridad, 
-            vídeos formativos, protocolos y procedimientos detallados.
-          </p>
-          <button onClick={() => navigate(rutaSala)}>
-            Ir a la página de la zona
-          </button>
-        </>
-      ) : (
         <p>
-          Esta zona forma parte de <strong>{nombreDepartamento || 'las instalaciones del hospital'}</strong>.
+          Para más información sobre esta zona, consulta la página de su departamento ({nombreDepartamento}).
+          <div className="panel-acciones">
+            <p>Selecciona el departamento para acceder a su información.</p>
+          </div>
         </p>
-      )}
+      </p>
     </div>
   );
 };
