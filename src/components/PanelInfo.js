@@ -124,6 +124,21 @@ const PanelInfo = ({ zona, tipo }) => {
   // Salas específicas con página propia (las que no son subcategorías)
   const salasConPagina = {
     'Resonancia Magnética (RM)': '/zonas/resonancia-magnetica',
+    'Radiodiagnóstico (RX, TAC, Mamografía)': '/zonas/radiodiagnostico',
+    'Oncología radioterápica': '/zonas/oncologia-radioterapica',
+    'Medicina nuclear': '/zonas/medicina-nuclear',
+    'Unidad gamma': '/zonas/unidad-gamma',
+    'Quirófanos': '/zonas/quirofanos',
+    'Intervencionismo y Hemodinámica': '/zonas/intervencionismo-hemodinamica',
+    'Esterilización': '/zonas/esterilizacion',
+    'Unidad de Cuidados Intensivos (UCI)': '/zonas/uci',
+    'Urgencias': '/zonas/urgencias',
+    'Laboratorios clínicos': '/zonas/laboratorios-clinicos',
+    'Farmacia hospitalaria': '/zonas/farmacia-hospitalaria',
+    'Habitaciones': '/zonas/hospitalizacion',
+    'Consultas externas': '/zonas/consultas-externas',
+    'Cocina': '/zonas/cocina'
+    /*
     'Radiología Convencional': '/zonas/radiologia-convencional',
     'Tomografía Axial Computarizada (TAC)': '/zonas/tac',
     'Mamografía': '/zonas/mamografia',
@@ -133,6 +148,7 @@ const PanelInfo = ({ zona, tipo }) => {
     'Acelerador lineal': '/zonas/acelerador-lineal',
     'Ciberknife': '/zonas/ciberknife',
     'Gamma Knife': '/zonas/gammaknife'
+    */
   };
 
   const nombreVisible = nombreZona;
@@ -154,19 +170,19 @@ const PanelInfo = ({ zona, tipo }) => {
 
         {salas.length > 0 ? (
           <>
-            <p>Esta zona incluye las siguientes salas:</p>
-            <ul className="panel-lista-salas">
-              {salas.map((sala, index) => (
-                <li key={index}>{sala}</li>
-              ))}
-            </ul>
             <p>
-              Accede a las páginas personalizadas de cada sala para consultar alertas de seguridad, 
-              vídeos formativos, protocolos y procedimientos detallados.
+              Esta zona incluye las siguientes salas:
+              <ul className="panel-lista-salas">
+                {salas.map((sala, index) => (
+                  <li key={index}>{sala}</li>
+                ))}
+              </ul>
+              <br />
+              Para más información de cada zona, consulta las páginas específicas.
+              <div className="panel-acciones">
+                <p>Selecciona una sala específica del mapa o del menú lateral para acceder a su información.</p>
+              </div>
             </p>
-            <div className="panel-acciones">
-              <p><strong>Selecciona una sala específica del mapa o del menú lateral para acceder a su información.</strong></p>
-            </div>
           </>
         ) : (
           <p>Este departamento aún no tiene salas específicas definidas.</p>
@@ -206,8 +222,7 @@ const PanelInfo = ({ zona, tipo }) => {
         {ruta ? (
           <>
             <p>
-              Accede a su página personalizada para consultar alertas de seguridad, 
-              vídeos formativos, protocolos y procedimientos detallados.
+              Accede a su página personalizada para consultar información relevante y su formación asociada.
             </p>
             <button onClick={() => navigate(ruta)}>
               Ir a la página de la zona
@@ -251,7 +266,6 @@ const PanelInfo = ({ zona, tipo }) => {
         </>
       ) : (
         <p>
-          <br />
           Esta zona forma parte de <strong>{nombreDepartamento || 'las instalaciones del hospital'}</strong>.
         </p>
       )}

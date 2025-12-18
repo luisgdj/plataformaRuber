@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/ZonaInteractiva.css';
-import '../styles/Mapa.css';
+import '../../styles/ZonaInteractiva.css';
+import '../../styles/Mapa.css';
 
 const ResonanciaMagnetica = () => {
   const navigate = useNavigate();

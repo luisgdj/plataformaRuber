@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/ZonaInteractiva.css';
+import '../../styles/ZonaInteractiva.css';
 
 const UnidadGamma = () => {
   const navigate = useNavigate();

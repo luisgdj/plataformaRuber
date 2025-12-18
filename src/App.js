@@ -8,21 +8,20 @@ import Sidebar from './components/Sidebar';
 import PanelInfo from './components/PanelInfo';
 
 // Importa tus zonas
-import ResonanciaMagnetica from './zonas/ResonanciaMagnetica';
+import ResonanciaMagnetica from './zonas/diagnosticoImagen/ResonanciaMagnetica';
 import RadiologiaConvencional from './zonas/RadiologiaConvencional';
 import Mamografia from './zonas/Mamografia';
 import TAC from './zonas/TAC';
 import Ecografia from './zonas/Ecografia';
-import GammaCamara from './zonas/GammaCamara';
 import SPECTTAC from './zonas/SPECTTAC';
 import PETTAC from './zonas/PETTAC';
 import AceleradorLineal from './zonas/AceleradorLineal';
 import Ciberknife from './zonas/Ciberknife';
 import GammaKnife from './zonas/GammaKnife';
 // Nuevas zonas de subcategorías
-import MedicinaNuclear from './zonas/MedicinaNuclear';
-import OncologiaRadioterapica from './zonas/OncologiaRadioterapica';
-import UnidadGamma from './zonas/UnidadGamma';
+import MedicinaNuclear from './zonas/instalacionesRadioactivas/MedicinaNuclear';
+import OncologiaRadioterapica from './zonas/instalacionesRadioactivas/OncologiaRadioterapica';
+import UnidadGamma from './zonas/instalacionesRadioactivas/UnidadGamma';
 
 // Importa tus tests
 import TestRM from './tests/TestRM';
@@ -146,7 +145,7 @@ function App() {
     const categorias = [
       {
         nombre: 'Diagnóstico por imagen',
-        zonas: ['Resonancia Magnética (RM)', 'Radiodiagnóstico (RX, TAC, Mamografía)']
+        zonas: ['Resonancia Magnética (RM)', 'Radiodiagnóstico (RX, TAC, Mamografía)', 'Ecografía']
       },
       {
         nombre: 'Instalaciones radiactivas',
@@ -268,6 +267,7 @@ function App() {
           
           {/* RUTAS DE ZONAS ESPECÍFICAS */}
           <Route path="/zonas/resonancia-magnetica" element={<RutaPrivada><ResonanciaMagnetica /></RutaPrivada>} />
+          {/*
           <Route path="/zonas/radiologia-convencional" element={<RutaPrivada><RadiologiaConvencional /></RutaPrivada>} />
           <Route path="/zonas/tac" element={<RutaPrivada><TAC /></RutaPrivada>} />
           <Route path="/zonas/mamografia" element={<RutaPrivada><Mamografia /></RutaPrivada>} />
@@ -278,11 +278,12 @@ function App() {
           <Route path="/zonas/acelerador-lineal" element={<RutaPrivada><AceleradorLineal /></RutaPrivada>} />
           <Route path="/zonas/ciberknife" element={<RutaPrivada><Ciberknife /></RutaPrivada>} />
           <Route path="/zonas/gammaknife" element={<RutaPrivada><GammaKnife /></RutaPrivada>} />
-          
+          */}
           {/* RUTAS DE SUBCATEGORÍAS */}
           <Route path="/zonas/medicina-nuclear" element={<RutaPrivada><MedicinaNuclear /></RutaPrivada>} />
           <Route path="/zonas/oncologia-radioterapica" element={<RutaPrivada><OncologiaRadioterapica /></RutaPrivada>} />
           <Route path="/zonas/unidad-gamma" element={<RutaPrivada><UnidadGamma /></RutaPrivada>} />
+          
           
           {/* RUTAS DE TESTS */}
           <Route path="/tests/resonancia-magnetica" element={<RutaPrivada><TestRM /></RutaPrivada>} />
