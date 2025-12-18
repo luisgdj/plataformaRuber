@@ -30,45 +30,40 @@ const Sidebar = ({
     '3': 'mapas/planta03.svg'
   };
 
-  // Categorías y zonas
+  // Categorías y zonas según documento de zonas importantes
   const categorias = [
     {
       nombre: 'Diagnóstico por imagen',
-      zonas: [
-        'Resonancia Magnética (RM)',
-        'Radiología Convencional',
-        'Tomografía Axial Computarizada (TAC)',
-        'Ecografía',
-        'Mamografía'
-      ]
+      zonas: ['Resonancia Magnética (RM)', 'Radiodiagnóstico (RX, TAC, Mamografía)']
     },
     {
       nombre: 'Instalaciones radiactivas',
-      subcategorias: [
+      zonas: ['Medicina nuclear','Oncología radioterápica','Unidad gamma'],
+      /*subcategorias: [
         { nombre: 'Medicina nuclear', zonas: ['Gamma cámara', 'SPECT-TAC', 'PET-TAC'] },
         { nombre: 'Oncología radioterápica', zonas: ['Acelerador lineal', 'Ciberknife'] },
         { nombre: 'Unidad gamma', zonas: ['Gamma Knife'] }
-      ]
+      ]*/
     },
     {
       nombre: 'Área quirúrgica',
-      zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización central']
+      zonas: ['Quirófanos', 'Intervencionismo y Hemodinámica', 'Esterilización']
     },
     {
-      nombre: 'Hospitalización',
-      zonas: ['Habitaciones y controles de enfermería', 'Áreas de aislamiento']
+      nombre: 'Cuidados críticos',
+      zonas: ['Unidad de Cuidados Intensivos (UCI)', 'Urgencias']
     },
     {
-      nombre: 'Zona ambulatoria y de urgencias',
-      zonas: ['Urgencias', 'Consultas externas', 'Hospital de día']
+      nombre: 'Área de farmacia y laboratorios',
+      zonas: ['Laboratorios clínicos', 'Farmacia hospitalaria']
     },
     {
-      nombre: 'Área de farmacia y laboratorio',
-      subcategorias: [
-        { nombre: 'Laboratorios', zonas: ['Bioquímica', 'Microbiología', 'Hematología'] },
-        { nombre: 'Farmacia hospitalaria', zonas: [] },
-        { nombre: 'Banco de sangre', zonas: [] }
-      ]
+      nombre: 'Hospitalización y consultas',
+      zonas: ['Hospitalización', 'Consultas externas']
+    },
+    {
+      nombre: 'Servicios generales',
+      zonas: ['Cocina']
     }
   ];
 
@@ -186,8 +181,6 @@ const Sidebar = ({
           </div>
         ))}
       </div>
-
-      
 
     </div>
   );

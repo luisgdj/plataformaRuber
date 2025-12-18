@@ -26,7 +26,7 @@ function Mapa({ archivoSvg, onZonaClick, departamentoActivo, zonaSeleccionada, r
     "estructuraMN": "Medicina nuclear",
     "depMN": "Medicina nuclear",
     "path4968": "PET-TAC",
-    "path9276": "Gamma cámara",
+    "path9276": "SPECT-TAC",
     "path4972": "Mami PET",
     
     // PS1 - Diagnostico por Imagen

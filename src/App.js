@@ -10,7 +10,6 @@ import PanelInfo from './components/PanelInfo';
 // Importa tus zonas
 import ResonanciaMagnetica from './zonas/ResonanciaMagnetica';
 import RadiologiaConvencional from './zonas/RadiologiaConvencional';
-import Ecografia from './zonas/Ecografia';
 import Mamografia from './zonas/Mamografia';
 import TAC from './zonas/TAC';
 import GammaCamara from './zonas/GammaCamara';
@@ -71,7 +70,7 @@ function App() {
   const [departamentoActivo, setDepartamentoActivo] = useState(null);
   const [resaltarDepartamento, setResaltarDepartamento] = useState(null);
 
-  // Mapeo de departamentos/categorías a plantas
+  // Mapeo actualizado de departamentos/categorías a plantas según el nuevo sidebar
   const DEPARTAMENTOS_POR_PLANTA = {
     "mapas/plantaS2.svg": [
       "Instalaciones radiactivas",
@@ -80,22 +79,23 @@ function App() {
       "Unidad gamma"
     ],
     "mapas/plantaS1.svg": [
-      "Diagnóstico por imagen"
+      "Diagnóstico por imagen",
+      "Resonancia Magnética",
+      "Radiodiagnóstico (RX, TAC, Mamografía)"
     ],
     "mapas/planta00.svg": [
-      "Área quirúrgica"
+      "Área quirúrgica",
+      "Intervencionismo y hemodinámica"
     ],
     "mapas/planta01.svg": [
-      "Zona ambulatoria y de urgencias"
+      "UCI y urgencias"
     ],
     "mapas/planta02.svg": [
-      "Hospitalización"
+      "Hospitalización y consultas"
     ],
     "mapas/planta03.svg": [
-      "Área de farmacia y laboratorio",
-      "Laboratorios",
-      "Farmacia hospitalaria",
-      "Banco de sangre"
+      "Laboratorios clínicos",
+      "Farmacia hospitalaria"
     ]
   };
 
@@ -142,50 +142,49 @@ function App() {
     const categorias = [
       {
         nombre: 'Diagnóstico por imagen',
-        zonas: [
-          'Resonancia Magnética (RM)',
-          'Radiología Convencional',
-          'Tomografía Axial Computarizada (TAC)',
-          'Ecografía',
-          'Mamografía'
+        subcategorias: [
+          { nombre: 'Resonancia Magnética', zonas: ['Resonancia Magnética (RM)'] },
+          { 
+            nombre: 'Radiodiagnóstico (RX, TAC, Mamografía)', 
+            zonas: [
+              'Radiología Convencional',
+              'Tomografía Axial Computarizada (TAC)',
+              'Mamografía'
+            ] 
+          }
         ]
       },
       {
         nombre: 'Instalaciones radiactivas',
         subcategorias: [
-          {
-            nombre: 'Medicina nuclear',
-            zonas: ['Gamma cámara', 'SPECT-TAC', 'PET-TAC']
-          },
-          {
-            nombre: 'Oncología radioterápica',
-            zonas: ['Acelerador lineal', 'Ciberknife']
-          },
-          {
-            nombre: 'Unidad gamma',
-            zonas: ['Gamma Knife']
-          }
+          { nombre: 'Medicina nuclear', zonas: ['Gamma cámara', 'SPECT-TAC', 'PET-TAC'] },
+          { nombre: 'Oncología radioterápica', zonas: ['Acelerador lineal', 'Ciberknife'] },
+          { nombre: 'Unidad gamma', zonas: ['Gamma Knife'] }
         ]
       },
       {
         nombre: 'Área quirúrgica',
-        zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización central']
+        zonas: ['Quirófanos', 'Reanimación postquirúrgica (URPA)', 'Esterilización']
       },
       {
-        nombre: 'Hospitalización',
-        zonas: ['Habitaciones y controles de enfermería', 'Áreas de aislamiento']
+        nombre: 'Intervencionismo y hemodinámica',
+        zonas: []
       },
       {
-        nombre: 'Zona ambulatoria y de urgencias',
-        zonas: ['Urgencias', 'Consultas externas', 'Hospital de día']
+        nombre: 'Laboratorios clínicos',
+        zonas: ['Bioquímica', 'Microbiología', 'Hematología']
       },
       {
-        nombre: 'Área de farmacia y laboratorio',
-        subcategorias: [
-          { nombre: 'Laboratorios', zonas: ['Bioquímica', 'Microbiología', 'Hematología'] },
-          { nombre: 'Farmacia hospitalaria', zonas: [] },
-          { nombre: 'Banco de sangre', zonas: [] }
-        ]
+        nombre: 'Farmacia hospitalaria',
+        zonas: ['Preparación de medicamentos peligrosos']
+      },
+      {
+        nombre: 'UCI y urgencias',
+        zonas: ['UCI', 'Urgencias']
+      },
+      {
+        nombre: 'Hospitalización y consultas',
+        zonas: ['Habitaciones', 'Consultas externas']
       }
     ];
 
@@ -306,11 +305,10 @@ function App() {
           <Route path="/login" element={<Auth onLogin={() => setIsLoggedIn(true)} />} />
           <Route path="/" element={<RutaPrivada><VistaMapa /></RutaPrivada>} />
           
-          {/* RUTAS DE ZONAS */}
+          {/* RUTAS DE ZONAS - Solo las que están en el sidebar */}
           <Route path="/zonas/resonancia-magnetica" element={<RutaPrivada><ResonanciaMagnetica /></RutaPrivada>} />
           <Route path="/zonas/radiologia-convencional" element={<RutaPrivada><RadiologiaConvencional /></RutaPrivada>} />
           <Route path="/zonas/tac" element={<RutaPrivada><TAC /></RutaPrivada>} />
-          <Route path="/zonas/ecografia" element={<RutaPrivada><Ecografia /></RutaPrivada>} />
           <Route path="/zonas/mamografia" element={<RutaPrivada><Mamografia /></RutaPrivada>} />
           <Route path="/zonas/gamma-camara" element={<RutaPrivada><GammaCamara /></RutaPrivada>} />
           <Route path="/zonas/spect-tac" element={<RutaPrivada><SPECTTAC /></RutaPrivada>} />
@@ -319,7 +317,7 @@ function App() {
           <Route path="/zonas/ciberknife" element={<RutaPrivada><Ciberknife /></RutaPrivada>} />
           <Route path="/zonas/gammaknife" element={<RutaPrivada><GammaKnife /></RutaPrivada>} />
           
-          {/* RUTAS DE TESTS - Usa directamente TestRM */}
+          {/* RUTAS DE TESTS */}
           <Route path="/tests/resonancia-magnetica" element={<RutaPrivada><TestRM /></RutaPrivada>} />
         </Routes>
       </div>
