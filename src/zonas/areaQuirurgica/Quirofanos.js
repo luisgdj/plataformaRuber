@@ -76,21 +76,6 @@ const Quirofanos = () => {
           <li><strong>Zona blanca:</strong> Máxima restricción, quirófanos y lavabos quirúrgicos</li>
         </ul>
 
-        <h3>Equipamiento quirúrgico</h3>
-        <p>
-          Cada quirófano dispone de:
-        </p>
-        <ul>
-          <li><strong>Mesa quirúrgica:</strong> Ajustable en múltiples posiciones</li>
-          <li><strong>Lámpara cialítica:</strong> Iluminación sin sombras del campo quirúrgico</li>
-          <li><strong>Torre de laparoscopia:</strong> Para cirugía mínimamente invasiva</li>
-          <li><strong>Monitores multiparamétricos:</strong> Vigilancia continua del paciente</li>
-          <li><strong>Equipos de anestesia:</strong> Ventiladores, vaporizadores, monitores</li>
-          <li><strong>Bisturí eléctrico:</strong> Para corte y coagulación</li>
-          <li><strong>Sistemas de aspiración:</strong> Para evacuación de fluidos</li>
-          <li><strong>Arco de fluoroscopia:</strong> En quirófanos de traumatología</li>
-        </ul>
-
         <h3>Asepsia y antisepsia</h3>
         <p>
           Protocolos fundamentales para prevenir infecciones:
@@ -113,31 +98,6 @@ const Quirofanos = () => {
           <li><strong>Presión positiva:</strong> Evita entrada de aire no filtrado</li>
           <li><strong>Filtración HEPA:</strong> Remoción del 99.97% de partículas</li>
           <li><strong>Renovación de aire:</strong> 15-25 cambios por hora</li>
-        </ul>
-
-        <h3>Equipo quirúrgico</h3>
-        <p>
-          Personal que participa en una intervención quirúrgica:
-        </p>
-        <ul>
-          <li><strong>Cirujano principal:</strong> Dirige y realiza el procedimiento</li>
-          <li><strong>Cirujanos ayudantes:</strong> Asisten en la intervención</li>
-          <li><strong>Anestesiólogo:</strong> Manejo anestésico y vigilancia del paciente</li>
-          <li><strong>Enfermera circulante:</strong> Coordina actividades fuera del campo estéril</li>
-          <li><strong>Enfermera instrumentista:</strong> Maneja instrumental dentro del campo estéril</li>
-          <li><strong>Técnico de anestesia:</strong> Apoya al anestesiólogo</li>
-          <li><strong>Auxiliares de enfermería:</strong> Apoyo logístico</li>
-        </ul>
-
-        <h3>Tipos de cirugía</h3>
-        <p>
-          Clasificación según varios criterios:
-        </p>
-        <ul>
-          <li><strong>Por urgencia:</strong> Electiva, urgente, emergente</li>
-          <li><strong>Por propósito:</strong> Diagnóstica, curativa, paliativa, reconstructiva</li>
-          <li><strong>Por grado de invasión:</strong> Mayor, menor, mínimamente invasiva</li>
-          <li><strong>Por especialidad:</strong> General, traumatología, cardiovascular, neurocirugía, etc.</li>
         </ul>
 
         <h3>Seguridad del paciente</h3>

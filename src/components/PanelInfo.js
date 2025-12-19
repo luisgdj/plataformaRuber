@@ -242,7 +242,7 @@ const PanelInfo = ({ zona, tipo }) => {
       <p>
         Has seleccionado la zona de <strong>{nombreVisible}</strong>
         <p>
-          Para más información sobre esta zona, consulta la página de su departamento ({nombreDepartamento}).
+          Para más información sobre esta zona, consulta la página de su departamento.
           <div className="panel-acciones">
             <p>Selecciona el departamento para acceder a su información.</p>
           </div>
